@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class TaskTypes extends Model
 {
     use HasFactory;
+
+    public function tasktype()
+    {
+        return $this->hasMany(Task::class,'type_id','type_id');
+    }
 }

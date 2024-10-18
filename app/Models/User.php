@@ -22,6 +22,36 @@ class User extends Authenticatable
         'password',
     ];
 
+    public function user()
+    {
+        return $this->hasOne(Status::class);
+    }
+
+    public function department()
+    {
+        return $this->hasOne(Department::class, 'department_id', 'department_id');
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class, 'user_status_id', 'user_status_id');
+    }
+
+    public function title()
+    {
+        return $this->belongsTo(Title::class, 'title_id', 'title_id');
+    }
+
+    public function account()
+    {
+        return $this->belongsTo(Account::class, 'account_status_id', 'account_status_id');
+    }
+
+    public function task()
+    {
+        return $this->belongsTo(Task::class, 'user_id', 'user_id');
+    }
+    protected $guarded = [];
     /**
      * The attributes that should be hidden for serialization.
      *
