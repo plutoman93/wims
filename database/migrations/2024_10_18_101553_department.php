@@ -11,7 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('departments', function (Blueprint $table) {
+            $table->id('department_id');
+            $table->string('department_name');
+            $table->foreignId('faculty_id')->index();
+            $table->timestamp('created_by')->nullable();;
+            $table->timestamp('updated_by')->nullable();;
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**

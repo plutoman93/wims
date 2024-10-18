@@ -11,7 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('task_statuses', function (Blueprint $table) {
+            $table->id('task_status_id');
+            $table->string('task_status_name');
+            $table->timestamp('created_by')->nullable();;
+            $table->timestamp('updated_by')->nullable();;
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**
