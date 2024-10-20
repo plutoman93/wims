@@ -9,26 +9,67 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Livewire\Features\SupportFileUploads\WithFileUploads;
+use Livewire\WithFileUploads as LivewireWithFileUploads;
+use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
-    use HasApiTokens;
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
     use HasProfilePhoto;
-    use Notifiable;
     use TwoFactorAuthenticatable;
-
+    use SoftDeletes;
+    use WithFileUploads;
+    use LivewireWithFileUploads;
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    // protected $fillable = [
+    //     'username',
+    //     'email',
+    //     'password',
+    // ];
 
+    // ระบุ primary key ที่ใช้
+    protected $primaryKey = 'user_id';
+
+    // ถ้า primary key ไม่ใช่ auto-increment ให้กำหนดเป็น false
+    public $incrementing = true;  // ถ้าฟิลด์ `user_id` เป็น auto-increment ให้ใช้ true
+
+    // ระบุชนิดข้อมูลของ primary key
+    protected $keyType = 'int';  // ถ้าฟิลด์ `user_id` เป็น integer
+
+    public function user()
+    {
+        return $this->hasOne(Status::class);
+    }
+
+    public function department()
+    {
+        return $this->hasOne(Department::class, 'department_id', 'department_id');
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class,'user_status_id','user_status_id');
+    }
+    public function title()
+    {
+        return $this->belongsTo(Title::class,'title_id','title_id');
+    }
+    public function account()
+    {
+        return $this->belongsTo(Account::class,'account_status_id','account_status_id');
+    }
+    public function task()
+    {
+        return $this->belongsTo(Task::class,'user_id','user_id');
+    }
+
+    protected $guarded = [];
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -37,29 +78,15 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-        'two_factor_recovery_codes',
-        'two_factor_secret',
     ];
 
     /**
-     * The accessors to append to the model's array form.
+     * The attributes that should be cast.
      *
-     * @var array<int, string>
+     * @var array<string, string>
      */
-    protected $appends = [
-        'profile_photo_url',
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
     ];
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
 }
