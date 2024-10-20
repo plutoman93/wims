@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('last_name',20)->nullable();
             $table->foreignId('department_id')->nullable();
             $table->string('phone')->nullable();
-            $table->boolean('is_admin')->nullable();
+            $table->string('user_type')->default('user');
             $table->string('photo',2048)->nullable();
             $table->string('email')->unique();
             $table->foreignId('account_status_id')->nullable();
