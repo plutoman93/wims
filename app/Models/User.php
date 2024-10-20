@@ -6,12 +6,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Fortify\TwoFactorAuthenticatable;
+use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
     use HasApiTokens;
+    use HasFactory;
+    use HasProfilePhoto;
+    use Notifiable;
+    use TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
@@ -24,36 +29,6 @@ class User extends Authenticatable
         'password',
     ];
 
-    public function user()
-    {
-        return $this->hasOne(Status::class);
-    }
-
-    public function department()
-    {
-        return $this->hasOne(Department::class, 'department_id', 'department_id');
-    }
-
-    public function status()
-    {
-        return $this->belongsTo(Status::class, 'user_status_id', 'user_status_id');
-    }
-
-    public function title()
-    {
-        return $this->belongsTo(Title::class, 'title_id', 'title_id');
-    }
-
-    public function account()
-    {
-        return $this->belongsTo(Account::class, 'account_status_id', 'account_status_id');
-    }
-
-    public function task()
-    {
-        return $this->belongsTo(Task::class, 'user_id', 'user_id');
-    }
-    protected $guarded = [];
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -62,6 +37,17 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'two_factor_recovery_codes',
+        'two_factor_secret',
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array<int, string>
+     */
+    protected $appends = [
+        'profile_photo_url',
     ];
 
     /**
