@@ -2,6 +2,8 @@
 
 @section('content')
 
-@livewire('admin-dashboard')
+{{-- @dd($id) --}}
+
+@livewire('project.edit' ,['id'=> $id])
 
 @endsection

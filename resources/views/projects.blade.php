@@ -1,7 +1,5 @@
 @extends('layouts.backend.master')
 
 @section('content')
-
-@livewire('admin-dashboard')
-
+@livewire('project')
 @endsection

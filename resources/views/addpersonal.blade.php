@@ -2,6 +2,6 @@
 
 @section('content')
 
-@livewire('admin-dashboard')
+@livewire('addpersonal')
 
 @endsection

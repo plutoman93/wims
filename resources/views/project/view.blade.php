@@ -2,6 +2,6 @@
 
 @section('content')
 
-@livewire('admin-dashboard')
+@livewire('project.view' ,['id'=> $id])
 
 @endsection
