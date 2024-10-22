@@ -10,11 +10,17 @@ class UserController extends Controller
 {
     public function index()
     {
-        if (Auth::user()->user_type == 'user')
-        {
+        if (Auth::user()->user_type == 'user') {
             return redirect()->route('dashboard'); // เปลี่ยนไปที่ dashboard สำหรับ user
         } else {
-            return redirect()->route('admin.dashboard'); // เปลี่ยนไปที่ admin-dashboard สำหรับ admin
+            return view('admin-dashboard'); // เปลี่ยนไปที่ admin-dashboard สำหรับ admin
         }
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+
+        return redirect()->route('auth.login');
     }
 }

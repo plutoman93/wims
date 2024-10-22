@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Task extends Model
 {
     use HasFactory;
-
+    protected $guarded = [];
     public function taskstatus()
     {
         return $this->belongsTo(TaskStatus::class, 'task_status_id', 'task_status_id');
