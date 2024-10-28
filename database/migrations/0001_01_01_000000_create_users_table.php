@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('user_type')->default('user');
             $table->string('photo',2048)->nullable();
             $table->string('email')->unique();
-            $table->foreignId('account_status_id')->nullable();
-            $table->foreignId('user_status_id')->nullable();
+            $table->foreignId('account_status_id')->nullable()->index();
+            $table->foreignId('user_status_id')->nullable()->index();
             $table->foreignId('created_by')->comment('สร้างโดย user_id')->nullable();
             $table->foreignId('updated_by')->comment('แก้ไขโดย user_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();
