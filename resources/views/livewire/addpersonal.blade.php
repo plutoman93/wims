@@ -36,7 +36,7 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="inputName">ชื่อผู้ใช้</label>
-                        <input type="text" id="user_name" wire:model="user_name" class="form-control">
+                        <input type="text" id="username" wire:model="username" class="form-control">
                         @error('task_name')
                             <span class ="text-danger">{{$message}}</span>
                         @enderror
