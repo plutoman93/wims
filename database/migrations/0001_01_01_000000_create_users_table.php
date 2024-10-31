@@ -17,7 +17,8 @@ return new class extends Migration
             $table->foreignId('title_id')->nullable()->index();
             $table->string('first_name',20)->nullable();
             $table->string('last_name',20)->nullable();
-            $table->foreignId('department_id')->nullable();
+            $table->foreignId('department_id')->nullable()->index();
+            $table->foreignId('faculty_id')->nullable()->index();
             $table->string('phone')->nullable();
             $table->string('user_type')->default('user');
             $table->string('photo',2048)->nullable();
