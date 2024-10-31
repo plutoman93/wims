@@ -42,8 +42,8 @@ Route::middleware([
         return view('personal');
     })->name('personal');
 
-    Route::get('/addpersonal', function () {
-        return view('addpersonal');
+    Route::get('/add-personal', function () {
+        return view('project.addpersonnel');
     })->name('addpersonal');
 
     Route::get('/system-setting', function () {
