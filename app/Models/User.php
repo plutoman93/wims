@@ -52,6 +52,11 @@ class User extends Authenticatable
         return $this->hasOne(Department::class, 'department_id', 'department_id');
     }
 
+    public function faculty()
+    {
+        return $this->hasOne(Faculty::class, 'faculty_id','faculty_id');
+    }
+
     public function status()
     {
         return $this->belongsTo(Status::class,'user_status_id','user_status_id');

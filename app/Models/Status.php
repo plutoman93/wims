@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Status extends Model
 {
     use HasFactory;
-
+    protected $guarded = [];
     public function status()
     {
         return $this->hasMany(User::class,'user_status_id','user_status_id');
