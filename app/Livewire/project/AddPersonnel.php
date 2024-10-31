@@ -6,10 +6,12 @@ use Livewire\Component;
 use App\Models\User;
 use App\Models\Status;
 use App\Models\Title;
+use App\Models\Faculty;
+use App\Models\Department;
 
 class AddPersonnel extends Component
 {
-    public $username, $title_name, $first_name, $last_name, $email, $password, $user_status_name;
+    public $username, $title_name, $first_name, $last_name, $email, $password, $user_status_name, $department_name, $faculty_name;
 
     public function add()
     {
@@ -42,6 +44,14 @@ class AddPersonnel extends Component
                 'user_status_name' => $this->user_status_name,
             ]);
 
+            $faculty = Faculty::create([
+                'faculty_name' => $this->faculty_name,
+            ]);
+
+            $department = Department::create([
+                'department_name' => $this->department_name,
+            ]);
+
             // สร้างข้อมูลในตาราง User
             $user = User::create([
                 'username' => $this->username,
@@ -50,9 +60,15 @@ class AddPersonnel extends Component
                 'email' => $this->email,
                 'password' => bcrypt($this->password), // เข้ารหัสรหัสผ่าน
                 'title_id' => $title->id,  // อ้างอิง ID ของ Title
-                'status_id' => $status->id, // อ้างอิง ID ของ Status
+                'user_status_id' => $status->id, // อ้างอิง ID ของ Status
             ]);
+            $user->save();
+            $title->save();
+            $status->save();
+            $faculty->save();
+            $department->save();
 
+            return redirect()->to(route('admin-dashboard')); //หลัง Login ไปที่หน้า admin-dashboard
         } catch (\Exception $e) {
             dd($e);
         }
@@ -60,6 +76,6 @@ class AddPersonnel extends Component
 
     public function render()
     {
-        return view('livewire.project.add-personnel');
+        return view('livewire.project.addpersonnel');
     }
 }
