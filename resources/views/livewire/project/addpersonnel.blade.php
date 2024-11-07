@@ -36,32 +36,32 @@
                                 <div class="form-group">
                                     <label for="inputName">ชื่อผู้ใช้</label>
                                     <input type="text" id="username" wire:model="username" class="form-control">
-                                    @error('task_name')
+                                    @error('username')
                                         <span class ="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="inputName">คำนำหน้า</label>
                                     <input type="text" id="title_name" wire:model="title_name" class="form-control">
-                                    @error('task_name')
+                                    @error('title_name')
                                         <span class ="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="inputStatus">คณะ</label>
-                                    <select id="inputStatus" wire:model="facilty_name"
+                                    <select id="inputStatus" wire:model="faculty_name"
                                         class="form-control custom-select">
                                         <option selected>Select one</option>
                                         <option value="เกษตรศาสตร์และเทคโนโลยี">เกษตรศาสตร์และเทคโนโลยี</option>
                                         <option value="เทคโนโลยีการจัดการ">เทคโนโลยีการจัดการ</option>
-                                        @error('user_status_name')
+                                        @error('faculty_name')
                                             <span class ="text-danger">{{ $message }}</span>
                                         @enderror
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputStatus">สาขา</label>
-                                    <select id="inputStatus" wire:model="deapartment_name"
+                                    <select id="inputStatus" wire:model="department_name"
                                         class="form-control custom-select">
                                         <option selected>Select one</option>
                                         <option value="เกษตรศาสตร์และเทคโนโลยี">วิทยาการคอมพิวเตอร์</option>
@@ -75,21 +75,21 @@
                                 <div class="form-group">
                                     <label for="inputName">ชื่อ</label>
                                     <input type="text" id="first_name" wire:model="first_name" class="form-control">
-                                    @error('task_name')
+                                    @error('first_name')
                                         <span class ="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="inputName">นามสกุล</label>
                                     <input type="text" id="last_name" wire:model="last_name" class="form-control">
-                                    @error('task_name')
+                                    @error('last_name')
                                         <span class ="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="inputName">อีเมล</label>
                                     <input type="text" id="email" wire:model="email" class="form-control">
-                                    @error('task_name')
+                                    @error('email')
                                         <span class ="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -107,19 +107,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="inputName">รหัสผ่าน</label>
-                                    <input type="text" id="password" wire:model="password" class="form-control">
-                                    @error('task_name')
+                                    <input type="password" id="password" wire:model="password" class="form-control">
+                                    @error('password')
                                         <span class ="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                {{-- <div class="form-group">
-                                    <label for="inputName">สถานะผู้ใช้</label>
-                                    <input type="text" id="user_status_name" wire:model="user_status_name"
-                                        class="form-control">
-                                    @error('task_name')
-                                        <span class ="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div> --}}
                             </div>
                             <!-- /.card-body -->
                         </div>
