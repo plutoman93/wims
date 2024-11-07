@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('statuses', function (Blueprint $table) {
             $table->id('user_status_id');
-            $table->string('user_status_name');
-            $table->timestamp('created_by')->nullable();;
-            $table->timestamp('updated_by')->nullable();;
+            $table->string('user_status_name')->default('user'); //ค่าเริ่มต้น
+            $table->timestamp('created_by')->nullable();
+            $table->timestamp('updated_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
