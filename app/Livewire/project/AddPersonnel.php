@@ -3,15 +3,20 @@
 namespace App\Livewire\Project;
 
 use Livewire\Component;
+use Illuminate\Support\Facades\Hash;
+use Livewire\WithFileUploads;
 use App\Models\User;
 use App\Models\Status;
 use App\Models\Title;
 use App\Models\Faculty;
 use App\Models\Department;
+use Illuminate\Support\Facades\Auth;
 
 class AddPersonnel extends Component
 {
-    public $username, $title_name, $first_name, $last_name, $email, $password, $user_status_name, $department_name, $faculty_name;
+    use WithFileUploads;
+
+    public $username, $title_name, $first_name, $last_name, $email, $password, $phone, $user_status_name, $department_name, $faculty_name;
 
     public function add()
     {
@@ -22,6 +27,7 @@ class AddPersonnel extends Component
             'last_name' => 'required',
             'email' => 'required',
             'password' => 'required|min:8',
+            'phone' => 'required|min:8|max:10',
             'user_status_name' => 'required',
         ], [
             'username.required' => "กรอกชื่อผู้ใช้",
@@ -30,6 +36,7 @@ class AddPersonnel extends Component
             'last_name.required' => "กรอกนามสกุล",
             'email.required' => "กรอกอีเมล์",
             'password.required' => "กรอกรหัสผ่าน",
+            'phone.required' => "กรอกเบอร์มือถือ",
             'user_status_name.required' => "เลือกระดับผู้ใช้",
         ]);
 
@@ -50,6 +57,7 @@ class AddPersonnel extends Component
 
             $department = Department::create([
                 'department_name' => $this->department_name,
+                'faculty_id' => $faculty->id,
             ]);
 
             // สร้างข้อมูลในตาราง User
@@ -58,9 +66,13 @@ class AddPersonnel extends Component
                 'first_name' => $this->first_name,
                 'last_name' => $this->last_name,
                 'email' => $this->email,
-                'password' => bcrypt($this->password), // เข้ารหัสรหัสผ่าน
+                'phone' => $this->phone,
+                'password' => Hash::make($this->password), // เข้ารหัสรหัสผ่าน
                 'title_id' => $title->id,  // อ้างอิง ID ของ Title
                 'user_status_id' => $status->id, // อ้างอิง ID ของ Status
+                'department_id' => $department->id, // อ้างอิง ID ของ Department
+                'faculty_id' => $faculty->id, // อ้างอิง ID ของ Faculty
+                'created_by' => Auth::id(),
             ]);
             $user->save();
             $title->save();
