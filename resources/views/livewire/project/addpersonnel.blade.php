@@ -48,6 +48,27 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
+                                    <label for="inputName">ชื่อ</label>
+                                    <input type="text" id="first_name" wire:model="first_name" class="form-control">
+                                    @error('first_name')
+                                        <span class ="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputName">นามสกุล</label>
+                                    <input type="text" id="last_name" wire:model="last_name" class="form-control">
+                                    @error('last_name')
+                                        <span class ="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputName">เบอร์มือถือ</label>
+                                    <input type="text" id="phone" wire:model="phone" class="form-control">
+                                    @error('phone')
+                                        <span class ="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
                                     <label for="inputStatus">คณะ</label>
                                     <select id="inputStatus" wire:model="faculty_name"
                                         class="form-control custom-select">
@@ -72,20 +93,7 @@
                                         @enderror
                                     </select>
                                 </div>
-                                <div class="form-group">
-                                    <label for="inputName">ชื่อ</label>
-                                    <input type="text" id="first_name" wire:model="first_name" class="form-control">
-                                    @error('first_name')
-                                        <span class ="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputName">นามสกุล</label>
-                                    <input type="text" id="last_name" wire:model="last_name" class="form-control">
-                                    @error('last_name')
-                                        <span class ="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
+
                                 <div class="form-group">
                                     <label for="inputName">อีเมล</label>
                                     <input type="text" id="email" wire:model="email" class="form-control">
