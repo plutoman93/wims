@@ -3,6 +3,7 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
+use App\Models\Status;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
@@ -29,6 +30,11 @@ class CreateNewUser implements CreatesNewUsers
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
 
+        // สร้างข้อมูลในตาราง statuses
+        $status = Status::create([
+            'user_status_name' => 'user', // กำหนดค่าเริ่มต้นเป็น "user"
+        ]);
+
         return User::create([
             'username' => $input['username'],
             'first_name' => $input['first_name'],
@@ -36,6 +42,8 @@ class CreateNewUser implements CreatesNewUsers
             'phone' => $input['phone'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
+            'user_status_id' => $status->user_status_id,
         ]);
+        return $user;
     }
 }

@@ -13,15 +13,14 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id('user_id'); //Column ตามตาราง <--
-            $table->string('username',255);
+            $table->string('username', 255);
             $table->foreignId('title_id')->nullable()->index();
-            $table->string('first_name',20)->nullable();
-            $table->string('last_name',20)->nullable();
+            $table->string('first_name', 20)->nullable();
+            $table->string('last_name', 20)->nullable();
             $table->foreignId('department_id')->nullable()->index();
             $table->foreignId('faculty_id')->nullable()->index();
             $table->string('phone')->nullable();
-            $table->string('user_type')->default('user');
-            $table->string('photo',2048)->nullable();
+            $table->string('photo', 2048)->nullable();
             $table->string('email')->unique();
             $table->foreignId('account_status_id')->nullable()->index();
             $table->foreignId('user_status_id')->nullable()->index();
