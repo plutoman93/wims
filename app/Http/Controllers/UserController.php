@@ -11,6 +11,8 @@ class UserController extends Controller
 {
     public function index()
     {
+
+        // dd(Auth::user()->status);
         if (Auth::user()->status && Auth::user()->status->user_status_name === 'user') {
             return redirect()->route('dashboard'); // เปลี่ยนไปที่ dashboard สำหรับ user
         } else {

@@ -35,6 +35,7 @@ class CreateNewUser implements CreatesNewUsers
             'user_status_name' => 'user', // กำหนดค่าเริ่มต้นเป็น "user"
         ]);
 
+
         return User::create([
             'username' => $input['username'],
             'first_name' => $input['first_name'],
@@ -42,7 +43,7 @@ class CreateNewUser implements CreatesNewUsers
             'phone' => $input['phone'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
-            'user_status_id' => $status->user_status_id,
+            'user_status_id' => $status->id,
         ]);
         return $user;
     }
