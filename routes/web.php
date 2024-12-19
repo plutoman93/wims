@@ -40,6 +40,7 @@ Route::middleware([
 
     Route::get('/personal', function () {
         return view('personal');
+        // dd($data);
     })->name('personal');
 
     Route::get('/add-personal', function () {
@@ -49,6 +50,16 @@ Route::middleware([
     Route::get('/system-setting', function () {
         return view('system-setting');
     })->name('system-setting');
+
+    Route::get('/profile-view/{id}', function ($id) {
+        dd($id);
+        return view('project.view', compact('id'));
+    });
+
+    Route::get('/profile-edit/{id}', function ($id) {
+        dd($id);
+        return view('project.edit', compact('id'));
+    })->name('profile-edit');
 });
 
 // Route::DELETE('/logout', [UserController::class, 'logout'])->name('logout');

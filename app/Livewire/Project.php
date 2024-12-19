@@ -24,6 +24,6 @@ class Project extends Component
     public function render()
     {
         $data = User::Paginate(10);
-        return view('livewire.project')->with(compact('data'));
+        return view('livewire.personal')->with(compact('data'));
     }
 }
