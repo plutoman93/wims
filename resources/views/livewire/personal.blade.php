@@ -43,7 +43,7 @@
                             @foreach ($data as $item)
                                 <tr>
                                     <td>
-                                        {{ $item->id }}
+                                        {{ $item->user_id }}
                                     </td>
                                     <td>
                                         {{ $item->first_name }} {{ $item->last_name }}
@@ -58,7 +58,7 @@
                                         <span class="badge badge-success">Active</span>
                                     </td>
                                     <td class="project-actions text-right">
-                                        <a href="{{ route('profile-view', ['id' => $item->id]) }}"
+                                        <a href="{{ route('profile-view', ['id' => $item->user_id]) }}"
                                             class="btn btn-primary btn-sm">
                                             <i class="fas fa-folder">
                                                 View
@@ -66,7 +66,7 @@
                                         </a>
                                     </td>
                                     <td class="project-actions text-right">
-                                        <a href="{{ route('profile-edit', ['id' => $item->id]) }}"
+                                        <a href="{{ route('profile-edit', ['id' => $item->user_id]) }}"
                                             class="btn btn-info btn-sm">
                                             <i class="fas fa-alt">
                                                 Edit
