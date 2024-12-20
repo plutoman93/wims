@@ -7,19 +7,11 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
+// ใช้ middleware auth กับ route ที่ต้องการ
+Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-
-    // Route::get('/admin-dashboard', function () {
-    //     return view('admin-dashboard');
-    // })->name('admin.dashboard'); // ตั้งชื่อให้เป็น admin.dashboard
-
     Route::get('/admin-dashboard', [UserController::class, 'index'])->name('admin-dashboard');
     Route::get('/add-work', function () {
         return view('add');
@@ -28,7 +20,6 @@ Route::middleware([
     Route::get('/add-task', function () {
         return view('project.add');
     })->name('add-task');
-
 
     Route::get('/project', function () {
         return view('projects');
@@ -57,10 +48,9 @@ Route::middleware([
     })->name('profile-view');
 
     Route::get('/profile-edit/{id}', function ($id) {
-        dd($id);
+        // dd($id);
         return view('project.edit', compact('id'));
     })->name('profile-edit');
 });
 
-// Route::DELETE('/logout', [UserController::class, 'logout'])->name('logout');
 Route::get('/home', [UserController::class, 'index']);
