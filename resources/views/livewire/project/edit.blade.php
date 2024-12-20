@@ -34,6 +34,13 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group">
+                                    <label for="inputName">Title Name</label>
+                                    <input type="text" id="inputName1" wire:model="title_name" class="form-control">
+                                    @error('title_name')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
                                     <label for="inputName">First Name</label>
                                     <input type="text" id="inputName1" wire:model="first_name" class="form-control">
                                     @error('first_name')

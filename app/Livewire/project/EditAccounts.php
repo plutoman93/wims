@@ -23,7 +23,7 @@ class EditAccounts extends Component
         $this->username = $data->username;
         $this->first_name = $data->first_name;
         $this->last_name = $data->last_name;
-        $this->title_name = $data->title_name;
+        $this->title_name = $data->title ? $data->title->title_name : null;
         $this->phone = $data->phone;
         $this->department_name = $data->department_name;
         $this->faculty_name = $data->faculty_name;
@@ -35,27 +35,49 @@ class EditAccounts extends Component
     public function edit()
     {
         try {
-            User::where('id', $this->idd)->update([
+            // อัปเดตตาราง users
+            $user = User::with('title', 'department', 'faculty', 'status')->find($this->idd);
+            $user->update([
                 'username' => $this->username,
                 'first_name' => $this->first_name,
                 'last_name' => $this->last_name,
-                'title_name' => $this->title_name,
                 'phone' => $this->phone,
-                'department_name' => $this->department_name,
-                'faculty_name' => $this->faculty_name,
                 'email' => $this->email,
-                'user_status_name' => $this->user_status_name,
                 'password' => $this->password,
             ]);
-            return redirect()->to(route('personal'));
-        } catch (\Exception $data) {
-            dd($data);
+
+            // อัปเดต title_name ในตาราง titles
+            if ($user->title) {
+                $user->title->update([
+                    'title_name' => $this->title_name,
+                ]);
+            }
+            // อัปเดต department_name ในตาราง departments
+            if ($user->department) {
+                $user->department->update([
+                    'department_name' => $this->department_name,
+                ]);
+            }
+            // อัปเดต faculty_name ในตาราง faculties
+            if ($user->faculty) {
+                $user->faculty->update([
+                    'faculty_name' => $this->faculty_name,
+                ]);
+            }
+            // อัปเดต status_name ในตาราง statuses
+            if ($user->status) {
+                $user->status->update([
+                    'user_status_name' => $this->user_status_name,
+                ]);
+            }
+            return redirect()->to(route('admin-dashboard'));
+        } catch (\Exception $e) {
+            dd($e);
         }
     }
+
     public function render()
     {
-        // $data = User::with(['department','faculty','status','title'])->get(10); // ดึงข้อมูลทั้งหมด
-        // dd($data);
         return view('livewire.project.edit');
     }
 }
