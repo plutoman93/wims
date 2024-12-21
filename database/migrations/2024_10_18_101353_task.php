@@ -22,8 +22,9 @@ return new class extends Migration
             $table->foreignId('task_status_id')->index();
             $table->foreignId('type_id')->index();
             $table->foreignId('user_id')->index();
-            $table->timestamp('created_by')->nullable();;
-            $table->timestamp('updated_by')->nullable();;
+            $table->foreignId('created_by')->nullable();
+            $table->foreignId('updated_by')->nullable();
+            $table->foreignId('deleted_by')->comment('ลบโดย user_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('faculties', function (Blueprint $table) {
             $table->id('faculty_id');
             $table->string('faculty_name');
-            $table->timestamp('created_by')->nullable();;
-            $table->timestamp('updated_by')->nullable();;
+            $table->foreignId('created_by')->nullable();
+            $table->foreignId('updated_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

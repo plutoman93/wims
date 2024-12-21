@@ -26,6 +26,7 @@ return new class extends Migration
             $table->foreignId('user_status_id')->nullable()->index();
             $table->foreignId('created_by')->comment('สร้างโดย user_id')->nullable();
             $table->foreignId('updated_by')->comment('แก้ไขโดย user_id')->nullable();
+            $table->foreignId('deleted_by')->comment('ลบโดย user_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

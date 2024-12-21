@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id('department_id');
             $table->string('department_name');
             $table->foreignId('faculty_id')->index();
-            $table->timestamp('created_by')->nullable();;
-            $table->timestamp('updated_by')->nullable();;
+            $table->foreignId('created_by')->nullable();
+            $table->foreignId('updated_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

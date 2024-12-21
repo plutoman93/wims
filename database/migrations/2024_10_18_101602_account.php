@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->id('account_status_id',5);
             $table->string('account_status_name',20);
-            $table->timestamp('created_by')->nullable();;
-            $table->timestamp('updated_by')->nullable();;
+            $table->foreignId('created_by')->nullable();
+            $table->foreignId('updated_by')->nullable();
+            $table->foreignId('deleted_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id('noti_time_id');
             $table->string('time_name');
             $table->string('time');
-            $table->timestamp('created_by')->nullable();;
-            $table->timestamp('updated_by')->nullable();;
+            $table->foreignId('created_by')->nullable();
+            $table->foreignId('updated_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
