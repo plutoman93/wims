@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Account extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'account_status_id';
 
     public function account()
     {

@@ -9,7 +9,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Project Edit</li>
+                            <li class="breadcrumb-item active">แก้ไขข้อมูลบุคลากร</li>
                         </ol>
                     </div>
                 </div>
@@ -34,33 +34,33 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="inputName">Title Name</label>
+                                    <label for="inputName">คำนำหน้า</label>
                                     <input type="text" id="inputName1" wire:model="title_name" class="form-control">
                                     @error('title_name')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputName">First Name</label>
+                                    <label for="inputName">ชื่อ</label>
                                     <input type="text" id="inputName1" wire:model="first_name" class="form-control">
                                     @error('first_name')
                                         <span class ="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputName">Last Name</label>
+                                    <label for="inputName">นามสกุล</label>
                                     <input type="text" id="inputName2" wire:model="last_name" class="form-control">
                                     @error('last_name')
                                         <span class ="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputName">Phone Number</label>
+                                    <label for="inputName">เบอร์มือถือ</label>
                                     <input type="text" id="inputName3" wire:model="phone" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputStatus">Department</label>
-                                    <select id="inputStatus" wire:model="department" class="form-control custom-select">
+                                    <label for="inputStatus">ภาควิชา</label>
+                                    <select id="inputStatus" wire:model="faculty_name" class="form-control custom-select">
                                         <option selected>Select one</option>
                                         <option value="computer">เทคโนโลยีคอมพิวเตอร์</option>
                                         <option value="electric">เทคโนโลยีไฟฟ้า</option>

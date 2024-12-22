@@ -9,6 +9,7 @@ class Status extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    protected $primaryKey = 'user_status_id';
     public function users()
     {
         return $this->hasMany(User::class,'user_status_id','user_status_id');

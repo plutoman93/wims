@@ -13,6 +13,7 @@ class TaskStatus extends Model
     //     'task_status_name', // เพิ่มคอลัมน์นี้ลงใน fillable
     // ];
     protected $guarded = [];
+    protected $primaryKey = 'task_status_id';
     public function taskstatus()
     {
         return $this->hasMany(Task::class, 'task_status_id', 'task_status_id');

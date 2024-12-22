@@ -9,6 +9,7 @@ class Department extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    protected $primaryKey = 'department_id';
     public function user()
     {
         return $this->hasMany(User::class, 'department_id', 'department_id');

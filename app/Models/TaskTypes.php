@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class TaskTypes extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'type_id';
     protected $guarded = [];
 
     public function tasktype()

@@ -39,7 +39,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- @if (!empty($data) && $data->isNotEmpty()) --}}
+                        @if (!empty($data) && $data->isNotEmpty())
                             @foreach ($data as $item)
                                 <tr>
                                     <td>
@@ -64,17 +64,12 @@
                                                 View
                                             </i>
                                         </a>
-                                    </td>
-                                    <td class="project-actions text-right">
                                         <a href="{{ route('profile-edit', ['id' => $item->user_id]) }}"
                                             class="btn btn-info btn-sm">
                                             <i class="fas fa-alt">
                                                 Edit
                                             </i>
-                                        </a>
-                                    </td>
-                                    <td class="project-actions text-right">
-                                        <a class="btn btn-danger btn-sm" wire:click="delete" href="#">
+                                        <a class="btn btn-danger btn-sm" wire:click="delete({{$item->user_id}})" href="#">
                                             <i class="fas fa-trash">
                                                 Delete
                                             </i>
@@ -82,15 +77,15 @@
                                     </td>
                                 </tr>
                             @endforeach
-                        {{-- @else
+                        @else
                             <tr>
                                 <td colspan="1">No data available</td>
                             </tr>
-                        @endif --}}
+                        @endif
                     </tbody>
                 </table>
             </div>
-            {{-- {{ $data->links() }} --}}
+            {{ $data->links() }}
         </section>
         <!-- /.content -->
     </div>

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Title extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'title_id';
     protected $guarded = [];
     public function user()
     {

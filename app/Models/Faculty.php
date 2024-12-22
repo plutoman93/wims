@@ -9,7 +9,7 @@ class Faculty extends Model
 {
     use HasFactory;
     protected $guarded = [];
-
+    protected $primaryKey = 'faculty_id';
     public function user()
     {
         return $this->hasMany(User::class, 'faculty_id', 'faculty_id');

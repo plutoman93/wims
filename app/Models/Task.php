@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 class Task extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'task_id';
     protected $guarded = [];
     protected static function booted()
     {
