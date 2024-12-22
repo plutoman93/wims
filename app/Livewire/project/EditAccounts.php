@@ -36,7 +36,7 @@ class EditAccounts extends Component
     {
         try {
             // อัปเดตตาราง users
-            $user = User::with('title', 'department', 'faculty', 'status')->find($this->idd);
+            $user = User::with('title', 'department', 'faculty')->find($this->idd);
             $user->update([
                 'username' => $this->username,
                 'first_name' => $this->first_name,
@@ -52,24 +52,19 @@ class EditAccounts extends Component
                     'title_name' => $this->title_name,
                 ]);
             }
-            // อัปเดต department_name ในตาราง departments
-            if ($user->department) {
-                $user->department->update([
-                    'department_name' => $this->department_name,
-                ]);
-            }
             // อัปเดต faculty_name ในตาราง faculties
             if ($user->faculty) {
                 $user->faculty->update([
                     'faculty_name' => $this->faculty_name,
                 ]);
             }
-            // อัปเดต status_name ในตาราง statuses
-            if ($user->status) {
-                $user->status->update([
-                    'user_status_name' => $this->user_status_name,
-                ]);
-            }
+            // อัปเดต department_name ในตาราง departments
+            // if ($user->department) {
+            //     $user->department->update([
+            //         'department_name' => $this->department_name,
+            //     ]);
+            // }
+
             return redirect()->to(route('admin-dashboard'));
         } catch (\Exception $e) {
             dd($e);
