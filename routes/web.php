@@ -43,7 +43,7 @@ Route::middleware(['auth'])->group(function () {
     })->name('system-setting');
 
     Route::get('/profile-view/{id}', function ($id) {
-        dd($id);
+        // dd($id);
         return view('project.view', compact('id'));
     })->name('profile-view');
 
