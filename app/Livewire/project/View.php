@@ -10,15 +10,16 @@ class View extends Component
 
     public function mount($id)
     {
-        $data = User::find($id);
+        $data = User::with(['title','department','faculty','status'])->find($id);
+
         $this->idd = $id;
         $this->username = $data->username;
         $this->first_name = $data->first_name;
         $this->last_name = $data->last_name;
         $this->title_name = $data->title ? $data->title->title_name : null;
         $this->phone = $data->phone;
-        $this->department_name = $data->department_name;
-        $this->faculty_name = $data->faculty_name;
+        $this->department_name = $data->department ? $data->department->department_name : null;
+        $this->faculty_name = $data->faculty ? $data->faculty->faculty_name : null;
         $this->email = $data->email;
         $this->user_status_name = $data->user_status_name;
     }
