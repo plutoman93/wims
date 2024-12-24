@@ -2,6 +2,6 @@
 
 @section('content')
 
-@livewire('account_setting')
+@livewire('project.profile')
 
 @endsection
