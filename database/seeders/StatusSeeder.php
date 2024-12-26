@@ -12,9 +12,10 @@ class StatusSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::table('statuses')->truncate();
         DB::table('statuses')->insert([
-            ['user_status_name' => 'user', 'created_at' => now(), 'updated_at' => now()],
-            ['user_status_name' => 'admin', 'created_at' => now(), 'updated_at' => now()],
+            ['user_status_id' => 1, 'user_status_name' => 'admin', 'created_at' => now(), 'updated_at' => now()],
+            ['user_status_id' => 2,'user_status_name' => 'use', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 }
