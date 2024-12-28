@@ -41,10 +41,15 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputName">คำนำหน้า</label>
-                                    <input type="text" id="title_name" wire:model="title_name" class="form-control">
+                                    <label for="inputTitle">คำนำหน้า</label>
+                                    <select id="inputTitle" wire:model="title_name" class="form-control custom-select">
+                                        <option selected>Select one</option>
+                                        @foreach($titles as $title)
+                                            <option value="{{ $title->title_name }}">{{ $title->title_name }}</option>
+                                        @endforeach
+                                    </select>
                                     @error('title_name')
-                                        <span class ="text-danger">{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="form-group">
@@ -85,9 +90,9 @@
                                     <select id="inputStatus" wire:model="department_name"
                                         class="form-control custom-select">
                                         <option selected>Select one</option>
-                                        <option value="เกษตรศาสตร์และเทคโนโลยี">วิทยาการคอมพิวเตอร์</option>
-                                        <option value="เทคโนโลยีการจัดการ">เทคโนโลยีคอมพิวเตอร์</option>
-                                        <option value="เทคโนโลยีการจัดการ">เทคนิคคอมพิวเตอร์</option>
+                                        <option value="วิทยาการคอมพิวเตอร์">วิทยาการคอมพิวเตอร์</option>
+                                        <option value="เทคโนโลยีคอมพิวเตอร์">เทคโนโลยีคอมพิวเตอร์</option>
+                                        <option value="เทคนิคคอมพิวเตอร์">เทคนิคคอมพิวเตอร์</option>
                                         @error('department_name')
                                             <span class ="text-danger">{{ $message }}</span>
                                         @enderror
@@ -103,15 +108,15 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="inputStatus">ระดับผู้ใช้</label>
-                                    <select id="inputStatus" wire:model="user_status_name"
-                                        class="form-control custom-select">
-                                        <option selected>Select one</option>
-                                        <option value="admin">ADMIN</option>
-                                        <option value="user">USER</option>
-                                        @error('user_status_name')
-                                            <span class ="text-danger">{{ $message }}</span>
-                                        @enderror
+                                    <select id="inputStatus" wire:model="user_status_name" class="form-control custom-select">
+                                        <option selected>เลือกระดับผู้ใช้</option>
+                                        @foreach($statuses as $status)
+                                            <option value="{{ $status->user_status_name }}">{{ $status->user_status_name }}</option>
+                                        @endforeach
                                     </select>
+                                    @error('user_status_name')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="inputName">รหัสผ่าน</label>

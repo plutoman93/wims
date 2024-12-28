@@ -25,7 +25,9 @@ class AddPersonnel extends Component
             'title_name' => 'required',
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => 'required',
+            'department_name' => 'required',
+            'faculty_name' => 'required',
+            'email' => 'required|email',
             'password' => 'required|min:8',
             'phone' => 'required|min:8|max:10',
             'user_status_name' => 'required',
@@ -34,60 +36,49 @@ class AddPersonnel extends Component
             'title_name.required' => "กรอกคำนำหน้า",
             'first_name.required' => "กรอกชื่อจริง",
             'last_name.required' => "กรอกนามสกุล",
-            'email.required' => "กรอกอีเมล์",
+            'department_name.required' => "กรอกแผนก",
+            'faculty_name.required' => "กรอกคณะ",
+            'email.required' => "กรอกอีเมล",
             'password.required' => "กรอกรหัสผ่าน",
             'phone.required' => "กรอกเบอร์มือถือ",
             'user_status_name.required' => "เลือกระดับผู้ใช้",
         ]);
 
         try {
-            // สร้างข้อมูลในตาราง Title
-            $title = Title::create([
-                'title_name' => $this->title_name,
-            ]);
+            // ดึง id ของ title, faculty, department, และ status
+            $titleId = Title::where('title_name', $this->title_name)->value('title_id');
+            $facultyId = Faculty::where('faculty_name', $this->faculty_name)->value('faculty_id');
+            $departmentId = Department::where('department_name', $this->department_name)->value('department_id');
+            $statusId = Status::where('user_status_name', $this->user_status_name)->value('user_status_id');
 
-            // สร้างข้อมูลในตาราง Status
-            $status = Status::create([
-                'user_status_name' => $this->user_status_name,
-            ]);
-
-            $faculty = Faculty::create([
-                'faculty_name' => $this->faculty_name,
-            ]);
-
-            $department = Department::create([
-                'department_name' => $this->department_name,
-                'faculty_id' => $faculty->id,
-            ]);
-
-            // สร้างข้อมูลในตาราง User
-            $user = User::create([
+            // สร้างข้อมูลผู้ใช้
+            User::create([
                 'username' => $this->username,
+                'title_id' => $titleId,
                 'first_name' => $this->first_name,
                 'last_name' => $this->last_name,
                 'email' => $this->email,
                 'phone' => $this->phone,
-                'password' => Hash::make($this->password), // เข้ารหัสรหัสผ่าน
-                'title_id' => $title->id,  // อ้างอิง ID ของ Title
-                'user_status_id' => $status->id, // อ้างอิง ID ของ Status
-                'department_id' => $department->id, // อ้างอิง ID ของ Department
-                'faculty_id' => $faculty->id, // อ้างอิง ID ของ Faculty
+                'password' => Hash::make($this->password),
+                'faculty_id' => $facultyId,
+                'department_id' => $departmentId,
+                'user_status_id' => $statusId,
                 'created_by' => Auth::id(),
             ]);
-            $user->save();
-            $title->save();
-            $status->save();
-            $faculty->save();
-            $department->save();
 
-            return redirect()->to(route('admin-dashboard')); //หลัง Login ไปที่หน้า admin-dashboard
+            return redirect()->to(route('admin-dashboard'));
         } catch (\Exception $e) {
-            dd($e);
+            dd($e->getMessage());
         }
     }
 
     public function render()
     {
-        return view('livewire.project.addpersonnel');
+        return view('livewire.project.addpersonnel', [
+            'titles' => Title::all(),
+            'faculties' => Faculty::all(),
+            'departments' => Department::all(),
+            'statuses' => Status::all(),
+        ]);
     }
 }
