@@ -8,8 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Department extends Model
 {
     use HasFactory;
-    protected $guarded = [];
+
+    // protected $fillable = ['department_id'];
+
+    protected $guarded = ['department_id','department_name']; //ไม่สามารถแก้ข้อมูลคอลัมน์ที่กำหนดได้
+
     protected $primaryKey = 'department_id';
+
     public function user()
     {
         return $this->hasMany(User::class, 'department_id', 'department_id');

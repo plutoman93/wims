@@ -59,11 +59,11 @@ class EditAccounts extends Component
                 ]);
             }
             // อัปเดต department_name ในตาราง departments
-            // if ($user->department) {
-            //     $user->department->update([
-            //         'department_name' => $this->department_name,
-            //     ]);
-            // }
+            if ($user->department) {
+                $user->department->update([
+                    'department_name' => $this->department_name,
+                ]);
+            }
 
             return redirect()->to(route('admin-dashboard'));
         } catch (\Exception $e) {

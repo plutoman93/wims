@@ -4,9 +4,6 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Project Edit</h1>
-                    </div>
-                    <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
                             <li class="breadcrumb-item active">แก้ไขข้อมูลบุคลากร</li>
@@ -34,11 +31,13 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="inputName">คำนำหน้า</label>
-                                    <input type="text" id="inputName1" wire:model="title_name" class="form-control">
-                                    @error('title_name')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
+                                    <label for="inputStatus">เลือกคำนำหน้า</label>
+                                    <select id="inputStatus" wire:model="faculty_name" class="form-control custom-select">
+                                        <option value="">เลือกคำนำหน้า</option>
+                                        <option value="นาย">นาย</option>
+                                        <option value="นาง">นาง</option>
+                                        <option value="นางสาว">นางสาว</option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputName">ชื่อ</label>
@@ -59,12 +58,20 @@
                                     <input type="text" id="inputName3" wire:model="phone" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputStatus">ภาควิชา</label>
+                                    <label for="inputStatus">คณะ</label>
                                     <select id="inputStatus" wire:model="faculty_name" class="form-control custom-select">
                                         <option selected>Select one</option>
-                                        <option value="computer">เทคโนโลยีคอมพิวเตอร์</option>
-                                        <option value="electric">เทคโนโลยีไฟฟ้า</option>
-                                        <option value="plant">พืชศาสตร์</option>
+                                        <option value="เกษตรศาสตร์และเทคโนโลยี">เกษตรศาสตร์และเทคโนโลยี</option>
+                                        <option value="เทคโนโลยีการจัดการ">เทคโนโลยีการจัดการ</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputStatus">สาขาวิชา</label>
+                                    <select id="inputStatus" wire:model="department_name" class="form-control custom-select">
+                                        <option selected>Select one</option>
+                                        <option value="วิทยาการคอมพิวเตอร์">วิทยาการคอมพิวเตอร์</option>
+                                        <option value="เทคนิคคอมพิวเตอร์">เทคนิคคอมพิวเตอร์</option>
+                                        <option value="เทคโนโลยีคอมพิวเตอร์">เทคโนโลยีคอมพิวเตอร์</option>
                                     </select>
                                 </div>
                                 <div class="form-group">

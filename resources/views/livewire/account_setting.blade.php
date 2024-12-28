@@ -15,7 +15,6 @@
             </div>
         </div><!-- /.container-fluid -->
 
-
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
@@ -62,11 +61,14 @@
                                                 @endif
                                             </div>
                                             <div class="form-group row">
-                                                <label for="inputName2"
-                                                    class="col-sm-2 col-form-label">Title</label>
+                                                <label for="inputTitle" class="col-sm-2 col-form-label">Title</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" wire:model="title_name"
-                                                        class="form-control" id="inputName2" placeholder="คำนำหน้า">
+                                                    <select wire:model="title_name" class="form-control" id="inputTitle">
+                                                        <option value="">เลือกคำนำหน้า</option>
+                                                        <option value="นาย">นาย</option>
+                                                        <option value="นาง">นาง</option>
+                                                        <option value="นางสาว">นางสาว</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -77,34 +79,38 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="inputName2" class="col-sm-2 col-form-label">Last
-                                                    Name</label>
+                                                <label for="inputLastName" class="col-sm-2 col-form-label">Last Name</label>
                                                 <div class="col-sm-10">
                                                     <input type="text" wire:model="last_name" class="form-control"
-                                                        id="inputName2" placeholder="นามสกุล">
+                                                        id="inputLastName" placeholder="นามสกุล">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="inputName2"
-                                                    class="col-sm-2 col-form-label">Department</label>
+                                                <label for="inputDepartment" class="col-sm-2 col-form-label">Department</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" wire:model="department_name"
-                                                        class="form-control" id="inputName2" placeholder="สาขา">
+                                                    <select wire:model="department_name" class="form-control" id="inputDepartment">
+                                                        <option value="">เลือกสาขา</option>
+                                                        <option value="วิทยาการคอมพิวเตอร์">วิทยาการคอมพิวเตอร์</option>
+                                                        <option value="เทคโนโลยีคอมพิวเตอร์">เทคโนโลยีคอมพิวเตอร์</option>
+                                                        <option value="เทคนิคคอมพิวเตอร์">เทคนิคคอมพิวเตอร์</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="inputName2"
-                                                    class="col-sm-2 col-form-label">Faculty</label>
+                                                <label for="inputFaculty" class="col-sm-2 col-form-label">Faculty</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" wire:model="faculty_name"
-                                                        class="form-control" id="inputName2" placeholder="คณะ">
+                                                    <select wire:model="faculty_name" class="form-control" id="inputFaculty">
+                                                        <option value="">เลือกคณะ</option>
+                                                        <option value="เกษตรศาสตร์และเทคโนโลยี">เกษตรศาสตร์และเทคโนโลยี</option>
+                                                        <option value="เทคโนโลยีการจัดการ">เทคโนโลยีการจัดการ</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="inputName2" class="col-sm-2 col-form-label">Image</label>
+                                                <label for="inputPhoto" class="col-sm-2 col-form-label">Image</label>
                                                 <div class="col-sm-10">
                                                     <input type="file" wire:model="photo" class="form-control"
-                                                        id="inputName2" placeholder="Image">
+                                                        id="inputPhoto" placeholder="Image">
                                                 </div>
                                             </div>
                                             <div class="form-group row">

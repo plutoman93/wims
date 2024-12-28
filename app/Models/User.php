@@ -27,11 +27,19 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    // protected $fillable = [
-    //     'username',
-    //     'email',
-    //     'password',
-    // ];
+    protected $fillable = [
+        'username',
+        'email',
+        'password',
+        'first_name',
+        'last_name',
+        'phone',
+        'title_id',
+        'department_id',
+        'faculty_id',
+        'user_status_id',
+
+    ];
 
     // ระบุ primary key ที่ใช้
     protected $primaryKey = 'user_id';
