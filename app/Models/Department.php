@@ -15,6 +15,10 @@ class Department extends Model
 
     protected $primaryKey = 'department_id';
 
+    protected $keyType = 'int';
+
+    public $incrementing = true;
+
     public function user()
     {
         return $this->hasMany(User::class, 'department_id', 'department_id');

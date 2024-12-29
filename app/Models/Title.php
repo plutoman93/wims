@@ -8,8 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Title extends Model
 {
     use HasFactory;
+
     protected $primaryKey = 'title_id';
-    protected $guarded = [];
+
+    protected $keyType = 'int';
+
+    public $incrementing = true;
+
     public function user()
     {
         return $this->hasMany(User::class, 'title_id', 'title_id');

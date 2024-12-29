@@ -13,6 +13,10 @@ class Faculty extends Model
 
     protected $primaryKey = 'faculty_id';
 
+    protected $keyType = 'int';
+
+    public $incrementing = true;
+
     public function user()
     {
         return $this->hasMany(User::class, 'faculty_id', 'faculty_id');

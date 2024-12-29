@@ -43,12 +43,8 @@ class User extends Authenticatable
 
     // ระบุ primary key ที่ใช้
     protected $primaryKey = 'user_id';
+    public $incrementing = false;
 
-    // ถ้า primary key ไม่ใช่ auto-increment ให้กำหนดเป็น false
-    public $incrementing = true;  // ถ้าฟิลด์ `user_id` เป็น auto-increment ให้ใช้ true
-
-    // ระบุชนิดข้อมูลของ primary key
-    protected $keyType = 'int';  // ถ้าฟิลด์ `user_id` เป็น integer
 
     public function user()
     {
@@ -81,8 +77,6 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Task::class,'user_id','user_id');
     }
-
-    protected $guarded = [];
     /**
      * The attributes that should be hidden for serialization.
      *
