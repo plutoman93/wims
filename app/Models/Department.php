@@ -11,7 +11,7 @@ class Department extends Model
 
     // protected $fillable = ['department_id'];
 
-    protected $guarded = ['department_id','department_name']; //ไม่สามารถแก้ข้อมูลคอลัมน์ที่กำหนดได้
+    // protected $guarded = ['department_id','department_name']; //ไม่สามารถแก้ข้อมูลคอลัมน์ที่กำหนดได้
 
     protected $primaryKey = 'department_id';
 

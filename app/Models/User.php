@@ -36,14 +36,16 @@ class User extends Authenticatable
         'phone',
         'title_id',
         'department_id',
+        'department_name',
         'faculty_id',
+        'faculty_name',
         'user_status_id',
-
+        'user_status_name',
     ];
 
     // ระบุ primary key ที่ใช้
     protected $primaryKey = 'user_id';
-    public $incrementing = false;
+    public $incrementing = true;
 
 
     public function user()

@@ -9,7 +9,8 @@ class Faculty extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['faculty_id','faculty_name'];//ไม่สามารถแก้ข้อมูลคอลัมน์ที่กำหนดได้
+    // protected $guarded = ['faculty_id','faculty_name'];//ไม่สามารถแก้ข้อมูลคอลัมน์ที่กำหนดได้
+    protected $fillable = ['faculty_name'];
 
     protected $primaryKey = 'faculty_id';
 

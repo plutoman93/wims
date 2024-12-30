@@ -11,6 +11,8 @@ class Title extends Model
 
     protected $primaryKey = 'title_id';
 
+    protected $fillable = ['title_name'];
+
     protected $keyType = 'int';
 
     public $incrementing = true;

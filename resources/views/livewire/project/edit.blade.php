@@ -32,11 +32,11 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="inputStatus">เลือกคำนำหน้า</label>
-                                    <select id="inputStatus" wire:model="faculty_name" class="form-control custom-select">
+                                    <select id="inputStatus" wire:model="title_id" class="form-control custom-select">
                                         <option value="">เลือกคำนำหน้า</option>
-                                        <option value="นาย">นาย</option>
-                                        <option value="นาง">นาง</option>
-                                        <option value="นางสาว">นางสาว</option>
+                                        <option value="1">นาย</option>
+                                        <option value="2">นาง</option>
+                                        <option value="3">นางสาว</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -59,19 +59,20 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="inputStatus">คณะ</label>
-                                    <select id="inputStatus" wire:model="faculty_name" class="form-control custom-select">
-                                        <option selected>Select one</option>
-                                        <option value="เกษตรศาสตร์และเทคโนโลยี">เกษตรศาสตร์และเทคโนโลยี</option>
-                                        <option value="เทคโนโลยีการจัดการ">เทคโนโลยีการจัดการ</option>
+                                    <select id="inputStatus" wire:model="faculty_id" class="form-control custom-select">
+                                        <option value="">เลือกคณะ</option>
+                                        <option value="1">เกษตรศาสตร์และเทคโนโลยี</option>
+                                        <option value="2">เทคโนโลยีการจัดการ</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputStatus">สาขาวิชา</label>
-                                    <select id="inputStatus" wire:model="department_name" class="form-control custom-select">
-                                        <option selected>Select one</option>
-                                        <option value="วิทยาการคอมพิวเตอร์">วิทยาการคอมพิวเตอร์</option>
-                                        <option value="เทคนิคคอมพิวเตอร์">เทคนิคคอมพิวเตอร์</option>
-                                        <option value="เทคโนโลยีคอมพิวเตอร์">เทคโนโลยีคอมพิวเตอร์</option>
+                                    <select id="inputStatus" wire:model="department_id"
+                                        class="form-control custom-select">
+                                        <option value="">เลือกสาขา</option>
+                                        <option value="1">วิทยาการคอมพิวเตอร์</option>
+                                        <option value="2">เทคนิคคอมพิวเตอร์</option>
+                                        <option value="3">เทคโนโลยีคอมพิวเตอร์</option>
                                     </select>
                                 </div>
                                 <div class="form-group">

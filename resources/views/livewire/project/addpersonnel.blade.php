@@ -91,8 +91,8 @@
                                         class="form-control custom-select">
                                         <option selected>Select one</option>
                                         <option value="วิทยาการคอมพิวเตอร์">วิทยาการคอมพิวเตอร์</option>
-                                        <option value="เทคโนโลยีคอมพิวเตอร์">เทคโนโลยีคอมพิวเตอร์</option>
                                         <option value="เทคนิคคอมพิวเตอร์">เทคนิคคอมพิวเตอร์</option>
+                                        <option value="เทคโนโลยีคอมพิวเตอร์">เทคโนโลยีคอมพิวเตอร์</option>
                                         @error('department_name')
                                             <span class ="text-danger">{{ $message }}</span>
                                         @enderror
