@@ -2,6 +2,6 @@
 
 @section('content')
 
-@livewire('project.viewtask')
+@livewire('project.taskpersonal')
 
 @endsection

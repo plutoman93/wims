@@ -14,12 +14,11 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id('task_id'); //แก้การประกาศ PrimaryKey
             $table->string('task_name');
-            $table->string('task_type'); //ชนิดงาน ?? หรือ type name ?
-            $table->string('task_detail',100);
+            $table->string('task_detail', 100);
             $table->string('start_date');
             $table->string('due_date');
             $table->string('file',2048)->nullable();
-            $table->foreignId('task_status_id')->index();
+            $table->foreignId('task_status_id')->nullable();
             $table->foreignId('type_id')->index();
             $table->foreignId('user_id')->index();
             $table->foreignId('created_by')->nullable();

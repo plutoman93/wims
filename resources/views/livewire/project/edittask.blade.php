@@ -56,11 +56,11 @@
                     </div>
                     <div class="form-group">
                         <label for="inputStatus">Task Type</label>
-                        <select id="inputStatus" wire:model="task_type" class="form-control custom-select">
+                        <select id="inputStatus" wire:model="type_name" class="form-control custom-select">
                         <option selected >Select one</option>
-                        <option value="computer">ประชุม</option>
-                        <option value="electric">ลาป่วย</option>
-                        <option value="plant">ไปราชการ</option>
+                        <option value="ปฏิบัติราชการ">ปฏิบัติราชการ</option>
+                        <option value="ลากิจ">ลากิจ</option>
+                        <option value="ประชุม">ประชุม</option>
                         </select>
                     </div>
                     <div class="form-group">

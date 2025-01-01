@@ -8,22 +8,26 @@ use Illuminate\Support\Facades\Auth;
 class Task extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'task_name',
+        'task_detail',
+        'start_date',
+        'due_date',
+        'type_id',
+        'user_id',
+        'created_by',
+        'updated_by',
+        'deleted_by',
+    ];
+
+    protected $keyType = 'int';
+
     protected $primaryKey = 'task_id';
-    protected $guarded = [];
-    protected static function booted()
-    {
-        static::creating(function ($task) {
-            // กำหนดค่า task_status_id
-            $task->task_status_id = Task::max('task_status_id') + 1 ?? 1;
 
-            // กำหนดค่า type_id
-            $task->type_id = Task::max('type_id') + 1 ?? 1;
+    public $incrementing = true;
 
-            // กำหนดค่า user_id โดยอ้างอิงว่า user_id ไหนสร้าง task
-            $task->user_id = Auth::id();
-        });
-    }
-    public function taskstatus()
+    public function tasks()
     {
         return $this->belongsTo(TaskStatus::class, 'task_status_id', 'task_status_id');
     }

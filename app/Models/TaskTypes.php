@@ -8,8 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class TaskTypes extends Model
 {
     use HasFactory;
+
+    public $incrementing = true;
+
     protected $primaryKey = 'type_id';
-    protected $guarded = [];
+
+    protected $keyType = 'int';
 
     public function tasktype()
     {
