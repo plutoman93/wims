@@ -22,6 +22,7 @@ class TaskPersonal extends Component
     public function render()
     {
         $data = Task::query()
+            ->with('tasks')
             ->when($this->search, function ($query) {
                 $query->where('task_name', 'like', '%' . $this->search . '%');
             })

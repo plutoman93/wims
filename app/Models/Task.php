@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+
 class Task extends Model
 {
     use HasFactory;
@@ -27,6 +28,16 @@ class Task extends Model
 
     public $incrementing = true;
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($task) {
+            if (is_null($task->task_status_id)) {
+                $task->task_status_id = 2; // กำหนดค่าเริ่มต้น
+            }
+        });
+    }
     public function tasks()
     {
         return $this->belongsTo(TaskStatus::class, 'task_status_id', 'task_status_id');

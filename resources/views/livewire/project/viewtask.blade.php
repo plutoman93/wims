@@ -16,6 +16,7 @@
                                 <tr class="text-center">
                                     <th style="width: 50px;">ลำดับ</th>
                                     <th>ชื่องาน</th>
+                                    <th>รายละเอียดงาน</th>
                                     <th style="width: 120px;">วันเริ่มงาน</th>
                                     <th style="width: 150px;">วันครบกำหนดงาน</th>
                                     <th style="width: 120px;">สถานะงาน</th>
@@ -26,9 +27,12 @@
                                     <tr>
                                         <td class="text-center">{{ $item->task_id }}</td>
                                         <td class="text-center">{{ $item->task_name }}</td>
-                                        <td class="text-center">{{ \Carbon\Carbon::parse($item->start_date)->format('d-m-Y') }}</td>
-                                        <td class="text-center">{{ \Carbon\Carbon::parse($item->due_date)->format('d-m-Y') }}</td>
-                                        <td class="text-center">{{ $item->task_status }}</td>
+                                        <td class="text-center">{{ $item->task_detail }}</td>
+                                        <td class="text-center">
+                                            {{ \Carbon\Carbon::parse($item->start_date)->format('d-m-Y') }}</td>
+                                        <td class="text-center">
+                                            {{ \Carbon\Carbon::parse($item->due_date)->format('d-m-Y') }}</td>
+                                        <td class="text-center">{{ $item->tasks->task_status_name }}</td>
                                     </tr>
                                 @empty
                                     <tr>
