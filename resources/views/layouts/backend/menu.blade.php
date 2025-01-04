@@ -20,7 +20,7 @@
 
                 <!-- Nav Item - Dashboard -->
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{route('admin-dashboard')}}">
+                    <a class="nav-link" href="{{ route('admin-dashboard') }}">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>หน้าหลัก</span></a>
                 </li>
@@ -37,28 +37,29 @@
                     </a>
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="{{route('projects')}}">ดูตารางาน</a>
-                            <a class="collapse-item" href="{{route('add-task')}}">เพิ่มข้อมูลงาน</a>
+                            <a class="collapse-item" href="{{ route('projects') }}">ดูตารางาน</a>
+                            <a class="collapse-item" href="{{ route('add-task') }}">เพิ่มข้อมูลงาน</a>
                         </div>
                     </div>
                 </li>
 
                 <!-- Nav Item - Utilities Collapse Menu -->
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                        aria-expanded="true" aria-controls="collapseUtilities">
-                        <i class="fas fa-fw fa-user"></i>
-                        <span>บุคลากร</span>
-                    </a>
-                    <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                        data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="{{route('personal')}}">บุคลากร</a>
-                            <a class="collapse-item" href="{{route('addpersonal')}}">เพิ่มบุคลากร</a>
+                @if (Auth::check() && Auth::user()->status->user_status_name === 'admin')
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse"
+                            data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                            <i class="fas fa-fw fa-user"></i>
+                            <span>บุคลากร</span>
+                        </a>
+                        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                            data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <a class="collapse-item" href="{{ route('personal') }}">บุคลากร</a>
+                                <a class="collapse-item" href="{{ route('addpersonal') }}">เพิ่มบุคลากร</a>
+                            </div>
                         </div>
-                    </div>
-                </li>
-
+                    </li>
+                @endif
                 <!-- Divider -->
                 <hr class="sidebar-divider">
 
@@ -71,32 +72,31 @@
 
                 <!-- Nav Item - Charts -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('account_setting')}}">
+                    <a class="nav-link" href="{{ route('account_setting') }}">
                         <i class="fas fa-fw fa-cog"></i>
                         <span>จัดการบัญชีผู้ใช้</span></a>
                 </li>
 
                 <!-- Nav Item - Tables -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('system-setting')}}">
+                    <a class="nav-link" href="{{ route('system-setting') }}">
                         <i class="fas fa-fw fa-wrench"></i>
                         <span>จัดการระบบ</span></a>
                 </li>
             </ul>
-            </nav>
+    </nav>
 
-                {{-- <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
+    {{-- <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-logout" type="submit">ออกจากระบบ</button>
                 </form> --}}
-                <form method="POST" action="{{ route('logout') }}" >
-                    @csrf
-                    <button class="btn btn-logout" type="submit">ออกจากระบบ</button>
-                    <nav-link href="{{ route('logout') }}"
-                                   @click.prevent="$root.submit();">
-                        {{ __('Log Out') }}
-                    </nav-link>
-                </form>
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button class="btn btn-logout" type="submit">ออกจากระบบ</button>
+        <nav-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
+            {{ __('Log Out') }}
+        </nav-link>
+    </form>
 
-  </aside>
+</aside>
