@@ -5,6 +5,8 @@ namespace App\Livewire\Project;
 use App\Models\Task; // ตรวจสอบว่ามีการ import Model Task ถูกต้อง
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Auth;
+
 
 class TaskPersonal extends Component
 {
@@ -22,7 +24,9 @@ class TaskPersonal extends Component
     public function render()
     {
         $data = Task::query()
-            ->with('tasks')
+            ->when(Auth::user()->user_status_id !== 1, function ($query) {
+                $query->where('user_id', Auth::id()); // ดูเฉพาะ Task ของตัวเอง ถ้าไม่ใช่ admin
+            })
             ->when($this->search, function ($query) {
                 $query->where('task_name', 'like', '%' . $this->search . '%');
             })

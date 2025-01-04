@@ -25,7 +25,7 @@
                             <tbody>
                                 @forelse ($data as $item)
                                     <tr>
-                                        <td class="text-center">{{ $item->task_id }}</td>
+                                        <td class="text-center">{{ $loop->iteration }}</td>
                                         <td class="text-center">{{ $item->task_name }}</td>
                                         <td class="text-center">{{ $item->task_detail }}</td>
                                         <td class="text-center">
