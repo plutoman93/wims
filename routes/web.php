@@ -13,6 +13,7 @@ Route::middleware(['auth'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
     Route::get('/admin-dashboard', [UserController::class, 'index'])->name('admin-dashboard');
+
     Route::get('/add-work', function () {
         return view('add');
     });
