@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class TaskPersonal extends Component
 {
+
     use WithPagination;
 
     public $search = '';
