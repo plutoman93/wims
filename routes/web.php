@@ -14,10 +14,6 @@ Route::middleware(['auth'])->group(function () {
     })->name('dashboard');
     Route::get('/admin-dashboard', [UserController::class, 'index'])->name('admin-dashboard');
 
-    Route::get('/add-work', function () {
-        return view('add');
-    });
-
     Route::get('/add-task', function () {
         return view('project.add');
     })->name('add-task');
@@ -43,15 +39,20 @@ Route::middleware(['auth'])->group(function () {
         return view('system-setting');
     })->name('system-setting');
 
-    Route::get('/profile-view/{id}', function ($id) {
+    Route::get('/profile-view/{id}', function ($id) { //ดูข้อมูลโปรไฟล์
         // dd($id);
         return view('project.view', compact('id'));
     })->name('profile-view');
 
-    Route::get('/profile-edit/{id}', function ($id) {
+    Route::get('/profile-edit/{id}', function ($id) { //แก้ไขข้อมูลโปรไฟล์
         // dd($id);
         return view('project.edit', compact('id'));
     })->name('profile-edit');
+
+    Route::get('/task-edit/{id}', function ($id) {
+        // dd($id);
+        return view('project.edittask', compact('id'));
+    })->name('task-edit');
 });
 
 Route::get('/home', [UserController::class, 'index']);

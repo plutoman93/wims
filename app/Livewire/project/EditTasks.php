@@ -1,0 +1,53 @@
+<?php
+
+namespace App\Livewire\Project;
+use App\Models\Task;
+use Livewire\Component;
+
+class EditTasks extends Component
+{
+    public $task_id, $task_name, $task_detail, $start_date, $due_date, $task_status_name, $user_id;
+    public $task_status_id,$type_id;
+
+    public function mount($id)
+    {
+        $data = Task::find($id);
+        $this->task_id = $id;
+        $this->task_name = $data->task_name;
+        $this->task_detail = $data->task_detail;
+        $this->start_date = $data->start_date;
+        $this->due_date = $data->due_date;
+        $this->task_status_id = $data->task_status_id;
+        $this->type_id = $data->type_id;
+        $this->user_id = $data->user_id;
+    }
+
+    public function edit()
+    {
+        try {
+            $task = Task::find($this->task_id);
+
+            // ตรวจสอบค่า task_name
+            // if (empty($this->task_name)) {
+            //     throw new \Exception('Task name is required.');
+            // }
+
+            $task->update([
+                'task_name' => $this->task_name,
+                'task_detail' => $this->task_detail,
+                'start_date' => $this->start_date,
+                'due_date' => $this->due_date,
+                'task_status_id' => $this->task_status_id,
+                'type_id' => $this->type_id,
+                'user_id' => $this->user_id,
+            ]);
+            return redirect()->to(route('projects'));
+        } catch (\Exception $e) {
+            dd($e);
+        }
+    }
+    public function render()
+    {
+        return view('livewire.project.edittask');
+    }
+}

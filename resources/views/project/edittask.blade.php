@@ -2,6 +2,6 @@
 
 @section('content')
 
-@livewire('project.edittask')
+@livewire('project.edittasks',['id' => $id])
 
 @endsection

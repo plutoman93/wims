@@ -33,42 +33,42 @@
                     </div>
                     <div class="card-body">
                     <div class="form-group">
-                        <label for="inputName">Task Name</label>
+                        <label for="inputName">ชื่องาน</label>
                         <input type="text" id="inputName1" wire:model="task_name" class="form-control">
                         @error('task_name')
                             <span class ="text-danger">{{$message}}</span>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="inputName">Task Detail</label>
+                        <label for="inputName">รายละเอียดงาน</label>
                         <input type="text" id="inputName2" wire:model="task_detail" class="form-control">
                         @error('task_detail')
                             <span class ="text-danger">{{$message}}</span>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="inputName">Start Date</label>
-                        <input type="date" id="inputName3" wire:model="task_start_date" class="form-control">
+                        <label for="inputName">วันเริ่มที่เริ่มต้น</label>
+                        <input type="date" id="inputName3" wire:model="start_date" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="inputName">Due Date</label>
-                        <input type="date" id="inputName3" wire:model="task_due_date" class="form-control">
+                        <label for="inputName">วันที่เสร็จสิ้น</label>
+                        <input type="date" id="inputName3" wire:model="due_date" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="inputStatus">Task Type</label>
+                        <label for="inputStatus">ชนิดงาน</label>
                         <select id="inputStatus" wire:model="type_name" class="form-control custom-select">
-                        <option selected >Select one</option>
-                        <option value="ปฏิบัติราชการ">ปฏิบัติราชการ</option>
-                        <option value="ลากิจ">ลากิจ</option>
-                        <option value="ประชุม">ประชุม</option>
+                        <option value="" >เลือกชนิดงาน</option>
+                        <option value="1">ปฏิบัติราชการ</option>
+                        <option value="2">ลากิจ</option>
+                        <option value="3">ประชุม</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="inputStatus">Status</label>
+                        <label for="inputStatus">สถานะงาน</label>
                         <select id="inputStatus" wire:model="status_task" class="form-control custom-select">
-                        <option selected >Select one</option>
-                        <option value="computer">เสร็จ</option>
-                        <option value="electric">ยังไม่เสร็จ</option>
+                        <option value="" >เลือกสถานะงาน</option>
+                        <option value="1">เสร็จ</option>
+                        <option value="2">ยังไม่เสร็จ</option>
                         </select>
                     </div>
                     <!-- /.card-body -->
