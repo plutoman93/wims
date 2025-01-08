@@ -56,7 +56,7 @@
                     </div>
                     <div class="form-group">
                         <label for="inputStatus">ชนิดงาน</label>
-                        <select id="inputStatus" wire:model="type_name" class="form-control custom-select">
+                        <select id="inputStatus" wire:model="type_id" class="form-control custom-select">
                         <option value="" >เลือกชนิดงาน</option>
                         <option value="1">ปฏิบัติราชการ</option>
                         <option value="2">ลากิจ</option>
@@ -65,7 +65,7 @@
                     </div>
                     <div class="form-group">
                         <label for="inputStatus">สถานะงาน</label>
-                        <select id="inputStatus" wire:model="status_task" class="form-control custom-select">
+                        <select id="inputStatus" wire:model="task_status_id" class="form-control custom-select">
                         <option value="" >เลือกสถานะงาน</option>
                         <option value="1">เสร็จ</option>
                         <option value="2">ยังไม่เสร็จ</option>

@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Project;
 use App\Models\Task;
+use App\Models\TaskStatus;
+use App\Models\TaskTypes;
 use Livewire\Component;
 
 class EditTasks extends Component
@@ -25,12 +27,7 @@ class EditTasks extends Component
     public function edit()
     {
         try {
-            $task = Task::find($this->task_id);
-
-            // ตรวจสอบค่า task_name
-            // if (empty($this->task_name)) {
-            //     throw new \Exception('Task name is required.');
-            // }
+            $task = Task::with('task_status','task_type')->find($this->task_id);
 
             $task->update([
                 'task_name' => $this->task_name,
@@ -48,6 +45,9 @@ class EditTasks extends Component
     }
     public function render()
     {
-        return view('livewire.project.edittask');
+        return view('livewire.project.edittask', [
+            'task_statuses' => TaskStatus::all(),
+            'task_types' => TaskTypes::all(),
+        ]);
     }
 }

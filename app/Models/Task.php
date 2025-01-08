@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 
 class Task extends Model
 {
@@ -15,6 +14,7 @@ class Task extends Model
         'task_detail',
         'start_date',
         'due_date',
+        'task_status_id',
         'type_id',
         'user_id',
         'created_by',
