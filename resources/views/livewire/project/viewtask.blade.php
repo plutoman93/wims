@@ -35,12 +35,14 @@
                                         {{ \Carbon\Carbon::parse($item->due_date)->format('d-m-Y') }}
                                     </td>
                                     <td>
-                                        <span class="text-center badge bg-warning text-dark">
-                                            {{ $item->tasks->task_status_name ?? 'ยังไม่เสร็จสิ้น' }}
+                                        <span class="text-center badge
+                                            {{ $item->task_status && $item->task_status->task_status_name === 'เสร็จสิ้น' ? 'bg-success text-white' : ($item->task_status ? 'bg-danger text-white' : 'bg-secondary text-white') }}">
+                                            {{ $item->task_status->task_status_name ?? 'ไม่พบสถานะ' }}
                                         </span>
                                     </td>
                                     <td>
-                                        <a class="btn btn-sm btn-warning" href="{{ route('task-edit', ['id' => $item->task_id]) }}">
+                                        <a class="btn btn-sm btn-warning"
+                                            href="{{ route('task-edit', ['id' => $item->task_id]) }}">
                                             แก้ไข
                                         </a>
                                         <a class="btn btn-sm btn-danger" wire:click="delete({{ $item->id }})">
