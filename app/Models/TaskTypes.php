@@ -15,7 +15,7 @@ class TaskTypes extends Model
 
     protected $keyType = 'int';
 
-    public function tasktype()
+    public function task_type()
     {
         return $this->hasMany(Task::class,'type_id','type_id');
     }

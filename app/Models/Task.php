@@ -38,11 +38,11 @@ class Task extends Model
             }
         });
     }
-    public function tasks()
+    public function task_status()
     {
         return $this->belongsTo(TaskStatus::class, 'task_status_id', 'task_status_id');
     }
-    public function tasktype()
+    public function task_type()
     {
         return $this->belongsTo(TaskTypes::class, 'type_id', 'type_id');
     }

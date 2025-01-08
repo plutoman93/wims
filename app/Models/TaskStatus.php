@@ -20,7 +20,7 @@ class TaskStatus extends Model
 
     protected $keyType = 'int';
 
-    public function tasks()
+    public function task_status()
     {
         return $this->hasMany(Task::class, 'task_status_id', 'task_status_id');
     }
