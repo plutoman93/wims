@@ -45,7 +45,7 @@
                                             href="{{ route('task-edit', ['id' => $item->task_id]) }}">
                                             แก้ไข
                                         </a>
-                                        <a class="btn btn-sm btn-danger" wire:click="delete({{ $item->id }})">
+                                        <a class="btn btn-sm btn-danger" wire:click="delete({{ $item->task_id }})">
                                             ลบ
                                         </a>
                                     </td>

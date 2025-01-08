@@ -7,7 +7,6 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
 
-
 class TaskPersonal extends Component
 {
 
@@ -20,6 +19,13 @@ class TaskPersonal extends Component
     public function updatingSearch()
     {
         $this->resetPage(); // รีเซ็ตหน้าปัจจุบันเมื่อค้นหาใหม่
+    }
+    public function delete($task_id)
+    {
+        $model = Task::find($task_id);
+        $model->deleted_by = Auth::user()->user_id;
+        $model->save();
+        $model->delete();
     }
 
     public function render()
