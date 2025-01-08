@@ -69,7 +69,7 @@
                                             <i class="fas fa-alt">
                                                 Edit
                                             </i>
-                                        <a class="btn btn-danger btn-sm" wire:click="delete({{$item->user_id}})" href="#">
+                                        <a class="btn btn-danger btn-sm" wire:click="delete({{$item->user_id}})">
                                             <i class="fas fa-trash">
                                                 Delete
                                             </i>
