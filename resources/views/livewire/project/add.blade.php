@@ -42,14 +42,14 @@
                                 </select>
                                 @endif
                                 <div class="form-group">
-                                    <label for="inputName">ชื่องาน</label>
+                                    <label for="task_name">ชื่องาน</label>
                                     <input type="text" id="task_name" wire:model="task_name" class="form-control">
                                     @error('task_name')
                                         <span class ="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputName">รายละเอียดงาน</label>
+                                    <label for="task_detail">รายละเอียดงาน</label>
                                     <input type="text" id="task_detail" wire:model="task_detail"
                                         class="form-control">
                                     @error('task_detail')
@@ -57,19 +57,19 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputName">วันที่เริ่มต้น</label>
+                                    <label for="start_date">วันที่เริ่มต้น</label>
                                     <input type="date" id="start_date" wire:model="start_date" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputName">วันที่เสร็จสิ้น</label>
+                                    <label for="due_date">วันที่เสร็จสิ้น</label>
                                     <input type="date" id="due_date" wire:model="due_date" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputName">ไฟล์</label>
+                                    <label for="file">ไฟล์</label>
                                     <input type="file" id="inputName" wire:model="task_file" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputStatus">ชนิดงาน</label>
+                                    <label for="type_id">ชนิดงาน</label>
                                     <select id="inputStatus" wire:model="type_id" class="form-control custom-select">
                                         <option value="">เลือกชนิดงาน</option>
                                         @foreach ($task_types as $type)
