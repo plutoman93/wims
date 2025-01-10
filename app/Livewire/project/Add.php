@@ -32,7 +32,6 @@ class Add extends Component
             'task_name' => $this->task_name,
             'task_detail' => $this->task_detail,
             'start_date' => $this->start_date,
-            // 'task_status_id' => 2,
             'due_date' => $this->due_date,
             'type_id' => $this->type_id,
             'user_id' => $user_id,  // ใส่ค่า user_id
