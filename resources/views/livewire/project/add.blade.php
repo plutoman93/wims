@@ -48,7 +48,7 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputName">วันเริ่มที่เริ่มต้น</label>
+                                    <label for="inputName">วันที่เริ่มต้น</label>
                                     <input type="date" id="start_date" wire:model="start_date" class="form-control">
                                 </div>
                                 <div class="form-group">
