@@ -65,7 +65,7 @@
                                             </i>
                                         </a>
                                         <a href="{{ route('profile-edit', ['id' => $item->user_id]) }}"
-                                            class="btn btn-info btn-sm">
+                                            class="btn btn-sm btn-warning">
                                             <i class="fas fa-alt">
                                                 Edit
                                             </i>

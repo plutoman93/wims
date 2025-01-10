@@ -32,6 +32,15 @@
                                 </div>
                             </div>
                             <div class="card-body">
+                                @if($isAdmin)
+                                <label for="user_id">มอบหมายให้:</label>
+                                <select wire:model="user_id">
+                                    <option value="">เลือกบุคลากร</option>
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->user_id }}">{{ $user->username }}</option>
+                                    @endforeach
+                                </select>
+                                @endif
                                 <div class="form-group">
                                     <label for="inputName">ชื่องาน</label>
                                     <input type="text" id="task_name" wire:model="task_name" class="form-control">
