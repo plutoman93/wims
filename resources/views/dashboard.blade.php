@@ -35,7 +35,14 @@
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                             งานทั้งหมด</div>
+                                            <?php
+                                               $sql = "SELECT COUNT(*) as งานทั้งหมด FROM task";
+                                               $query = $conn->prepare($sql);
+                                               $query->execute();
+                                               $fetch = $query->fetch();
+                                            ?>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
+                                            <?= $fetch['งานทั้งหมด'] ?>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-calendar fa-2x text-gray-300"></i>
