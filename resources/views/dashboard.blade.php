@@ -1,6 +1,5 @@
 @extends('layouts.backend.master')
 @section('content')
-
     <div>
         <div class="content-wrapper">
             <section class="content-header">
@@ -22,7 +21,7 @@
             <!-- Main content -->
             <section class="content">
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Welcome!! {{Auth::user()->username}}</h1>
+                    <h1 class="h3 mb-0 text-gray-800">Welcome!! {{ Auth::user()->username }}</h1>
                 </div>
 
                 <!-- Content Row -->
@@ -36,14 +35,7 @@
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                             งานทั้งหมด</div>
-                                            <?php
-                                               $sql = "SELECT COUNT(*) as งานทั้งหมด FROM tasks";
-                                               $query = $conn->prepare($sql);
-                                               $query->execute();
-                                               $fetch = $query->fetch();
-                                            ?>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
-                                            <?= $fetch['งานทั้งหมด'] ?>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -61,14 +53,7 @@
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                             งานที่เสร็จแล้ว</div>
-                                            <?php
-                                               $sql = "SELECT COUNT(*) as งานที่เสร็จแล้ว FROM tasks WHERE task_status_id = '1'";
-                                               $query = $conn->prepare($sql);
-                                               $query->execute();
-                                               $fetch = $query->fetch();
-                                            ?>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
-                                        <?= $fetch['งานทที่เสร็จแล้ว'] ?>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -86,16 +71,9 @@
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">งานที่ยังไม่ทำ
                                         </div>
-                                        <?php
-                                               $sql = "SELECT COUNT(*) as งานที่ยังไม่ทำ FROM tasks WHERE task_status_id = '2'";
-                                               $query = $conn->prepare($sql);
-                                               $query->execute();
-                                               $fetch = $query->fetch();
-                                            ?>
                                         <div class="row no-gutters align-items-center">
                                             <div class="col-auto">
                                                 <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"></div>
-                                                <?= $fetch['งานที่ยังไม่ทำ'] ?>
                                             </div>
                                         </div>
                                     </div>
@@ -115,14 +93,7 @@
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                             งานที่กำลังทำ</div>
-                                            <?php
-                                            $sql = "SELECT COUNT(*) as งานที่กำลังทำ FROM tasks WHERE task_status_id = '3'";
-                                            $query = $conn->prepare($sql);
-                                            $query->execute();
-                                            $fetch = $query->fetch();
-                                         ?>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
-                                        <?= $fetch['งานที่กำลังทำ'] ?>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-comments fa-2x text-gray-300"></i>
