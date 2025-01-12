@@ -1,3 +1,4 @@
+@livewireStyles
 <div>
     <div class="content-wrapper">
         <div class="card shadow-sm">
@@ -7,7 +8,7 @@
             <div class="card-body">
                 <div class="row mb-3">
                     <div class="col-md-6">
-                        <input type="text" class="form-control" placeholder="ค้นหา" wire:model.debounce.300ms="search">
+                        <input type="search" class="form-control" placeholder="ค้นหา" wire:model="search">
                     </div>
                 </div>
                 <div class="table-responsive">
@@ -35,7 +36,8 @@
                                         {{ \Carbon\Carbon::parse($item->due_date)->format('d-m-Y') }}
                                     </td>
                                     <td>
-                                        <span class="text-center badge
+                                        <span
+                                            class="text-center badge
                                             {{ $item->task_status && $item->task_status->task_status_name === 'เสร็จสิ้น' ? 'bg-success text-white' : ($item->task_status ? 'bg-danger text-white' : 'bg-secondary text-white') }}">
                                             {{ $item->task_status->task_status_name ?? 'ไม่พบสถานะ' }}
                                         </span>
@@ -65,3 +67,4 @@
         </div>
     </div>
 </div>
+@livewireScripts
