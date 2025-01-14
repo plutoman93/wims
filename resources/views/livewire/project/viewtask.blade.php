@@ -1,4 +1,3 @@
-@livewireStyles
 <div>
     <div class="content-wrapper">
         <div class="card shadow-sm">
@@ -21,6 +20,7 @@
                                 <th>วันเริ่มงาน</th>
                                 <th>วันครบกำหนดงาน</th>
                                 <th>สถานะงาน</th>
+                                <th>การจัดการ</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -29,42 +29,30 @@
                                     <td class="text-center">{{ $data->firstItem() + $index }}</td>
                                     <td class="text-center">{{ $item->task_name }}</td>
                                     <td class="text-center">{{ $item->task_detail }}</td>
+                                    <td class="text-center">{{ \Carbon\Carbon::parse($item->start_date)->format('d-m-Y') }}</td>
+                                    <td class="text-center">{{ \Carbon\Carbon::parse($item->due_date)->format('d-m-Y') }}</td>
                                     <td class="text-center">
-                                        {{ \Carbon\Carbon::parse($item->start_date)->format('d-m-Y') }}
-                                    </td>
-                                    <td class="text-center">
-                                        {{ \Carbon\Carbon::parse($item->due_date)->format('d-m-Y') }}
-                                    </td>
-                                    <td>
-                                        <span
-                                            class="text-center badge
-                                            {{ $item->task_status && $item->task_status->task_status_name === 'เสร็จสิ้น' ? 'bg-success text-white' : ($item->task_status ? 'bg-danger text-white' : 'bg-secondary text-white') }}">
+                                        <span class="badge {{ $item->task_status && $item->task_status->task_status_name === 'เสร็จสิ้น' ? 'bg-success text-white' : ($item->task_status ? 'bg-danger text-white' : 'bg-secondary text-white') }}">
                                             {{ $item->task_status->task_status_name ?? 'ไม่พบสถานะ' }}
                                         </span>
                                     </td>
-                                    <td>
-                                        <a class="btn btn-sm btn-warning"
-                                            href="{{ route('task-edit', ['id' => $item->task_id]) }}">
-                                            แก้ไข
-                                        </a>
-                                        <a class="btn btn-sm btn-danger" wire:click="delete({{ $item->task_id }})">
-                                            ลบ
-                                        </a>
+                                    <td class="text-center">
+                                        <a class="btn btn-sm btn-warning" href="{{ route('task-edit', ['id' => $item->task_id]) }}">แก้ไข</a>
+                                        <a class="btn btn-sm btn-danger" wire:click="delete({{ $item->task_id }})">ลบ</a>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="6" class="text-center">ไม่พบข้อมูล</td>
+                                    <td colspan="7" class="text-center">ไม่พบข้อมูล</td>
                                 </tr>
                             @endforelse
                         </tbody>
                     </table>
-                </div>
-                <div class="d-flex justify-content-center mt-3">
-                    {{ $data->links() }} <!-- Pagination -->
+                    <div class="d-flex justify-content-center">
+                        {{ $data->links('pagination::bootstrap-4') }}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-@livewireScripts
