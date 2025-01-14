@@ -17,12 +17,11 @@
         @yield('content')
         @include('layouts.backend.footer')
         @include('layouts.backend.js')
-        @livewireScripts
-
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
         </aside>
     </div>
+    @livewireScripts
 </body>
 
 </html>
