@@ -2,14 +2,13 @@
 
 namespace App\Livewire\Project;
 
-use App\Models\Task;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 
 class TaskPersonal extends Component
 {
-
     use WithPagination;
 
     public $search = '';
@@ -20,6 +19,7 @@ class TaskPersonal extends Component
     {
         $this->resetPage(); // รีเซ็ตหน้าปัจจุบันเมื่อค้นหาใหม่
     }
+
     public function delete($task_id)
     {
         $model = Task::find($task_id);
@@ -34,11 +34,13 @@ class TaskPersonal extends Component
             ->when(Auth::user()->user_status_id !== 1, function ($query) {
                 $query->where('user_id', Auth::id()); // ดูเฉพาะ Task ของตัวเอง ถ้าไม่ใช่ admin
             })
-            ->when($this->search, function ($query) {
+            ->when($this->search, function($query) {
                 $query->where('task_name', 'like', '%' . $this->search . '%');
             })
-            ->paginate(10); // ใช้ Pagination
+            ->paginate(10);
 
-        return view('livewire.project.viewtask', compact('data'));
+        return view('livewire.project.viewtask', [
+            'data' => $data,
+        ]);
     }
 }
