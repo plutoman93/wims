@@ -28,19 +28,22 @@ class TaskPersonal extends Component
         $model->delete();
     }
 
-    public function render()
+    public function searchTasks()
     {
-        $data = Task::query()
+        return Task::query()
             ->when(Auth::user()->user_status_id !== 1, function ($query) {
                 $query->where('user_id', Auth::id()); // ดูเฉพาะ Task ของตัวเอง ถ้าไม่ใช่ admin
             })
-            ->when($this->search, function($query) {
+            ->when($this->search, function ($query) {
                 $query->where('task_name', 'like', '%' . $this->search . '%');
             })
             ->paginate(10);
+    }
 
+    public function render()
+    {
         return view('livewire.project.viewtask', [
-            'data' => $data,
+            'data' => $this->searchTasks(),
         ]);
     }
 }
