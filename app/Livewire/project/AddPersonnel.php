@@ -72,6 +72,11 @@ class AddPersonnel extends Component
         }
     }
 
+    public function resetForm()
+    {
+        $this->reset();
+    }
+
     public function render()
     {
         return view('livewire.project.addpersonnel', [

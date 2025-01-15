@@ -54,6 +54,11 @@ class Add extends Component
         return redirect()->to('admin-dashboard');
     }
 
+    public function resetForm()
+    {
+        $this->reset(['task_name', 'task_detail', 'start_date', 'due_date', 'type_id']);
+    }
+
     public function render()
     {
         return view('livewire.project.add', [
