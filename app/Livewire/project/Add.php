@@ -18,7 +18,7 @@ class Add extends Component
 
     public function mount()
     {
-        $this->isAdmin = Auth::user()->user_status_id == 1;
+        $this->isAdmin = Auth::user()->user_status_id == 1; // ตรวจสอบว่าเป็น Admin หรือไม่
     }
 
     public function add()
@@ -56,7 +56,7 @@ class Add extends Component
 
     public function resetForm()
     {
-        $this->reset(['task_name', 'task_detail', 'start_date', 'due_date', 'type_id']);
+        $this->reset(['task_name', 'task_detail', 'start_date', 'due_date', 'type_id']); // รีเซ็ตค่าในฟอร์ม
     }
 
     public function render()
