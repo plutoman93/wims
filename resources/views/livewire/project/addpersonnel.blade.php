@@ -133,7 +133,7 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <a href="#" class="btn btn-secondary">ยกเลิก</a>
+                        <button type="button" class="btn btn-secondary" wire:click="resetForm">ยกเลิก</button>
                         <button type="submit" class="btn btn-success ">เพิ่ม</button>
                     </div>
                 </div>
