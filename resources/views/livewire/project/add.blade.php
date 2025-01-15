@@ -32,14 +32,14 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                @if($isAdmin)
-                                <label for="user_id">มอบหมายให้:</label>
-                                <select wire:model="user_id">
-                                    <option value="">เลือกบุคลากร</option>
-                                    @foreach ($users as $user)
-                                        <option value="{{ $user->user_id }}">{{ $user->username }}</option>
-                                    @endforeach
-                                </select>
+                                @if ($isAdmin)
+                                    <label for="user_id">มอบหมายให้:</label>
+                                    <select wire:model="user_id">
+                                        <option value="">เลือกบุคลากร</option>
+                                        @foreach ($users as $user)
+                                            <option value="{{ $user->user_id }}">{{ $user->username }}</option>
+                                        @endforeach
+                                    </select>
                                 @endif
                                 <div class="form-group">
                                     <label for="task_name">ชื่องาน</label>
@@ -58,11 +58,17 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="start_date">วันที่เริ่มต้น</label>
-                                    <input type="date" id="start_date" wire:model="start_date" class="form-control">
+                                    <div class="flatpickr-wrapper">
+                                        <input type="date" id="start_date" wire:model="start_date"
+                                            class="form-control flatpickr">
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="due_date">วันที่เสร็จสิ้น</label>
-                                    <input type="date" id="due_date" wire:model="due_date" class="form-control">
+                                    <div class="flatpickr-wrapper">
+                                        <input type="date" id="due_date" wire:model="due_date"
+                                            class="form-control flatpickr">
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="file">ไฟล์</label>
@@ -80,15 +86,6 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                {{-- <div class="form-group">
-                                    <label for="inputStatus">Status</label>
-                                    <select id="inputStatus" wire:model="status_task"
-                                        class="form-control custom-select">
-                                        <option selected>Select one</option> //ปิดฟอร์ม สภานะงานเพราะอาจไม่ตรงกับโครงสร้างฟอร์มและการเก็บข้อมูล ?
-                                        <option value="เสร็จ">เสร็จ</option>
-                                        <option value="ยังไม่เสร็จ">ยังไม่เสร็จ</option>
-                                    </select>
-                                </div> --}}
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -103,7 +100,6 @@
                 </div>
             </form>
         </section>
-
         <!-- /.content -->
     </div>
 </div>
