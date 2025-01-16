@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
                 'title_id' => 1, // ค่า foreign key
                 'email' => 'god@gg.com',
                 'phone' => '0999999999',
-                'password' => bcrypt('11111111110'),
+                'password' => bcrypt(value: '11111111110'),
                 'first_name' => 'God',
                 'last_name' => 'Master',
                 'faculty_id' => 1, // ค่า foreign key
