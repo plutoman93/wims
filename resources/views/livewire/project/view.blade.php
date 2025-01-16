@@ -71,7 +71,7 @@
                 <strong><i class="far fa-file-alt mr-1"></i> ระดับผู้ใช้</strong>
 
                 <p class="text-muted">
-                    {{$user_status_name}}
+                    {{ $data->status->user_status_name}}
                 </p>
               </div>
               <!-- /.card-body -->

@@ -6,11 +6,11 @@ use Livewire\Component;
 
 class View extends Component
 {
-    public  $idd, $username, $first_name, $last_name, $title_name, $phone, $department_name, $faculty_name, $email, $user_status_name;
+    public  $idd, $data,$username, $first_name, $last_name, $title_name, $phone, $department_name, $faculty_name, $email, $user_status_name;
 
     public function mount($id)
     {
-        $data = User::with(['title','department','faculty','status'])->find($id);
+       $this->data = $data = User::with(['title','department','faculty','status'])->find($id);
 
         $this->idd = $id;
         $this->username = $data->username;
