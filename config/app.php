@@ -123,16 +123,16 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
-    'providers' => [
-        // ...existing providers...
+    // 'providers' => [
+    //     // ...existing providers...
 
-        Barryvdh\Debugbar\ServiceProvider::class,
-    ],
+    //     Barryvdh\Debugbar\ServiceProvider::class,
+    // ],
 
-    'aliases' => [
-        // ...existing aliases...
+    // 'aliases' => [
+    //     // ...existing aliases...
 
-        'Debugbar' => Barryvdh\Debugbar\Facade::class,
-    ],
+    //     'Debugbar' => Barryvdh\Debugbar\Facade::class,
+    // ],
 
 ];
