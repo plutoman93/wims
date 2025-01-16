@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('22222222220'),
                 'first_name' => 'Random',
                 'last_name' => 'User',
-                'faculty_id' => 3, // ค่า foreign key
+                'faculty_id' => 2, // ค่า foreign key
                 'department_id' => 1, // ค่า foreign key
                 'user_status_id' => 2, // ค่า foreign key
             ],
