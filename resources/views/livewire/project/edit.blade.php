@@ -31,8 +31,8 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="inputStatus">เลือกคำนำหน้า</label>
-                                    <select id="inputStatus" wire:model="title_id" class="form-control custom-select">
+                                    <label for="input_title">เลือกคำนำหน้า</label>
+                                    <select id="title" wire:model="title_id" class="form-control custom-select">
                                         <option value="">เลือกคำนำหน้า</option>
                                         <option value="1">นาย</option>
                                         <option value="2">นาง</option>
@@ -40,34 +40,34 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputName">ชื่อ</label>
-                                    <input type="text" id="inputName1" wire:model="first_name" class="form-control">
+                                    <label for="input_first_name">ชื่อ</label>
+                                    <input type="text" id="first_name" wire:model="first_name" class="form-control">
                                     @error('first_name')
                                         <span class ="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputName">นามสกุล</label>
-                                    <input type="text" id="inputName2" wire:model="last_name" class="form-control">
+                                    <label for="input_last_name">นามสกุล</label>
+                                    <input type="text" id="last_name" wire:model="last_name" class="form-control">
                                     @error('last_name')
                                         <span class ="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputName">เบอร์มือถือ</label>
-                                    <input type="text" id="inputName3" wire:model="phone" class="form-control">
+                                    <label for="input_number">เบอร์มือถือ</label>
+                                    <input type="text" id="phone" wire:model="phone" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputStatus">คณะ</label>
-                                    <select id="inputStatus" wire:model="faculty_id" class="form-control custom-select">
+                                    <label for="input_faculty">คณะ</label>
+                                    <select id="faculty" wire:model="faculty_id" class="form-control custom-select">
                                         <option value="">เลือกคณะ</option>
                                         <option value="1">เกษตรศาสตร์และเทคโนโลยี</option>
                                         <option value="2">เทคโนโลยีการจัดการ</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputStatus">สาขาวิชา</label>
-                                    <select id="inputStatus" wire:model="department_id"
+                                    <label for="input_department">สาขาวิชา</label>
+                                    <select id="department" wire:model="department_id"
                                         class="form-control custom-select">
                                         <option value="">เลือกสาขา</option>
                                         <option value="1">วิทยาการคอมพิวเตอร์</option>
@@ -76,12 +76,21 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputName">Email</label>
-                                    <input type="email" id="inputName4" wire:model="email" class="form-control">
+                                    <label for="input_email">Email</label>
+                                    <input type="email" id="email" wire:model="email" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputName">Password</label>
-                                    <input type="password" id="inputName5" wire:model="password" class="form-control">
+                                    <label for="input_account_status">สถานะบัญชี</label>
+                                    <select id="account" wire:model="account_status_id"
+                                        class="form-control custom-select">
+                                        <option value="">เลือกสถานะ</option>
+                                        <option value="1">Active</option>
+                                        <option value="2">Inactive</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="input_password">Password</label>
+                                    <input type="password" id="pasword" wire:model="password" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label for="inputName">Photo</label>
