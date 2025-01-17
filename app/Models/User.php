@@ -41,12 +41,24 @@ class User extends Authenticatable
         'faculty_name',
         'user_status_id',
         'user_status_name',
+        'account_status_id',
+        'account_status_name',
     ];
 
     // ระบุ primary key ที่ใช้
     protected $primaryKey = 'user_id';
     public $incrementing = true;
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($user) {
+            if (is_null($user->account_status_id)) {
+                $user->account_status_id = 1; // กำหนดค่าเริ่มต้น
+            }
+        });
+    }
 
     public function user()
     {
@@ -60,24 +72,24 @@ class User extends Authenticatable
 
     public function faculty()
     {
-        return $this->hasOne(Faculty::class, 'faculty_id','faculty_id');
+        return $this->hasOne(Faculty::class, 'faculty_id', 'faculty_id');
     }
 
     public function status()
     {
-        return $this->belongsTo(Status::class,'user_status_id','user_status_id');
+        return $this->belongsTo(Status::class, 'user_status_id', 'user_status_id');
     }
     public function title()
     {
-        return $this->belongsTo(Title::class,'title_id','title_id');
+        return $this->belongsTo(Title::class, 'title_id', 'title_id');
     }
     public function account()
     {
-        return $this->belongsTo(Account::class,'account_status_id','account_status_id');
+        return $this->belongsTo(Account::class, 'account_status_id', 'account_status_id');
     }
     public function task()
     {
-        return $this->belongsTo(Task::class,'user_id','user_id');
+        return $this->belongsTo(Task::class, 'user_id', 'user_id');
     }
     /**
      * The attributes that should be hidden for serialization.
