@@ -34,7 +34,9 @@ class TaskPersonal extends Component
             ->when(Auth::user()->user_status_id !== 1, function ($query) {
                 $query->where('user_id', Auth::id()); // ดูเฉพาะ Task ของตัวเอง ถ้าไม่ใช่ admin
             })
-            ->where('task_name', 'like', '%' . $this->search . '%')
+            ->when($this->search, function ($query) {
+                $query->where('task_name', 'like', '%' . $this->search . '%');
+            })
             ->paginate(10); // ใช้ Pagination
 
         return view('livewire.project.viewtask', compact('data'));
