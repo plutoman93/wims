@@ -13,6 +13,7 @@ class TitleSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::table('titles')->truncate();
         DB::table('titles')->insert([
             ['title_id' => 1, 'title_name' => 'นาย'],
             ['title_id' => 2, 'title_name' => 'นาง'],

@@ -13,6 +13,7 @@ class TaskTypeSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::table('task_types')->truncate();
         DB::table('task_types')->insert([
             ['type_id' => 1, 'type_name' => 'ปฏิบัติราชการ'],
             ['type_id' => 2, 'type_name' => 'ลากิจ'],
