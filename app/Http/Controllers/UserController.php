@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\CheckBanned;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    public function _construct()
+    {
+        $this->middleware(CheckBanned::class);
+    }
     // กำหนดหน้าหลักตามสิทธิ์ของผู้ใช้
     public function index()
     {
@@ -37,5 +42,21 @@ class UserController extends Controller
         Auth::logout();
 
         return redirect()->route('login');
+    }
+
+    /*
+    * อัปเดตสถานะผู้ใช้
+    *@param int $user_id
+    *@param int $account_status_id
+    *return Success
+    *
+    */
+    public function updateStatus($user_id, $account_status_id)
+    {
+        $user = User::findOrFail($user_id);
+        $user->account_status_id = $account_status_id;
+        $user->save();
+
+        return redirect()->back()->with('success', 'User status updated successfully.');
     }
 }
