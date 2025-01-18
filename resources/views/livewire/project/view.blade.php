@@ -73,6 +73,12 @@
                 <p class="text-muted">
                     {{ $data->status->user_status_name}}
                 </p>
+
+                <strong><i class="far fa-file-alt mr-1"></i> สถานะผู้ใช้</strong>
+
+                <p class="text-muted">
+                    {{ $data->account->account_status_name}}
+                </p>
               </div>
               <!-- /.card-body -->
             </div>

@@ -80,15 +80,6 @@
                                     <input type="email" id="email" wire:model="email" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="input_account_status">สถานะบัญชี</label>
-                                    <select id="account" wire:model="account_status_id"
-                                        class="form-control custom-select">
-                                        <option value="">เลือกสถานะ</option>
-                                        <option value="1">Active</option>
-                                        <option value="2">Inactive</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
                                     <label for="input_password">Password</label>
                                     <input type="password" id="password" wire:model="password" class="form-control">
                                 </div>
