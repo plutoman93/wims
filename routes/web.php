@@ -8,7 +8,7 @@ Route::get('/', function () {
 });
 
 // ใช้ middleware auth กับ route ที่ต้องการ
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth','banned'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
@@ -53,6 +53,8 @@ Route::middleware(['auth'])->group(function () {
         // dd($id);
         return view('project.edittask', compact('id'));
     })->name('task-edit');
+
+    Route::get('user/status/{user_id}/{account_status_id}', [UserController::class, 'updateStatus'])->name('user.status');
 });
 
 Route::get('/home', [UserController::class, 'index']);
