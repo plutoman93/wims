@@ -66,7 +66,7 @@ class AddPersonnel extends Component
                 'created_by' => Auth::id(),
             ]);
 
-            return redirect()->to(route('admin-dashboard'));
+            return redirect()->to(route('personal'));
         } catch (\Exception $e) {
             dd($e->getMessage());
         }

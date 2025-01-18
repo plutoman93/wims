@@ -51,7 +51,7 @@ class Add extends Component
             $task->save();
         }
 
-        return redirect()->to('admin-dashboard');
+        return redirect()->to('project');
     }
 
     public function resetForm()
