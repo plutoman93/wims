@@ -44,8 +44,11 @@
                         {{-- <div class="text-center"><a href="https://computer.surin.rmuti.ac.th/computer/index.php"><img
                                     src="https://rmuti.ac.th/main/wp-content/uploads/2021/05/RMUTI_KORAT-e1620021467198.png"
                                     width="150" height="150" alt="image" class="img-fluid"></a></div> --}}
-                                    <div class="text-center"><a href="index.html"><img src="asset/frontend/images/logos/tech.png" alt="" class="img-fluid"></a></div>
-                                    <div class="text-center"><a href="index.html"><img src="asset/frontend/images/logos/worksystem.png" alt="" class="img-fluid"></a></div>
+                        <div class="text-center"><a href="index.html"><img src="asset/frontend/images/logos/tech.png"
+                                    alt="" class="img-fluid"></a></div>
+                        <div class="text-center"><a href="index.html"><img
+                                    src="asset/frontend/images/logos/worksystem.png" alt=""
+                                    class="img-fluid"></a></div>
 
                         <h3 class="mt-4">Login Here</h3>
                         <p class="mb-5">Enter your valid mail & password</p>
@@ -58,6 +61,13 @@
                                 </ul>
                             </div>
                         @endif
+                        {{-- @if ('error')
+                            <div class="alert alert-danger">
+                                <ul>
+                                    <li>{{ 'บัญชีของคุณถูกระงับ กรุณาติดต่อผู้ดูแลระบบ' }}</li>
+                                </ul>
+                            </div>
+                        @endif --}}
                         <form method="POST" action="{{ route('login') }}" class="login-form row">
                             @csrf
                             <div class="col-md-12">
