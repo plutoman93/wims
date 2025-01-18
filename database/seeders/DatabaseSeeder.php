@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
                 'faculty_id' => 1, // ค่า foreign key
                 'department_id' => 1, // ค่า foreign key
                 'user_status_id' => 1, // ค่า foreign key
-                'account_status_id' => 1, // ค่า foreign key
+                'account_status_id' => 2, // ค่า foreign key
             ],
             [
                 'username' => 'random1998',
@@ -43,7 +43,7 @@ class DatabaseSeeder extends Seeder
                 'faculty_id' => 2, // ค่า foreign key
                 'department_id' => 1, // ค่า foreign key
                 'user_status_id' => 2, // ค่า foreign key
-                'account_status_id' => 1, // ค่า foreign key
+                'account_status_id' => 2, // ค่า foreign key
             ],
             [
                 'username' => 'admin1234',
@@ -56,7 +56,7 @@ class DatabaseSeeder extends Seeder
                 'faculty_id' => 2, // ค่า foreign key
                 'department_id' => 2, // ค่า foreign key
                 'user_status_id' => 2, // ค่า foreign key
-                'account_status_id' => 1, // ค่า foreign key
+                'account_status_id' => 2, // ค่า foreign key
             ],
         ]);
     }

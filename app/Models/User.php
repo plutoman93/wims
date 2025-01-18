@@ -55,7 +55,7 @@ class User extends Authenticatable
 
         static::creating(function ($user) {
             if (is_null($user->account_status_id)) {
-                $user->account_status_id = 1; // กำหนดค่าเริ่มต้น
+                $user->account_status_id = 2; // กำหนดค่าเริ่มต้น
             }
         });
     }
