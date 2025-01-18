@@ -50,7 +50,7 @@ class EditAccounts extends Component
                 'department_id' => $this->department_id,
                 'account_status_id' => $this->account_status_id,
             ]);
-            return redirect()->to(route('admin-dashboard'));
+            return redirect()->to(route('personal'));
         } catch (\Exception $e) {
             dd($e);
         }
