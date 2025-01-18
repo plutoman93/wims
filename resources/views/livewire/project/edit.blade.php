@@ -90,7 +90,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="input_password">Password</label>
-                                    <input type="password" id="pasword" wire:model="password" class="form-control">
+                                    <input type="password" id="password" wire:model="password" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label for="inputName">Photo</label>
