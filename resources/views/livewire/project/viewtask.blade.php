@@ -7,7 +7,7 @@
             <div class="card-body">
                 <div class="row mb-3">
                     <div class="col-md-6">
-                        <input type="search" class="form-control" placeholder="ค้นหา" wire:model="search">
+                        <input type="search" class="form-control" placeholder="ค้นหา" wire:model.live="search">
                     </div>
                 </div>
                 <div class="table-responsive">
