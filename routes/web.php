@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Models\User;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -40,19 +41,21 @@ Route::middleware(['auth','banned'])->group(function () {
     })->name('system-setting');
 
     Route::get('/profile-view/{id}', function ($id) { //ดูข้อมูลโปรไฟล์
-        // dd($id);
         return view('project.view', compact('id'));
     })->name('profile-view');
 
     Route::get('/profile-edit/{id}', function ($id) { //แก้ไขข้อมูลโปรไฟล์
-        // dd($id);
         return view('project.edit', compact('id'));
     })->name('profile-edit');
 
     Route::get('/task-edit/{id}', function ($id) {
-        // dd($id);
         return view('project.edittask', compact('id'));
     })->name('task-edit');
+
+    Route::get('/admin-dashboard', function() {
+        $count = app()->make('App\Livewire\AdminDashboard')->taskCount();
+        return view('admin-dashboard', compact('count'));
+    })->name('admin-dashboard');
 
 });
 
