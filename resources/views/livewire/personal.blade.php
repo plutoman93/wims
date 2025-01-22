@@ -39,13 +39,13 @@
                                     <td class="text-center">
                                         @if ($item->account_status_id == 1)
                                             <button wire:click="updateStatus({{ $item->user_id }}, 2)"
-                                                class="btn btn-danger btn-sm">
-                                                <i class="fas fa-ban"></i>
+                                                class="btn btn-success btn-sm">
+                                                <i class="fas fa-check"></i>
                                             </button>
                                         @else
                                             <button wire:click="updateStatus({{ $item->user_id }}, 1)"
-                                                class="btn btn-success btn-sm">
-                                                <i class="fas fa-check"></i>
+                                                class="btn btn-danger btn-sm">
+                                                <i class="fas fa-ban"></i>
                                             </button>
                                         @endif
                                     </td>
