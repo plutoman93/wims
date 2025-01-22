@@ -29,16 +29,28 @@
                                     <td class="text-center">{{ $data->firstItem() + $index }}</td>
                                     <td class="text-center">{{ $item->task_name }}</td>
                                     <td class="text-center">{{ $item->task_detail }}</td>
-                                    <td class="text-center">{{ \Carbon\Carbon::parse($item->start_date)->format('d-m-Y') }}</td>
-                                    <td class="text-center">{{ \Carbon\Carbon::parse($item->due_date)->format('d-m-Y') }}</td>
                                     <td class="text-center">
-                                        <span class="badge {{ $item->task_status && $item->task_status->task_status_name === 'เสร็จสิ้น' ? 'bg-success text-white' : ($item->task_status ? 'bg-danger text-white' : 'bg-secondary text-white') }}">
-                                            {{ $item->task_status->task_status_name ?? 'ไม่พบสถานะ' }}
-                                        </span>
+                                        {{ \Carbon\Carbon::parse($item->start_date)->format('d-m-Y') }}</td>
+                                    <td class="text-center">
+                                        {{ \Carbon\Carbon::parse($item->due_date)->format('d-m-Y') }}</td>
+                                    <td class="text-center">
+                                        @if ($item->task_status_id == 1)
+                                            <button wire:click="taskStatus({{ $item->task_id }}, 2)"
+                                                class="btn btn-success btn-sm">
+                                                <i class="fas fa-check"></i>
+                                            </button>
+                                        @else
+                                            <button wire:click="taskStatus({{ $item->task_id }}, 1)"
+                                                class="btn btn-danger btn-sm">
+                                                <i class="fas fa-ban"></i>
+                                            </button>
+                                        @endif
                                     </td>
                                     <td class="text-center">
-                                        <a class="btn btn-sm btn-warning" href="{{ route('task-edit', ['id' => $item->task_id]) }}">แก้ไข</a>
-                                        <a class="btn btn-sm btn-danger" wire:click="delete({{ $item->task_id }})">ลบ</a>
+                                        <a class="btn btn-sm btn-warning"
+                                            href="{{ route('task-edit', ['id' => $item->task_id]) }}">แก้ไข</a>
+                                        <a class="btn btn-sm btn-danger"
+                                            wire:click="delete({{ $item->task_id }})">ลบ</a>
                                     </td>
                                 </tr>
                             @empty

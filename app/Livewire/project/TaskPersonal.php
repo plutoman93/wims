@@ -11,6 +11,8 @@ class TaskPersonal extends Component
 {
     use WithPagination;
 
+    public $tasks;
+
     public $search = '';
 
     protected $queryString = ['search']; // ทำให้ Search Query ถูกเก็บไว้ใน URL
@@ -26,6 +28,20 @@ class TaskPersonal extends Component
         $model->deleted_by = Auth::user()->user_id;
         $model->save();
         $model->delete();
+    }
+
+    public function mount()
+    {
+        $this->tasks = Task::all();
+    }
+
+    public function taskStatus($task_id, $task_status_id)
+    {
+        $task = Task::findOrFail($task_id);
+        $task->task_status_id = $task_status_id;
+        $task->save();
+
+        $this->tasks = Task::all();
     }
 
     public function render()
