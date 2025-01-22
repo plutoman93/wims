@@ -24,9 +24,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($data as $index => $item)
+                            @forelse ($data as $item)
                                 <tr>
-                                    <td class="text-center">{{ $data->firstItem() + $index }}</td>
+                                    <td class="text-center">{{ $item->task_id }}</td>
                                     <td class="text-center">{{ $item->task_name }}</td>
                                     <td class="text-center">{{ $item->task_detail }}</td>
                                     <td class="text-center">
