@@ -54,7 +54,6 @@ Route::middleware(['auth','banned'])->group(function () {
         return view('project.edittask', compact('id'));
     })->name('task-edit');
 
-    Route::get('user/status/{user_id}/{account_status_id}', [UserController::class, 'updateStatus'])->name('user.status');
 });
 
 Route::get('/home', [UserController::class, 'index']);

@@ -38,15 +38,15 @@
                                     <td>{{ $item->email }}</td>
                                     <td class="text-center">
                                         @if ($item->account_status_id == 1)
-                                            <a href="{{ route('user.status', ['user_id' => $item->user_id, 'account_status_id' => 2]) }}"
+                                            <button wire:click="updateStatus({{ $item->user_id }}, 2)"
                                                 class="btn btn-danger btn-sm">
                                                 <i class="fas fa-ban"></i>
-                                            </a>
+                                            </button>
                                         @else
-                                            <a href="{{ route('user.status', ['user_id' => $item->user_id, 'account_status_id' => 1]) }}"
+                                            <button wire:click="updateStatus({{ $item->user_id }}, 1)"
                                                 class="btn btn-success btn-sm">
                                                 <i class="fas fa-check"></i>
-                                            </a>
+                                            </button>
                                         @endif
                                     </td>
                                     <td class="project-actions text-right">
