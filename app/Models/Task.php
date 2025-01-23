@@ -24,6 +24,8 @@ class Task extends Model
         'deleted_by',
     ];
 
+    protected $table = 'tasks';
+
     protected $keyType = 'int';
 
     protected $primaryKey = 'task_id';
