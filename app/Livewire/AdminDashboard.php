@@ -3,7 +3,6 @@
 namespace App\Livewire;
 
 use App\Models\Task;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class AdminDashboard extends Component
