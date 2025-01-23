@@ -52,11 +52,6 @@ Route::middleware(['auth','banned'])->group(function () {
         return view('project.edittask', compact('id'));
     })->name('task-edit');
 
-    Route::get('/admin-dashboard', function() {
-        $count = app()->make('App\Livewire\AdminDashboard')->taskCount();
-        return view('admin-dashboard', compact('count'));
-    })->name('admin-dashboard');
-
 });
 
 Route::get('/home', [UserController::class, 'index']);
