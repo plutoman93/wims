@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id('task_id'); //แก้การประกาศ PrimaryKey
             $table->string('task_name');
-            $table->string('task_detail', 100);
+            $table->text('task_detail');
             $table->string('start_date');
             $table->string('due_date');
             $table->string('file',2048)->nullable();
