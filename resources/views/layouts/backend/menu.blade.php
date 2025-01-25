@@ -63,13 +63,6 @@
                 <!-- Divider -->
                 <hr class="sidebar-divider">
 
-                <!-- Nav Item - Pages Collapse Menu -->
-                <li class="nav-item">
-                    <a class="nav-link" href="tables.html">
-                        <i class="fas fa-fw fa-folder"></i>
-                        <span>รายงาน</span></a>
-                </li>
-
                 <!-- Nav Item - Charts -->
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('account_setting') }}">
@@ -79,18 +72,13 @@
 
                 <!-- Nav Item - Tables -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('system-setting') }}">
+                    <a class="nav-link" href="{{ route('send-email') }}">
                         <i class="fas fa-fw fa-wrench"></i>
-                        <span>จัดการระบบ</span></a>
+                        <span>ส่งเมล์ (ชั่วคราว)</span></a>
                 </li>
             </ul>
     </nav>
 
-    {{-- <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
-                    @csrf
-                    @method('DELETE')
-                    <button class="btn btn-logout" type="submit">ออกจากระบบ</button>
-                </form> --}}
     <form method="POST" action="{{ route('logout') }}">
         @csrf
         <button class="btn btn-logout" type="submit">ออกจากระบบ</button>

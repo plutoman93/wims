@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Models\User;
+use App\Http\Controllers\NotificationController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -51,6 +51,9 @@ Route::middleware(['auth','banned'])->group(function () {
     Route::get('/task-edit/{id}', function ($id) {
         return view('project.edittask', compact('id'));
     })->name('task-edit');
+
+    Route::get('/send-email', [NotificationController::class, 'sendMail'])->name('send-email');
+
 
 });
 
