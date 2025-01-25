@@ -38,7 +38,7 @@ class TaskPersonal extends Component
     public function taskStatus($task_id, $task_status_id)
     {
         $task = Task::findOrFail($task_id);
-        $task->task_status_id = $task_status_id;
+        $task->task_status_id = $task_status_id; // กำหนดค่า task_status_id ใหม่
         $task->save();
 
         $this->tasks = Task::all();
