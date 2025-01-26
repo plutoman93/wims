@@ -19,7 +19,7 @@ class SendDailyTaskNotifications extends Command
             $tasks = Task::with('user')->get();
 
             // แบ่ง Task ออกเป็นชุดๆ (batch)
-            $chunks = $tasks->chunk(10); // แบ่งเป็นชุด ชุดละ 10 Task (ปรับได้ตามความเหมาะสม)
+            $chunks = $tasks->chunk(10); // แบ่งเป็นชุด Task (ปรับได้ตามความเหมาะสม)
 
             foreach ($chunks as $chunk) {
                 foreach ($chunk as $task) {
@@ -40,7 +40,7 @@ class SendDailyTaskNotifications extends Command
                     }
                 }
 
-                sleep(5); // เว้นระยะ 5 วินาที หลังจากการส่งแต่ละชุด (ปรับได้ตามความเหมาะสม)
+                sleep(5); // เว้นระยะ วินาที หลังจากการส่งแต่ละชุด (ปรับได้ตามความเหมาะสม)
             }
         } catch (\Exception $e) {
             $this->error("An error occurred: " . $e->getMessage());
