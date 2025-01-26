@@ -2,11 +2,11 @@
 
 namespace App\Notifications;
 
+use App\Models\Task;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use App\Models\Task;
 
 class MailNotification extends Notification
 {
@@ -27,37 +27,32 @@ class MailNotification extends Notification
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
-     * @return array
+     * @return array<int, string>
      */
-    public function via($notifiable)
+    public function via(object $notifiable): array
     {
         return ['mail'];
     }
 
     /**
      * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('Task Notification')
-            ->line('Task Name: ' . $this->task->task_name)
-            ->line('Task Detail: ' . $this->task->task_detail)
-            ->action('View Task', url('send-mail'))
-            ->line('Thank you for using our application!');
+                    ->subject('Task Notification')
+                    ->line('Task Name: ' . $this->task->task_name)
+                    ->line('Task Detail: ' . $this->task->task_detail)
+                    ->action('View Task', url('/send-email/' . $this->task->id))
+                    ->line('Thank you !');
     }
 
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
-     * @return array
+     * @return array<string, mixed>
      */
-    public function toArray($notifiable)
+    public function toArray(object $notifiable): array
     {
         return [
             'task_id' => $this->task->id,

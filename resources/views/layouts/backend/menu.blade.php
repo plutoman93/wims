@@ -71,11 +71,14 @@
                 </li>
 
                 <!-- Nav Item - Tables -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('send-email') }}">
-                        <i class="fas fa-fw fa-wrench"></i>
-                        <span>ส่งเมล์ (ชั่วคราว)</span></a>
-                </li>
+                @foreach ($tasks as $task)
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('send-email', ['task_id' => $task->id]) }}">
+                            <i class="fas fa-fw fa-wrench"></i>
+                            <span>ส่งเมล (ชั่วคราว) สำหรับ {{ $task->task_name }}</span>
+                        </a>
+                    </li>
+                @endforeach
             </ul>
     </nav>
 
