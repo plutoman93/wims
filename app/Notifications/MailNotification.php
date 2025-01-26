@@ -40,11 +40,14 @@ class MailNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('Task Notification')
-                    ->line('Task Name: ' . $this->task->task_name)
-                    ->line('Task Detail: ' . $this->task->task_detail)
-                    ->action('View Task', url('/send-email/' . $this->task->id))
-                    ->line('Thank you !');
+            ->subject('New Task Assigned: ' . $this->task->task_name) // Subject with task name
+            ->line('Hello ' . $notifiable->name . ',') // Greet the user
+            ->line('A new task has been assigned to you:')
+            ->line('Task Name: ' . $this->task->task_name) // Task name
+            ->line('Description: ' . $this->task->description) // Task description (optional)
+            ->line('Due Date: ' . $this->task->due_date) // Due date (optional)
+            ->action('View Task', url('/send-email/' . $this->task->user_id)) // Link to the task
+            ->line('Thank you!');
     }
 
     /**
@@ -55,9 +58,9 @@ class MailNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'task_id' => $this->task->id,
-            'task_name' => $this->task->task_name,
-            'task_detail' => $this->task->task_detail,
+            // 'task_id' => $this->task->id,
+            // 'task_name' => $this->task->task_name,
+            // 'task_detail' => $this->task->task_detail,
         ];
     }
 }
