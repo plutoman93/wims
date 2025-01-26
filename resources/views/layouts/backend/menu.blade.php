@@ -74,7 +74,8 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('send-email') }}">
                         <i class="fas fa-fw fa-wrench"></i>
-                        <span>ส่งเมล์ (ชั่วคราว)</span></a>
+                        <span>ส่งเมล (ชั่วคราว) </span>
+                    </a>
                 </li>
             </ul>
     </nav>

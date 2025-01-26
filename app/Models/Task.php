@@ -51,8 +51,8 @@ class Task extends Model
     {
         return $this->belongsTo(TaskTypes::class, 'type_id', 'type_id');
     }
-    public function userid()
+    public function user()
     {
-        return $this->hasMany(User::class, 'user_id', 'user_id');
+        return $this->belongsTo(User::class, 'user_id', 'user_id');
     }
 }

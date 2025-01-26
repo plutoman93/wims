@@ -37,4 +37,9 @@ class NotificationController extends Controller
         return response()->json(['success' => 'ส่งอีเมลสำเร็จ!']);
     }
 
+    public function showMenu()
+    {
+        $tasks = Task::all(); // ดึงข้อมูล tasks ทั้งหมดจากฐานข้อมูล
+        return view('layouts.backend.menu', compact('tasks'));
+    }
 }
