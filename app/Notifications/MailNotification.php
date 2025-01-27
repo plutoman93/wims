@@ -41,10 +41,10 @@ class MailNotification extends Notification
     {
         return (new MailMessage)
             ->subject('New Task Assigned: ' . $this->task->task_name) // Subject with task name
-            ->line('Hello ' . $notifiable->name . ',') // Greet the user
+            ->line('Hello ' . $notifiable->first_name . ',') // Greet the user
             ->line('A new task has been assigned to you:')
             ->line('Task Name: ' . $this->task->task_name) // Task name
-            ->line('Description: ' . $this->task->description) // Task description (optional)
+            ->line('Detail: ' . $this->task->task_detail) // Task description (optional)
             ->line('Due Date: ' . $this->task->due_date) // Due date (optional)
             ->action('View Task', url('/send-email/' . $this->task->user_id)) // Link to the task
             ->line('Thank you!');
