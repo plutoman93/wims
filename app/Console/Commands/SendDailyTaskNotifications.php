@@ -6,7 +6,7 @@ use App\Models\Task;
 use App\Notifications\MailNotification;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Collection; // Import Collection
+
 
 class SendDailyTaskNotifications extends Command
 {
@@ -16,7 +16,8 @@ class SendDailyTaskNotifications extends Command
     public function handle()
     {
         try {
-            $tasks = Task::with('user')->get();
+            // ดึงงานที่มี task_status_id เท่ากับ 2 เท่านั้น
+            $tasks = Task::with('user')->where('task_status_id', 2)->get();
 
             // แบ่ง Task ออกเป็นชุดๆ (batch)
             $chunks = $tasks->chunk(10); // แบ่งเป็นชุด Task (ปรับได้ตามความเหมาะสม)
@@ -40,7 +41,7 @@ class SendDailyTaskNotifications extends Command
                     }
                 }
 
-                sleep(5); // เว้นระยะ วินาที หลังจากการส่งแต่ละชุด (ปรับได้ตามความเหมาะสม)
+                sleep(15);
             }
         } catch (\Exception $e) {
             $this->error("An error occurred: " . $e->getMessage());
