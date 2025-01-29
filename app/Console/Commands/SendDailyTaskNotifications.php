@@ -41,7 +41,7 @@ class SendDailyTaskNotifications extends Command
                     }
                 }
 
-                sleep(15);
+                sleep(60);
             }
         } catch (\Exception $e) {
             $this->error("An error occurred: " . $e->getMessage());
