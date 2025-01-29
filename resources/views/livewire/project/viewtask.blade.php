@@ -61,7 +61,7 @@
                         </tbody>
                     </table>
                     <div class="d-flex justify-content-center">
-                        {{ $data->links('pagination::bootstrap-4') }}
+                        {{ $data->links('vendor.livewire.task-paginate') }}
                     </div>
                 </div>
             </div>
