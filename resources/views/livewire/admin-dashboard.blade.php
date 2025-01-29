@@ -35,7 +35,7 @@
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                             งานทั้งหมด</div>
-                                            <h1> {{ $count }}</h1>
+                                            <h1 style="text-align: center;"> {{ $count }}</h1>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
                                     </div>
                                     <div class="col-auto">
@@ -54,7 +54,7 @@
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                             งานที่เสร็จแล้ว</div>
-                                            <h1> {{ $countCompleted }}</h1>
+                                            <h1 style="text-align: center;"> {{ $countCompleted }}</h1>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
                                     </div>
                                     <div class="col-auto">
@@ -73,7 +73,7 @@
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">งานที่ยังไม่เสร็จ
                                         </div>
-                                        <h1> {{ $countUncompleted }}</h1>
+                                        <h1 style="text-align: center;"> {{ $countUncompleted }}</h1>
                                         <div class="row no-gutters align-items-center">
                                             <div class="col-auto">
                                                 <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"></div>
@@ -96,7 +96,8 @@
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                             งานที่กำลังทำ</div>
-                                            <h1> {{ $tasksInProgress }}</h1>
+                                            <h1 style="text-align: center;">{{ $tasksInProgress }}</h1>
+
                                         <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
                                     </div>
                                     <div class="col-auto">
