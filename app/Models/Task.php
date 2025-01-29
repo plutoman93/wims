@@ -55,4 +55,14 @@ class Task extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'user_id');
     }
+
+    public function countTask()
+    {
+        $this->db->select('COUNT(*) AS totalTask');
+        $rs = $this->db->get('tasks');
+        if ($rs->num_rums() > 0) {
+            $data = $rs->row();
+            return FALSE;
+        }
+    }
 }

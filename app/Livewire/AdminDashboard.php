@@ -2,22 +2,36 @@
 
 namespace App\Livewire;
 
-use App\Models\Task;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class AdminDashboard extends Component
 {
     public $count;
-    // public function taskCount()
-    // {
-    //     $count = Task::count(); // ใช้ Eloquent เพื่อดึงข้อมูลจำนวนเรกคอร์ดใน tasks table
-    //     return view('livewire.admin-dashboard', ['count' => $count]); // ชื่อ View ควรตรงกับไฟล์จริง
-    // }
+    public $countCompleted;
+    public $countUncompleted;
 
+    public function taskCount()
+    {
+        $this->count = DB::table('tasks')->count();
+    }
+
+    public function taskCompletedCount()
+    {
+        $this->countCompleted = DB::table('tasks')->where('task_status_id', 1)->count();
+    }
+
+    public function taskUncompletedCount()
+    {
+        $this->countUncompleted = DB::table('tasks')->where('task_status_id', 2)->count();
+    }
 
     public function render()
     {
-        $count = Task::count();
-        return view('livewire.admin-dashboard', compact('count'));
+        $this->taskCount();
+        $this->taskCompletedCount();
+        $this->taskUncompletedCount();
+        // You can call taskCount or taskCompletedCount here if needed
+        return view('livewire.admin-dashboard', ['count' => $this->count]);
     }
 }
