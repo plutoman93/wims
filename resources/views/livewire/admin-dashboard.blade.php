@@ -96,6 +96,7 @@
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                             งานที่กำลังทำ</div>
+                                            <h1> {{ $tasksInProgress }}</h1>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
                                     </div>
                                     <div class="col-auto">
