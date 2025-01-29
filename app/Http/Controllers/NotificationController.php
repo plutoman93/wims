@@ -4,42 +4,52 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Notification;
 use App\Models\Task;
-use App\Models\User;
 use App\Notifications\MailNotification;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 
 class NotificationController extends Controller
 {
     public function sendMail(Request $request)
     {
-        // ตรวจสอบว่าค่าที่ส่งมานั้นไม่เป็น null
-        $request->validate([
-            'task_id' => 'required|integer',
-        ]);
+        try {
+            // ดึงงานที่มี task_status_id เท่ากับ 2 เท่านั้น
+            $tasks = Task::with('user')->where('task_status_id', 2)->get();
 
-        // ดึงข้อมูล task จากฐานข้อมูล
-        $task = Task::find($request->task_id);
+            // แบ่ง Task ออกเป็นชุดๆ (batch)
+            $chunks = $tasks->chunk(10); // แบ่งเป็นชุด Task (ปรับได้ตามความเหมาะสม)
 
-        if (!$task) {
-            return response()->json(['error' => 'ไม่พบ task ที่ระบุ'], 404);
+            foreach ($chunks as $chunk) {
+                foreach ($chunk as $task) {
+                    $user = $task->user;
+
+                    if ($user) {
+                        try {
+                            $user->notify(new MailNotification($task));
+                            $this->info("Notification sent to {$user->email} for task: {$task->task_name}");
+                            Log::info("Notification sent to {$user->email} for task: {$task->task_name}");
+                        } catch (\Exception $e) {
+                            $this->error("Failed to send notification to {$user->email} for task: {$task->task_name}. Error: " . $e->getMessage());
+                            Log::error("Failed to send notification to {$user->email} for task: {$task->task_name}. Error: " . $e->getMessage());
+                        }
+                    } else {
+                        $this->warn("Task {$task->id} has no assigned user.");
+                        Log::warning("Task {$task->id} has no assigned user.");
+                    }
+                }
+
+                sleep(60);
+            }
+        } catch (\Exception $e) {
+            $this->error("An error occurred: " . $e->getMessage());
+            Log::error("An error occurred: " . $e->getMessage());
         }
 
-        // ดึงข้อมูลเจ้าของงาน
-        $owner = User::find($task->user_id);
-
-        if (!$owner) {
-            return response()->json(['error' => 'ไม่พบเจ้าของงานที่ระบุ'], 404);
-        }
-
-        // ส่งอีเมลไปยังเจ้าของงาน
-        Notification::route('mail', $owner->email)->notify(new MailNotification($task));
-
-        return response()->json(['success' => 'ส่งอีเมลสำเร็จ!']);
+        return redirect()->route('send-email');
     }
-
-    public function showMenu()
+    public function error()
     {
-        $tasks = Task::all(); // ดึงข้อมูล tasks ทั้งหมดจากฐานข้อมูล
-        return view('layouts.backend.menu', compact('tasks'));
+        // โค้ดที่ต้องการให้ทำงานเมื่อเกิด error
+        return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการส่งอีเมล');
     }
 }
