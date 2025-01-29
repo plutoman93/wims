@@ -1,16 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Example Mail</title>
-</head>
-
-<body>
-    <h1>สวัสดี {{ $data['name'] }}</h1>
-    <p>นี่คือตัวอย่างข้อความในอีเมลของคุณ:</p>
-    <p>{{ $data['message'] }}</p>
-</body>
-
-</html>
+@if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
