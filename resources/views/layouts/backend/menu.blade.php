@@ -39,6 +39,7 @@
                         <div class="bg-white py-2 collapse-inner rounded">
                             <a class="collapse-item" href="{{ route('projects') }}">ดูตารางาน</a>
                             <a class="collapse-item" href="{{ route('add-task') }}">เพิ่มข้อมูลงาน</a>
+                            <a class="collapse-item" href="{{ route('add-task') }}">สรุปตารางงาน</a>
                         </div>
                     </div>
                 </li>
