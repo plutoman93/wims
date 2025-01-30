@@ -5,6 +5,7 @@ namespace App\Livewire\Project;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Task;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use SweetAlert\SweetAlert;
 
@@ -25,7 +26,7 @@ class TaskPersonal extends Component
 
     public function delete($task_id)
     {
-        $this->dispatchBrowserEvent('swal:confirm', [
+        $this->dispatch('swal:confirm', [
             'title' => 'ยืนยันการลบ?',
             'text' => 'คุณต้องการลบข้อมูลนี้หรือไม่?',
             'icon' => 'warning',
@@ -40,12 +41,22 @@ class TaskPersonal extends Component
 
     public function deleteConfirmed($task_id)
     {
-        Task::find($task_id)->delete();
-
-        $this->dispatchBrowserEvent('swal:success', [
-            'title' => 'ลบข้อมูลเรียบร้อยแล้ว',
-            'icon' => 'success'
-        ]);
+        $model = Task::findOrFail($task_id);
+        if ($model) { // ตรวจสอบว่า $model ไม่เป็น null
+            $model->deleted_by = Auth::user()->user_id;
+            $model->save(); // อย่าลืม save() หลังจากแก้ไข property
+            $model->delete();
+            $this->dispatch('swal:success', [
+                'title' => 'ลบข้อมูลเรียบร้อยแล้ว',
+                'icon' => 'success'
+            ]);
+        } else {
+            // ถ้า $model เป็น null แสดงว่าไม่พบ Task ที่ต้องการลบ
+            $this->dispatch('swal:error', [
+                'title' => 'ไม่พบข้อมูลที่ต้องการลบ',
+                'icon' => 'error'
+            ]);
+        }
     }
 
     public function mount()

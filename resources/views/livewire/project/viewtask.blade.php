@@ -71,14 +71,14 @@
 <script>
     window.addEventListener('swal:confirm', event => {
         Swal.fire({
-            title: event.detail.title,
-            text: event.detail.text,
-            icon: event.detail.icon,
-            showCancelButton: event.detail.showCancelButton,
-            confirmButtonColor: event.detail.confirmButtonColor,
-            cancelButtonColor: event.detail.cancelButtonColor,
-            confirmButtonText: event.detail.confirmButtonText,
-            cancelButtonText: event.detail.cancelButtonText
+            title: 'ยืนยันการลบ?',
+            text: "คุณต้องการลบข้อมูลนี้หรือไม่?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'ใช่, ลบเลย!',
+            cancelButtonText: 'ยกเลิก',
         }).then((result) => {
             if (result.isConfirmed) {
                 @this.deleteConfirmed(event.detail.task_id);
