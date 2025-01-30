@@ -8,6 +8,7 @@
     <title>ระบบจัดการข้อมูลกิจกรรม สาขาเทคโนโลยีคอมพิวเตอร์</title>
     @include('layouts.backend.css')
     @livewireStyles
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -22,6 +23,7 @@
         </aside>
     </div>
     @livewireScripts
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 </body>
 
 </html>

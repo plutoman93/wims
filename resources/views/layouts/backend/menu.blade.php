@@ -71,12 +71,14 @@
                 </li>
 
                 <!-- Nav Item - Tables -->
+                @if (Auth::check() && Auth::user()->status->user_status_name === 'admin')
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('send-email') }}">
                         <i class="fas fa-fw fa-wrench"></i>
                         <span>ส่งเมล (ชั่วคราว) </span>
                     </a>
                 </li>
+                @endif
             </ul>
     </nav>
 

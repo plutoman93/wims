@@ -24,9 +24,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($data as $item)
+                            @forelse ($data as $key => $item)
                                 <tr>
-                                    <td class="text-center">{{ $item->task_id }}</td>
+                                    <td class="text-center">{{ $data->firstItem() + $loop->index }}</td>
                                     <td class="text-center">{{ $item->task_name }}</td>
                                     <td class="text-center">{{ $item->task_detail }}</td>
                                     <td class="text-center">
@@ -68,3 +68,28 @@
         </div>
     </div>
 </div>
+<script>
+    window.addEventListener('swal:confirm', event => {
+        Swal.fire({
+            title: event.detail.title,
+            text: event.detail.text,
+            icon: event.detail.icon,
+            showCancelButton: event.detail.showCancelButton,
+            confirmButtonColor: event.detail.confirmButtonColor,
+            cancelButtonColor: event.detail.cancelButtonColor,
+            confirmButtonText: event.detail.confirmButtonText,
+            cancelButtonText: event.detail.cancelButtonText
+        }).then((result) => {
+            if (result.isConfirmed) {
+                @this.deleteConfirmed(event.detail.task_id);
+            }
+        })
+    });
+
+    window.addEventListener('swal:success', event => {
+        Swal.fire({
+            title: event.detail.title,
+            icon: event.detail.icon
+        })
+    });
+</script>
