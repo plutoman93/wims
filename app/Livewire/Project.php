@@ -19,7 +19,7 @@ class Project extends Component
     {
 
         $model = User::find($idd);
-        $model->deleted_by = Auth::user()->user_id;
+        $model->deleted_by = Auth::user()->id;
         $model->save();
         $model->delete();
     }

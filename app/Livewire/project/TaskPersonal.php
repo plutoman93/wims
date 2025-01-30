@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
+use SweetAlert\SweetAlert;
 
 class TaskPersonal extends Component
 {
@@ -24,10 +25,27 @@ class TaskPersonal extends Component
 
     public function delete($task_id)
     {
-        $model = Task::find($task_id);
-        $model->deleted_by = Auth::user()->user_id;
-        $model->save();
-        $model->delete();
+        $this->dispatchBrowserEvent('swal:confirm', [
+            'title' => 'ยืนยันการลบ?',
+            'text' => 'คุณต้องการลบข้อมูลนี้หรือไม่?',
+            'icon' => 'warning',
+            'showCancelButton' => true,
+            'confirmButtonColor' => '#3085d6',
+            'cancelButtonColor' => '#d33',
+            'confirmButtonText' => 'ใช่, ลบเลย!',
+            'cancelButtonText' => 'ยกเลิก',
+            'id' => $task_id // เพิ่ม id เข้าไปด้วย
+        ]);
+    }
+
+    public function deleteConfirmed($task_id)
+    {
+        Task::find($task_id)->delete();
+
+        $this->dispatchBrowserEvent('swal:success', [
+            'title' => 'ลบข้อมูลเรียบร้อยแล้ว',
+            'icon' => 'success'
+        ]);
     }
 
     public function mount()
