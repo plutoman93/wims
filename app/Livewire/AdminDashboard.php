@@ -22,7 +22,7 @@ class AdminDashboard extends Component
     public function mount()
     {
         $this->tasksData = [
-            'labels' => ['งานทั้งหมด','งานที่เสร็จแล้ว', 'งานที่ยังไม่เสร็จแล้ว', 'งานที่กำลังทำ'],
+            'labels' => ['งานทั้งหมด','งานที่เสร็จแล้ว','งานที่กำลังทำ'],
             'data' => [
                 Task::count(),
                 Task::where('task_status_id', 1)->count(),
