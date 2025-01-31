@@ -27,6 +27,10 @@ Route::middleware(['auth','banned'])->group(function () {
         return view('account_setting');
     })->name('account_setting');
 
+    Route::get('/summary-schedule', function () {
+        return view('summary-schedule');
+    })->name('summary-schedule');
+
     Route::get('/personal', function () {
         return view('personal');
         // dd($data);
