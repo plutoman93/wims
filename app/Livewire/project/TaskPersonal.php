@@ -5,18 +5,20 @@ namespace App\Livewire\Project;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Task;
-use Exception;
 use Illuminate\Support\Facades\Auth;
-use SweetAlert\SweetAlert;
+use Illuminate\Support\Facades\Log;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class TaskPersonal extends Component
 {
     use WithPagination;
 
     public $tasks;
+    public $delete_id;
 
     public $search = '';
 
+    protected $listeners = ['deleteConfirmed' => 'deleteTask'];
     protected $queryString = ['search']; // ทำให้ Search Query ถูกเก็บไว้ใน URL
 
     public function updatingSearch()
@@ -26,38 +28,44 @@ class TaskPersonal extends Component
 
     public function delete($task_id)
     {
-        $this->dispatch('swal:confirm', [
-            'title' => 'ยืนยันการลบ?',
-            'text' => 'คุณต้องการลบข้อมูลนี้หรือไม่?',
-            'icon' => 'warning',
-            'showCancelButton' => true,
-            'confirmButtonColor' => '#3085d6',
-            'cancelButtonColor' => '#d33',
-            'confirmButtonText' => 'ใช่, ลบเลย!',
-            'cancelButtonText' => 'ยกเลิก',
-            'id' => $task_id // เพิ่ม id เข้าไปด้วย
-        ]);
+        $this->delete_id = $task_id;
+        $this->dispatch('show-delete-confirmation');
     }
 
-    public function deleteConfirmed($task_id)
+    public function deleteTask()
     {
-        $model = Task::findOrFail($task_id);
-        if ($model) { // ตรวจสอบว่า $model ไม่เป็น null
-            $model->deleted_by = Auth::user()->user_id;
-            $model->save(); // อย่าลืม save() หลังจากแก้ไข property
-            $model->delete();
-            $this->dispatch('swal:success', [
-                'title' => 'ลบข้อมูลเรียบร้อยแล้ว',
-                'icon' => 'success'
-            ]);
-        } else {
-            // ถ้า $model เป็น null แสดงว่าไม่พบ Task ที่ต้องการลบ
-            $this->dispatch('swal:error', [
-                'title' => 'ไม่พบข้อมูลที่ต้องการลบ',
-                'icon' => 'error'
-            ]);
-        }
+        $task = Task::where('task_id', $this->delete_id)->first();
+        $task->deleted_by = Auth::user()->user_id; // ระบุผู้ที่ลบ
+
+        $this->dispatch('TaskDeleted');
     }
+
+    // public function delete($task_id)
+    // {
+    //     $this->dispatch('confirmDelete', ['task_id' => $task_id]);
+    // }
+
+
+    // public function deleteTask($task_id)
+    // {
+    //     $model = Task::find($task_id);
+
+    //     if ($model) {
+    //         $model->deleted_by = Auth::user()->user_id; // ระบุผู้ที่ลบ
+    //         $model->save();
+    //         $model->delete();
+    //         Log::info('Deleting Task ID: ' . $task_id);
+    //         $this->dispatch('alert', [
+    //             'type' => 'success',
+    //             'message' => 'ลบ Task เรียบร้อยแล้ว'
+    //         ]);
+    //     } else {
+    //         $this->dispatch('alert', [
+    //             'type' => 'error',
+    //             'message' => 'ไม่พบ Task ที่ต้องการลบ'
+    //         ]);
+    //     }
+    // }
 
     public function mount()
     {

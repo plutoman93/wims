@@ -50,7 +50,7 @@
                                         <a class="btn btn-sm btn-warning"
                                             href="{{ route('task-edit', ['id' => $item->task_id]) }}">แก้ไข</a>
                                         <a class="btn btn-sm btn-danger"
-                                            wire:click="delete({{ $item->task_id }})">ลบ</a>
+                                            wire:click.prevent="delete({{ $item->task_id }})">ลบ</a>
                                     </td>
                                 </tr>
                             @empty
@@ -68,28 +68,32 @@
         </div>
     </div>
 </div>
-<script>
-    window.addEventListener('swal:confirm', event => {
-        Swal.fire({
-            title: 'ยืนยันการลบ?',
-            text: "คุณต้องการลบข้อมูลนี้หรือไม่?",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'ใช่, ลบเลย!',
-            cancelButtonText: 'ยกเลิก',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                @this.deleteConfirmed(event.detail.task_id);
-            }
-        })
-    });
 
-    window.addEventListener('swal:success', event => {
-        Swal.fire({
-            title: event.detail.title,
-            icon: event.detail.icon
-        })
+{{-- <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        window.addEventListener('confirmDelete', event => {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "คุณต้องการลบ Task นี้หรือไม่?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    @this.call('deleteTask', event.detail.task_id); // เรียก Livewire Method deleteTask
+                }
+            });
+        });
+
+        window.addEventListener('alert', event => {
+            Swal.fire({
+                icon: event.detail.type,
+                title: event.detail.message,
+                showConfirmButton: false,
+                timer: 1500
+            });
+        });
     });
-</script>
+</script> --}}
