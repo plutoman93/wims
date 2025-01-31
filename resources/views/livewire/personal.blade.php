@@ -22,10 +22,10 @@
                 <table class="table table-striped projects">
                     <thead>
                         <tr>
-                            <th style="width: 1%">ID.</th>
-                            <th style="width: 10%">Full Name</th>
-                            <th style="width: 1%">Email</th>
-                            <th style="width: 1%">Status</th>
+                            <th style="width: 1%">ลำดับ</th>
+                            <th style="width: 10%">ชื่อ-นามสกุล</th>
+                            <th style="width: 1%">อีเมล</th>
+                            <th style="width: 1%">สถานะบุคลากร</th>
                             <th style="width: 10%">Actions</th>
                         </tr>
                     </thead>
