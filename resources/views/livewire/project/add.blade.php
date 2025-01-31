@@ -71,10 +71,6 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="file">ไฟล์</label>
-                                    <input type="file" id="inputName" wire:model="task_file" class="form-control">
-                                </div>
-                                <div class="form-group">
                                     <label for="type_id">ชนิดงาน</label>
                                     <select id="inputStatus" wire:model="type_id" class="form-control custom-select">
                                         <option value="">เลือกชนิดงาน</option>
