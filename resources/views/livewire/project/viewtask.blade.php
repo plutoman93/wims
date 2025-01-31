@@ -90,8 +90,8 @@
 
         window.addEventListener('alert', event => {
             Swal.fire({
-                title: "Deleted!",
-                text: "Your file has been deleted.",
+                title: "ลบแล้ว!",
+                text: "ลบงานเรียบร้อยแล้ว",
                 icon: "success"
             });
         });

@@ -18,7 +18,7 @@ class TaskPersonal extends Component
 
     public $search = '';
 
-    protected $listeners = ['deleteConfirmed' => 'deleteTask'];
+    protected $listeners = ['deleteConfirmed' => 'deleteTask']; // รับ Event จาก SweetAlert
     protected $queryString = ['search']; // ทำให้ Search Query ถูกเก็บไว้ใน URL
 
     public function updatingSearch()
@@ -26,14 +26,14 @@ class TaskPersonal extends Component
         $this->resetPage(); // รีเซ็ตหน้าปัจจุบันเมื่อค้นหาใหม่
     }
 
-    public function delete($task_id)
+    public function delete($task_id) // ลบ Task
     {
-        $this->delete_id = $task_id;
-        $this->dispatch('confirmDelete', $task_id);
+        $this->delete_id = $task_id; // ระบุ Task ที่ต้องการลบ
+        $this->dispatch('confirmDelete', $task_id);  
     }
 
 
-    public function deleteTask()
+    public function deleteTask() // ลบ Task
     {
         $task = Task::find($this->delete_id);
 
@@ -55,18 +55,18 @@ class TaskPersonal extends Component
         }
     }
 
-    public function mount()
+    public function mount() // โหลดข้อมูล Task
     {
-        $this->tasks = Task::all();
+        $this->tasks = Task::all(); // โหลดข้อมูล Task ทั้งหมด
     }
 
-    public function taskStatus($task_id, $task_status_id)
+    public function taskStatus($task_id, $task_status_id) // อัปเดตสถานะ Task
     {
-        $task = Task::findOrFail($task_id);
+        $task = Task::findOrFail($task_id); // ค้นหาสถานะ Task ที่ต้องการอัปเดต
         $task->task_status_id = $task_status_id; // กำหนดค่า task_status_id ใหม่
         $task->save();
 
-        $this->tasks = Task::all();
+        $this->tasks = Task::all(); // อัปเดตข้อมูล Task ในคอมโพเนนต์
     }
 
     public function render()
@@ -75,11 +75,11 @@ class TaskPersonal extends Component
             ->when(Auth::user()->user_status_id !== 1, function ($query) {
                 $query->where('user_id', Auth::id()); // ดูเฉพาะ Task ของตัวเอง ถ้าไม่ใช่ admin
             })
-            ->when($this->search, function ($query) {
-                $query->where('task_name', 'like', '%' . $this->search . '%');
+            ->when($this->search, function ($query) { // ค้นหา Task
+                $query->where('task_name', 'like', '%' . $this->search . '%'); // ค้นหา Task จากชื่อ Task
             })
             ->paginate(10); // ใช้ Pagination
 
-        return view('livewire.project.viewtask', compact('data'));
+        return view('livewire.project.viewtask', compact('data')); // ส่งข้อมูลไปยัง View
     }
 }
