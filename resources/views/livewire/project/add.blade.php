@@ -70,6 +70,7 @@
                                             class="form-control flatpickr">
                                     </div>
                                 </div>
+
                                 <div class="form-group">
                                     <label for="type_id">ชนิดงาน</label>
                                     <select id="inputStatus" wire:model="type_id" class="form-control custom-select">
