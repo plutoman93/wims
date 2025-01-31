@@ -58,7 +58,8 @@
                                             class="btn btn-warning btn-sm">
                                             <i class="fas fa-edit"> Edit</i>
                                         </a>
-                                        <a class="btn btn-danger btn-sm" wire:click="delete({{ $item->user_id }})">
+                                        <a class="btn btn-danger btn-sm"
+                                            wire:click.prevent="delete({{ $item->user_id }})">
                                             <i class="fas fa-trash"> Delete</i>
                                         </a>
                                     </td>
@@ -77,3 +78,31 @@
         <!-- /.content -->
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        window.addEventListener('confirmDelete', event => { // รับ Event จาก Livewire
+            Swal.fire({ // แสดง SweetAlert
+                title: 'Are you sure?',
+                text: "คุณต้องการลบผู้ใช้นี้หรือไม่ ?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'ใช่, ลบเลย!',
+                cancelButtonText: 'ยกเลิก'
+            }).then((result) => {
+                if (result.isConfirmed) { 
+                    @this.call('deleteUser', event.detail); // เรียก Livewire Method deleteUser
+                }
+            });
+        });
+
+        window.addEventListener('alert', event => { // รับ Event จาก Livewire
+            Swal.fire({ // แสดง SweetAlert
+                title: "ลบแล้ว!",
+                text: "ลบงานเรียบร้อยแล้ว",
+                icon: "success"
+            });
+        });
+    });
+</script>
