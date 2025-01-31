@@ -29,43 +29,31 @@ class TaskPersonal extends Component
     public function delete($task_id)
     {
         $this->delete_id = $task_id;
-        $this->dispatch('show-delete-confirmation');
+        $this->dispatch('confirmDelete', $task_id);
     }
+
 
     public function deleteTask()
     {
-        $task = Task::where('task_id', $this->delete_id)->first();
-        $task->deleted_by = Auth::user()->user_id; // ระบุผู้ที่ลบ
+        $task = Task::find($this->delete_id);
 
-        $this->dispatch('TaskDeleted');
+        if ($task) {
+            $task->deleted_by = Auth::user()->user_id; // ระบุผู้ที่ลบ
+            $task->save();
+            $task->delete(); // ลบ task
+
+            Log::info('Deleting Task ID: ' . $this->delete_id);
+            $this->dispatch('alert', [
+                'type' => 'success',
+                'message' => 'ลบ Task เรียบร้อยแล้ว'
+            ]);
+        } else {
+            $this->dispatch('alert', [
+                'type' => 'error',
+                'message' => 'ไม่พบ Task ที่ต้องการลบ'
+            ]);
+        }
     }
-
-    // public function delete($task_id)
-    // {
-    //     $this->dispatch('confirmDelete', ['task_id' => $task_id]);
-    // }
-
-
-    // public function deleteTask($task_id)
-    // {
-    //     $model = Task::find($task_id);
-
-    //     if ($model) {
-    //         $model->deleted_by = Auth::user()->user_id; // ระบุผู้ที่ลบ
-    //         $model->save();
-    //         $model->delete();
-    //         Log::info('Deleting Task ID: ' . $task_id);
-    //         $this->dispatch('alert', [
-    //             'type' => 'success',
-    //             'message' => 'ลบ Task เรียบร้อยแล้ว'
-    //         ]);
-    //     } else {
-    //         $this->dispatch('alert', [
-    //             'type' => 'error',
-    //             'message' => 'ไม่พบ Task ที่ต้องการลบ'
-    //         ]);
-    //     }
-    // }
 
     public function mount()
     {

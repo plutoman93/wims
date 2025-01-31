@@ -69,31 +69,31 @@
     </div>
 </div>
 
-{{-- <script>
+<script>
     document.addEventListener('DOMContentLoaded', function() {
         window.addEventListener('confirmDelete', event => {
             Swal.fire({
                 title: 'Are you sure?',
-                text: "คุณต้องการลบ Task นี้หรือไม่?",
+                text: "คุณต้องการลบงานนี้หรือไม่ ?",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes'
+                confirmButtonText: 'ใช่, ลบเลย!',
+                cancelButtonText: 'ยกเลิก'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    @this.call('deleteTask', event.detail.task_id); // เรียก Livewire Method deleteTask
+                    @this.call('deleteTask', event.detail); // เรียก Livewire Method deleteTask
                 }
             });
         });
 
         window.addEventListener('alert', event => {
             Swal.fire({
-                icon: event.detail.type,
-                title: event.detail.message,
-                showConfirmButton: false,
-                timer: 1500
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success"
             });
         });
     });
-</script> --}}
+</script>
