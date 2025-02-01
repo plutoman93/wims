@@ -71,6 +71,14 @@
                         <span>จัดการบัญชีผู้ใช้</span></a>
                 </li>
 
+                @if (Auth::check() && Auth::user()->status->user_status_name === 'admin')
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('restore') }}">
+                        <i class="fas fa-fw fa-trash"></i>
+                        <span>กู้คืนบัญชีและข้อมูลงาน</span></a>
+                </li>
+                @endif
+
                 <!-- Nav Item - Tables -->
                 @if (Auth::check() && Auth::user()->status->user_status_name === 'admin')
                 <li class="nav-item">

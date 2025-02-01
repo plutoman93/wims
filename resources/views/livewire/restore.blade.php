@@ -1,0 +1,82 @@
+<div>
+    <div class="content-wrapper">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="restore-account-tab" data-toggle="tab" href="#restore-account" role="tab"
+                    aria-controls="restore-account" aria-selected="true">กู้คืนบัญชี</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="restore-task-tab" data-toggle="tab" href="#restore-task" role="tab"
+                    aria-controls="restore-task" aria-selected="false">กู้คืนข้อมูลงาน</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="restore-account" role="tabpanel"
+                aria-labelledby="restore-account-tab">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead class="bg-secondary text-white">
+                            <tr class="text-center">
+                                <th>ลำดับ</th>
+                                <th>ชื่อผู้ใช้</th>
+                                <th>อีเมล</th>
+                                <th>จัดการ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($users as $user)
+                                <tr>
+                                    <td class="text-center">{{ $user->user_id }}</td>
+                                    <td class="text-center">{{ $user->username }}</td>
+                                    <td class="text-center">{{ $user->email }}</td>
+                                    <td class="text-center">
+                                        <a class="btn btn-success btn-sm" wire:click="restoreUser({{ $user->user_id }})">
+                                            <i class="fas fa-undo"> กู้คืน</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="text-center">ไม่พบข้อมูล</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="restore-task" role="tabpanel" aria-labelledby="restore-task-tab">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead class="bg-secondary text-white">
+                            <tr class="text-center">
+                                <th>ลำดับ</th>
+                                <th>ชื่องาน</th>
+                                <th>รายละเอียด</th>
+                                <th>จัดการ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($tasks as $task)
+                                <tr>
+                                    <td class="text-center">{{ $task->task_id }}</td>
+                                    <td class="text-center">{{ $task->task_name }}</td>
+                                    <td class="text-center">{{ $task->task_detail }}</td>
+                                    <td class="text-center">
+                                        <a class="btn btn-success btn-sm"
+                                            wire:click="restoreTask({{ $task->task_id }})">
+                                            <i class="fas fa-undo"> กู้คืน</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="text-center">ไม่พบข้อมูล</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

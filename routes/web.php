@@ -56,6 +56,14 @@ Route::middleware(['auth','banned'])->group(function () {
         return view('project.edittask', compact('id'));
     })->name('task-edit');
 
+    Route::get('/restore', function () {
+        return view('restore');
+    })->name('restore');
+
+    // Route::get('/restore-task', function () {
+    //     return view('restore-task');
+    // })->name('restore-task');
+
     Route::get('/send-email', [NotificationController::class, 'sendMail'])->name('send-email');
 
 
