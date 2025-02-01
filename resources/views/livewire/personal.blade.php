@@ -78,6 +78,7 @@
         <!-- /.content -->
     </div>
 </div>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         window.addEventListener('confirmDelete', event => { // รับ Event จาก Livewire
