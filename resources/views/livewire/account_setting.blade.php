@@ -25,7 +25,8 @@
                         <div class="card card-primary card-outline">
                             <div class="card-body box-profile">
                                 <div class="text-center">
-                                    <img class="profile-user-img img-fluid img-circle" {{-- src="{{ asset('storage') }}/{{ auth()->user()->photo }}" --}}
+                                    <img class="profile-user-img img-fluid img-circle"
+                                        src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->first_name . ' ' . auth()->user()->last_name) }}"
                                         alt="User profile picture">
                                 </div>
 
@@ -88,8 +89,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="inputFaculty"
-                                                    class="col-sm-2 col-form-label">คณะ</label>
+                                                <label for="inputFaculty" class="col-sm-2 col-form-label">คณะ</label>
                                                 <div class="col-sm-10">
                                                     <select wire:model="faculty_id" class="form-control"
                                                         id="inputFaculty">
@@ -113,13 +113,6 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group row">
-                                                <label for="inputPhoto" class="col-sm-2 col-form-label">Image</label>
-                                                <div class="col-sm-10">
-                                                    <input type="file" wire:model="photo" class="form-control"
-                                                        id="inputPhoto" placeholder="Image">
-                                                </div>
-                                            </div>
                                             <div class="form-group row">
                                                 <div class="offset-sm-2 col-sm-10">
                                                     <button type="submit" class="btn btn-danger">บันทึก</button>
