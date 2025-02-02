@@ -45,10 +45,10 @@
                 </li>
 
                 <!-- Nav Item - Utilities Collapse Menu -->
-                @if (Auth::check() && Auth::user()->status->user_status_name === 'admin')
+                @can('can-view-function')
                     <li class="nav-item">
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse"
-                            data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                            aria-expanded="true" aria-controls="collapseUtilities">
                             <i class="fas fa-fw fa-user"></i>
                             <span>บุคลากร</span>
                         </a>
@@ -60,7 +60,7 @@
                             </div>
                         </div>
                     </li>
-                @endif
+                @endcan
                 <!-- Divider -->
                 <hr class="sidebar-divider">
 
@@ -71,23 +71,23 @@
                         <span>จัดการบัญชีผู้ใช้</span></a>
                 </li>
 
-                @if (Auth::check() && Auth::user()->status->user_status_name === 'admin')
+                @can('can-view-function')
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('restore') }}">
                         <i class="fas fa-fw fa-trash"></i>
                         <span>กู้คืนบัญชีและข้อมูลงาน</span></a>
                 </li>
-                @endif
+                @endcan
 
                 <!-- Nav Item - Tables -->
-                @if (Auth::check() && Auth::user()->status->user_status_name === 'admin')
+                @can('can-view-function')
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('send-email') }}">
                         <i class="fas fa-fw fa-wrench"></i>
                         <span>ส่งเมล (ชั่วคราว) </span>
                     </a>
                 </li>
-                @endif
+                @endcan
             </ul>
     </nav>
 
