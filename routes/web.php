@@ -8,8 +8,13 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+Route::group(['middleware' => 'guest'], function () {
+    Route::get('/login', [UserController::class, 'login'])->name('login');
+    Route::post('/login', [UserController::class, 'loginPost'])->name('login');
+});
+
 // ใช้ middleware auth กับ route ที่ต้องการ
-Route::middleware(['auth','banned'])->group(function () {
+Route::middleware(['auth', 'banned'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
@@ -65,8 +70,6 @@ Route::middleware(['auth','banned'])->group(function () {
     // })->name('restore-task');
 
     Route::get('/send-email', [NotificationController::class, 'sendMail'])->name('send-email');
-
-
 });
 
 Route::get('/home', [UserController::class, 'index']);

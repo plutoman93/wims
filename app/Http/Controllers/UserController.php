@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Middleware\CheckBanned;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -34,6 +35,26 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         return view('user.profile', ['user' => $user]);
+    }
+
+    public function login()
+    {
+        return view('auth.login');
+    }
+
+    public function loginPost(Request $request)
+    {
+        $credentials = [
+            'username' => $request->username,
+            'password' => $request->password,
+        ];
+
+        if (Auth::attempt($credentials)) {
+            return redirect('/admin-dashboard')->with('success', 'Login Success');
+            // dd($request);
+        }
+
+        return back()->with('error', 'Error Email or Password');
     }
 
     // ออกจากระบบ

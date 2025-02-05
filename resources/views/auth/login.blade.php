@@ -51,7 +51,7 @@
                                     class="img-fluid"></a></div>
 
                         <h3 class="mt-4">Login Here</h3>
-                        <p class="mb-5">Enter your valid mail & password</p>
+                        <p class="mb-5">Enter your valid username & password</p>
                         @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul>
@@ -72,9 +72,9 @@
                             @csrf
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="loginemail">Email</label>
-                                    <input type="text" id="loginemail" class="form-control" name="email"
-                                        placeholder="Enter mail" required>
+                                    <label for="loginusername">Username</label>
+                                    <input type="text" id="username" class="form-control" name="username"
+                                        placeholder="Enter username" required>
                                 </div>
                             </div>
                             <div class="col-md-12">
