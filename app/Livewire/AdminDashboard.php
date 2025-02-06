@@ -32,6 +32,8 @@ class AdminDashboard extends Component
         ];
     }
 
+
+
     public function render()
     {
         $this->taskCount();
