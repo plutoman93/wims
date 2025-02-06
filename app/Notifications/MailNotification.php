@@ -40,14 +40,14 @@ class MailNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('New Task Assigned: ' . $this->task->task_name) // Subject with task name
-            ->line('Hello ' . $notifiable->first_name . ',') // Greet the user
-            ->line('A new task has been assigned to you:')
-            ->line('Task Name: ' . $this->task->task_name) // Task name
-            ->line('Detail: ' . $this->task->task_detail) // Task description (optional)
-            ->line('Due Date: ' . $this->task->due_date) // Due date (optional)
-            ->action('View Task', url('/send-email/' . $this->task->user_id)) // Link to the task
-            ->line('Thank you!');
+            ->subject('ได้รับมอบหมายงานใหม่: ' . $this->task->task_name) // Subject with task name
+            ->line('สวัสดี ' . $notifiable->first_name . ',') // Greet the user
+            ->line('คุณได้รับมอบหมายงานใหม่')
+            ->line('ชื่องาน: ' . $this->task->task_name) // Task name
+            ->line('รายละเอียด: ' . $this->task->task_detail) // Task description (optional)
+            ->line('วันครบกำหนด: ' . $this->task->due_date) // Due date (optional)
+            ->action('ดูงาน', url('/project/' . $this->task->task_id)) // Link to the task
+            ->line('ขอบคุณ!');
     }
 
     /**

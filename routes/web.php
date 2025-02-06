@@ -69,7 +69,7 @@ Route::middleware(['auth', 'banned'])->group(function () {
     //     return view('restore-task');
     // })->name('restore-task');
 
-    Route::get('/send-email', [NotificationController::class, 'sendMail'])->name('send-email');
+    Route::get('/example', [NotificationController::class, 'sendMail'])->name('example');
 });
 
 Route::get('/home', [UserController::class, 'index']);

@@ -11,6 +11,7 @@ class AdminDashboard extends Component
 
     public function taskCount()
     {
+        //เขียน if else ตรวจสอบสถานะผู้ใช้แล้วค่อยนับงาน
         $this->count = Task::count();
         $this->countCompleted = Task::where('task_status_id', 1)->count();
         $this->countUncompleted = Task::where('task_status_id', 2)->count();

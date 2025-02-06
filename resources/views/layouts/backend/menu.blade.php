@@ -72,21 +72,21 @@
                 </li>
 
                 @can('can-view-function')
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('restore') }}">
-                        <i class="fas fa-fw fa-trash"></i>
-                        <span>กู้คืนบัญชีและข้อมูลงาน</span></a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('restore') }}">
+                            <i class="fas fa-fw fa-trash"></i>
+                            <span>กู้คืนบัญชีและข้อมูลงาน</span></a>
+                    </li>
                 @endcan
 
                 <!-- Nav Item - Tables -->
                 @can('can-view-function')
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('send-email') }}">
-                        <i class="fas fa-fw fa-wrench"></i>
-                        <span>ส่งเมล (ชั่วคราว) </span>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('example') }}">
+                            <i class="fas fa-fw fa-wrench"></i>
+                            <span>ส่งเมล (ชั่วคราว) </span>
+                        </a>
+                    </li>
                 @endcan
             </ul>
     </nav>

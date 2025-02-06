@@ -17,7 +17,7 @@ class NotificationController extends Controller
             $tasks = Task::with('user')->where('task_status_id', 2)->get();
 
             // แบ่ง Task ออกเป็นชุดๆ (batch)
-            $chunks = $tasks->chunk(10); // แบ่งเป็นชุด Task (ปรับได้ตามความเหมาะสม)
+            $chunks = $tasks->chunk(5); // แบ่งเป็นชุด Task (ปรับได้ตามความเหมาะสม)
 
             foreach ($chunks as $chunk) {
                 foreach ($chunk as $task) {
@@ -45,11 +45,12 @@ class NotificationController extends Controller
             Log::error("An error occurred: " . $e->getMessage());
         }
 
-        return redirect()->route('send-email');
+        return view('emails.example');
     }
     public function error()
     {
         // โค้ดที่ต้องการให้ทำงานเมื่อเกิด error
-        return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการส่งอีเมล');
+        return redirect()->back();
+        // return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการส่งอีเมล');
     }
 }
