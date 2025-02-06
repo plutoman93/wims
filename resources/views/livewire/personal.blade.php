@@ -24,9 +24,9 @@
                         <tr>
                             <th style="width: 1%">ลำดับ</th>
                             <th style="width: 10%">ชื่อ-นามสกุล</th>
-                            <th style="width: 1%">อีเมล</th>
-                            <th style="width: 1%">สถานะบุคลากร</th>
-                            <th style="width: 10%">Actions</th>
+                            <th style="width: 1%" >อีเมล</th>
+                            <th style="width: 5%" class="text-center">สถานะบุคลากร</th>
+                            <th style="width: 10%" class="text-center">จัดการข้อมูล</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,7 +49,7 @@
                                             </button>
                                         @endif
                                     </td>
-                                    <td class="project-actions text-right">
+                                    <td class="text-center">
                                         <a href="{{ route('profile-view', ['id' => $item->user_id]) }}"
                                             class="btn btn-primary btn-sm">
                                             <i class="fas fa-folder"> View</i>
@@ -92,7 +92,7 @@
                 confirmButtonText: 'ใช่, ลบเลย!',
                 cancelButtonText: 'ยกเลิก'
             }).then((result) => {
-                if (result.isConfirmed) { 
+                if (result.isConfirmed) {
                     @this.call('deleteUser', event.detail); // เรียก Livewire Method deleteUser
                 }
             });

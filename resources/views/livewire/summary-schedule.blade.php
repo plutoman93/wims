@@ -5,22 +5,19 @@
                 <h4 class="mb-0">สรุปตารางงาน</h4>
             </div>
             <div class="card-body">
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <input type="search" class="form-control" placeholder="ค้นหา" wire:model.live="search">
-                    </div>
-                </div>
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped">
                         <thead class="bg-secondary text-white">
                             <tr class="text-center">
-                                <th>ลำดับ</th>
-                                <th>ชื่องาน</th>
-                                <th>รายละเอียดงาน</th>
+                                <th>ชื่อบุคลากร</th>
+                                <th>งานไปราชการ</th>
                                 <th>วันเริ่มงาน</th>
-                                <th>วันครบกำหนดงาน</th>
-                                <th>สถานะงาน</th>
-                                <th>การจัดการ</th>
+                                <th>ชื่อบุคลากร</th>
+                                <th>งานภายในสาขา</th>
+                                <th>วันเริ่มงาน</th>
+                                <th>ชื่อบุคลากร</th>
+                                <th>ลากิจ/ลาป่วย</th>
+                                <th>วันเริ่มงาน</th>
                             </tr>
                         </thead>
                         <tbody>
