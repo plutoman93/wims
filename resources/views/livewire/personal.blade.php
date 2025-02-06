@@ -26,7 +26,7 @@
                             <th style="width: 10%">ชื่อ-นามสกุล</th>
                             <th style="width: 1%" >อีเมล</th>
                             <th style="width: 5%" class="text-center">สถานะบุคลากร</th>
-                            <th style="width: 10%" class="text-center">จัดการข้อมูล</th>
+                            <th style="width: 10%" class="text-center">จัดการข้อมูลบุคลากร</th>
                         </tr>
                     </thead>
                     <tbody>
