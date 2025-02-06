@@ -7,10 +7,7 @@ use Livewire\Component;
 
 class AdminDashboard extends Component
 {
-    public $count;
-    public $countCompleted;
-    public $countUncompleted;
-    public $tasksData = [];
+    public $count,$countCompleted,$countUncompleted,$tasksData = [];
 
     public function taskCount()
     {
