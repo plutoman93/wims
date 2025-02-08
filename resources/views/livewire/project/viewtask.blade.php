@@ -9,14 +9,16 @@
                     <div class="col-md-4">
                         <input type="search" class="form-control" placeholder="ค้นหา" wire:model.live="search">
                     </div>
-                    <div class="col-md-4">
-                        <select class="form-control" wire:model.live="selectedUser">
-                            <option value="">เลือกผู้ใช้</option>
-                            @foreach ($users as $user)
-                                <option value="{{ $user->user_id }}">{{ $user->username }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    @can('can-filter-task')
+                        <div class="col-md-4">
+                            <select class="form-control" wire:model.live="selectedUser">
+                                <option value="">เลือกผู้ใช้</option>
+                                @foreach ($users as $user)
+                                    <option value="{{ $user->user_id }}">{{ $user->username }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @endcan
                     <div class="col-md-4">
                         <select class="form-control" wire:model.live="statusFilter">
                             <option value="">งานทั้งหมด</option>
