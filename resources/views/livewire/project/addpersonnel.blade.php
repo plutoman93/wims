@@ -6,12 +6,6 @@
                     <div class="col-sm-6">
                         <h1>เพิ่มบุคลากร</h1>
                     </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a>Home</a></li>
-                            <li class="breadcrumb-item active">Add Personal</li>
-                        </ol>
-                    </div>
                 </div>
             </div><!-- /.container-fluid -->
         </section>
@@ -24,13 +18,6 @@
                         <div class="card card-primary">
                             <div class="card-header">
                                 <h3 class="card-title">จัดการการเพิ่มบุคลากร</h3>
-
-                                <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                        title="Collapse">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                </div>
                             </div>
                             <div class="card-body">
                                 <div class="form-group">
@@ -44,7 +31,7 @@
                                     <label for="inputTitle">คำนำหน้า</label>
                                     <select id="inputTitle" wire:model="title_name" class="form-control custom-select">
                                         <option selected>Select one</option>
-                                        @foreach($titles as $title)
+                                        @foreach ($titles as $title)
                                             <option value="{{ $title->title_name }}">{{ $title->title_name }}</option>
                                         @endforeach
                                     </select>
@@ -108,10 +95,12 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="inputStatus">ระดับผู้ใช้</label>
-                                    <select id="inputStatus" wire:model="user_status_name" class="form-control custom-select">
+                                    <select id="inputStatus" wire:model="user_status_name"
+                                        class="form-control custom-select">
                                         <option selected>เลือกระดับผู้ใช้</option>
-                                        @foreach($statuses as $status)
-                                            <option value="{{ $status->user_status_name }}">{{ $status->user_status_name }}</option>
+                                        @foreach ($statuses as $status)
+                                            <option value="{{ $status->user_status_name }}">
+                                                {{ $status->user_status_name }}</option>
                                         @endforeach
                                     </select>
                                     @error('user_status_name')

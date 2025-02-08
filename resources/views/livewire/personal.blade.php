@@ -6,12 +6,6 @@
                     <div class="col-sm-6">
                         <h1>บุคลากร</h1>
                     </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a>Home</a></li>
-                            <li class="breadcrumb-item active">Personel</li>
-                        </ol>
-                    </div>
                 </div>
             </div>
         </section>
@@ -24,7 +18,7 @@
                         <tr>
                             <th style="width: 1%">ลำดับ</th>
                             <th style="width: 10%">ชื่อ-นามสกุล</th>
-                            <th style="width: 1%" >อีเมล</th>
+                            <th style="width: 1%">อีเมล</th>
                             <th style="width: 5%" class="text-center">สถานะบุคลากร</th>
                             <th style="width: 10%" class="text-center">จัดการข้อมูลบุคลากร</th>
                         </tr>
