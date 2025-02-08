@@ -6,12 +6,27 @@
             </div>
             <div class="card-body">
                 <div class="row mb-3">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <input type="search" class="form-control" placeholder="ค้นหา" wire:model.live="search">
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-control" wire:model.live="selectedUser">
+                            <option value="">เลือกผู้ใช้</option>
+                            @foreach ($users as $user)
+                                <option value="{{ $user->user_id }}">{{ $user->username }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-control" wire:model.live="statusFilter">
+                            <option value="">งานทั้งหมด</option>
+                            <option value="1">เสร็จสิ้น</option>
+                            <option value="2">ยังไม่เสร็จสิ้น</option>
+                        </select>
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped">
+                    <table class="table table-bordered table-dark table-striped">
                         <thead class="bg-secondary text-white">
                             <tr class="text-center">
                                 <th>ลำดับ</th>
@@ -26,9 +41,9 @@
                         <tbody>
                             @forelse ($data as $key => $item)
                                 <tr>
-                                    <td class="text-center">{{ $data->firstItem() + $loop->index }}</td>
-                                    <td class="text-center">{{ $item->task_name }}</td>
-                                    <td class="text-center">{{ $item->task_detail }}</td>
+                                    <td class="text-center">{{ $data->firstItem() + $key }}</td>
+                                    <td class="text-center col-6 col-md-4">{{ $item->task_name }}</td>
+                                    <td class="text-center col-6 col-md-4">{{ $item->task_detail }}</td>
                                     <td class="text-center">
                                         {{ \Carbon\Carbon::parse($item->start_date)->format('d-m-Y') }}</td>
                                     <td class="text-center">

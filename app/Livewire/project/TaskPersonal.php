@@ -5,9 +5,9 @@ namespace App\Livewire\Project;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class TaskPersonal extends Component
 {
@@ -15,11 +15,12 @@ class TaskPersonal extends Component
 
     public $tasks;
     public $delete_id;
-
     public $search = '';
+    public $selectedUser = '';
+    public $statusFilter = '';
 
     protected $listeners = ['deleteConfirmed' => 'deleteTask']; // รับ Event จาก SweetAlert
-    protected $queryString = ['search']; // ทำให้ Search Query ถูกเก็บไว้ใน URL
+    protected $queryString = ['search', 'selectedUser', 'statusFilter']; // ทำให้ Search Query ถูกเก็บไว้ใน URL
 
     public function updatingSearch()
     {
@@ -29,9 +30,8 @@ class TaskPersonal extends Component
     public function delete($task_id) // ลบ Task
     {
         $this->delete_id = $task_id; // ระบุ Task ที่ต้องการลบ
-        $this->dispatch('confirmDelete', $task_id);  
+        $this->dispatch('confirmDelete', $task_id);
     }
-
 
     public function deleteTask() // ลบ Task
     {
@@ -78,8 +78,20 @@ class TaskPersonal extends Component
             ->when($this->search, function ($query) { // ค้นหา Task
                 $query->where('task_name', 'like', '%' . $this->search . '%'); // ค้นหา Task จากชื่อ Task
             })
+            ->when($this->selectedUser, function ($query) { // Filter ตามผู้ใช้
+                $query->where('user_id', $this->selectedUser);
+            })
+            ->when($this->statusFilter, function ($query) { // Filter ตามสถานะงาน
+                if ($this->statusFilter == '1') { 
+                    $query->where('task_status_id', '1'); 
+                } elseif ($this->statusFilter == '2') {
+                    $query->where('task_status_id', '2');
+                }
+            })
             ->paginate(10); // ใช้ Pagination
 
-        return view('livewire.project.viewtask', compact('data')); // ส่งข้อมูลไปยัง View
+        $users = User::all(); // ดึงข้อมูลผู้ใช้ทั้งหมด
+
+        return view('livewire.project.viewtask', compact('data', 'users')); // ส่งข้อมูลไปยัง View
     }
 }
