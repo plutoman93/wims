@@ -19,13 +19,13 @@ class NotificationController extends Controller
             // แบ่ง Task ออกเป็นชุดๆ (batch)
             $chunks = $tasks->chunk(5); // แบ่งเป็นชุด Task (ปรับได้ตามความเหมาะสม)
 
-            foreach ($chunks as $chunk) {
+            foreach ($chunks as $chunk) { // วนลูปแต่ละชุด Task
                 foreach ($chunk as $task) {
-                    $user = $task->user;
+                    $user = $task->user; // ดึงข้อมูลผู้ใช้ที่ถูกมอบหมายงาน
 
-                    if ($user) {
+                    if ($user) { // ตรวจสอบว่ามีผู้ใช้ที่ถูกมอบหมายงานหรือไม่
                         try {
-                            $user->notify(new MailNotification($task));
+                            $user->notify(new MailNotification($task)); // ส่ง Notification ไปยังผู้ใช้
                             $this->info("Notification sent to {$user->email} for task: {$task->task_name}");
                             Log::info("Notification sent to {$user->email} for task: {$task->task_name}");
                         } catch (\Exception $e) {
@@ -38,19 +38,18 @@ class NotificationController extends Controller
                     }
                 }
 
-                sleep(60);
+                // sleep(30); // หยุดระหว่างการส่ง Notification ชุดนี้กับชุดถัดไป (ปรับได้ตามความเหมาะสม)
             }
-        } catch (\Exception $e) {
-            $this->error("An error occurred: " . $e->getMessage());
+        } catch (\Exception $e) { // จัดการ error ที่เกิดขึ้น
+            $this->error("An error occurred: " . $e->getMessage()); // แสดง error message ใน console
             Log::error("An error occurred: " . $e->getMessage());
         }
 
-        return view('emails.example');
+        return view('emails.email')->with('success', 'ส่งเมล์สำเร็จ!'); // ส่งผลลัพธ์กลับไปยัง view 
     }
     public function error()
     {
         // โค้ดที่ต้องการให้ทำงานเมื่อเกิด error
-        return redirect()->back();
-        // return redirect()->back()->with('error', 'เกิดข้อผิดพลาดในการส่งอีเมล');
+        return redirect('email')->with('error', 'เกิดข้อผิดพลาด!'); // ส่งผลลัพธ์กลับไปยัง view
     }
 }

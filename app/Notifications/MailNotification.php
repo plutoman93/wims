@@ -46,7 +46,7 @@ class MailNotification extends Notification
             ->line('ชื่องาน: ' . $this->task->task_name) // Task name
             ->line('รายละเอียด: ' . $this->task->task_detail) // Task description (optional)
             ->line('วันครบกำหนด: ' . $this->task->due_date) // Due date (optional)
-            ->action('ดูงาน', url('/project/' . $this->task->task_id)) // Link to the task
+            ->action('ดูงาน', url('/project/')) // Link to the task
             ->line('ขอบคุณ!');
     }
 

@@ -48,6 +48,12 @@ class Profile extends Component
         }
     }
 
+    public function resetForm()
+    {
+        $this->reset(); // รีเซ็ตค่าในฟอร์ม
+        $this->mount(); // ดึงข้อมูลใหม่
+    }
+
     public function render()
     {
         return view('livewire.account_setting');
