@@ -7524,6 +7524,20 @@ button.bg-warning:hover {
     background-color: #dc3545 !important
 }
 
+.status-active {
+    background-color: #28a745;
+    color: white;
+    padding: 1px 1px;
+    border-radius: 5px;
+}
+
+.status-inactive {
+    background-color: #dc3545;
+    color: white;
+    padding: 1px 1px;
+    border-radius: 5px;
+}
+
 a.bg-danger:focus,
 a.bg-danger:hover,
 button.bg-danger:focus,

@@ -16,7 +16,8 @@
                 <table class="table table-striped projects">
                     <thead>
                         <tr>
-                            <th style="width: 1%">ลำดับ</th>
+                            <th style="width: 5%">ลำดับ</th>
+                            <th style="width: 7%">ชื่อผู้ใช้</th>
                             <th style="width: 10%">ชื่อ-นามสกุล</th>
                             <th style="width: 1%">อีเมล</th>
                             <th style="width: 5%" class="text-center">สถานะบุคลากร</th>
@@ -28,6 +29,7 @@
                             @foreach ($data as $item)
                                 <tr>
                                     <td>{{ $item->user_id }}</td>
+                                    <td>{{ $item->username }}</td>
                                     <td>{{ $item->first_name }} {{ $item->last_name }}</td>
                                     <td>{{ $item->email }}</td>
                                     <td class="text-center">

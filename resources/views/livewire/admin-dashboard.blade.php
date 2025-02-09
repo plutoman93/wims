@@ -106,7 +106,7 @@
                                     datasets: [{
                                         label: "จำนวนงาน",
                                         data: @json($tasksData['data']),
-                                        backgroundColor: ["#FF6384", "#4CAF50", "#FFCE56"],
+                                        backgroundColor: ["#3B71CA", "#4CAF50", "#FFCE56"],
                                         borderWidth: 1
                                     }]
                                 },

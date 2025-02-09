@@ -16,13 +16,14 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card card-primary">
-                            <div class="card-header">
-                                <h3 class="card-title">จัดการการเพิ่มบุคลากร</h3>
+                            <div class="card-header bg-dark">
+                                <h3 class="card-title">กรอกข้อมูลเพิ่มบุคลากร</h3>
                             </div>
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="inputName">ชื่อผู้ใช้</label>
-                                    <input type="text" id="username" wire:model="username" class="form-control">
+                                    <input type="text" id="username" wire:model="username" class="form-control"
+                                        placeholder="กรอกชื่อผู้ใช้">
                                     @error('username')
                                         <span class ="text-danger">{{ $message }}</span>
                                     @enderror
@@ -41,54 +42,60 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="inputName">ชื่อ</label>
-                                    <input type="text" id="first_name" wire:model="first_name" class="form-control">
+                                    <input type="text" id="first_name" wire:model="first_name" class="form-control"
+                                        placeholder="กรอกชื่อ">
                                     @error('first_name')
                                         <span class ="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="inputName">นามสกุล</label>
-                                    <input type="text" id="last_name" wire:model="last_name" class="form-control">
+                                    <input type="text" id="last_name" wire:model="last_name" class="form-control"
+                                        placeholder="กรอกนามสกุล">
                                     @error('last_name')
                                         <span class ="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="inputName">เบอร์มือถือ</label>
-                                    <input type="text" id="phone" wire:model="phone" class="form-control">
+                                    <input type="text" id="phone" wire:model="phone" class="form-control"
+                                        placeholder="กรอกเบอร์มือถือ">
                                     @error('phone')
                                         <span class ="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="form-group">
-                                    <label for="inputStatus">คณะ</label>
-                                    <select id="inputStatus" wire:model="faculty_name"
-                                        class="form-control custom-select">
-                                        <option selected>Select one</option>
-                                        <option value="เกษตรศาสตร์และเทคโนโลยี">เกษตรศาสตร์และเทคโนโลยี</option>
-                                        <option value="เทคโนโลยีการจัดการ">เทคโนโลยีการจัดการ</option>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="faculty_name">คณะ</label>
+                                        <select id="faculty_name" wire:model="faculty_name"
+                                            class="form-control custom-select">
+                                            <option selected>กรุณาเลือกคณะ</option>
+                                            <option value="เกษตรศาสตร์และเทคโนโลยี">เกษตรศาสตร์และเทคโนโลยี</option>
+                                            <option value="เทคโนโลยีการจัดการ">เทคโนโลยีการจัดการ</option>
+                                        </select>
                                         @error('faculty_name')
-                                            <span class ="text-danger">{{ $message }}</span>
+                                            <span class="text-danger">{{ $message }}</span>
                                         @enderror
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputStatus">สาขา</label>
-                                    <select id="inputStatus" wire:model="department_name"
-                                        class="form-control custom-select">
-                                        <option selected>Select one</option>
-                                        <option value="วิทยาการคอมพิวเตอร์">วิทยาการคอมพิวเตอร์</option>
-                                        <option value="เทคนิคคอมพิวเตอร์">เทคนิคคอมพิวเตอร์</option>
-                                        <option value="เทคโนโลยีคอมพิวเตอร์">เทคโนโลยีคอมพิวเตอร์</option>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="department_name">สาขา</label>
+                                        <select id="department_name" wire:model="department_name"
+                                            class="form-control custom-select">
+                                            <option selected>กรุณาเลือกสาขา</option>
+                                            <option value="วิทยาการคอมพิวเตอร์">วิทยาการคอมพิวเตอร์</option>
+                                            <option value="เทคนิคคอมพิวเตอร์">เทคนิคคอมพิวเตอร์</option>
+                                            <option value="เทคโนโลยีคอมพิวเตอร์">เทคโนโลยีคอมพิวเตอร์</option>
+                                        </select>
                                         @error('department_name')
-                                            <span class ="text-danger">{{ $message }}</span>
+                                            <span class="text-danger">{{ $message }}</span>
                                         @enderror
-                                    </select>
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputName">อีเมล</label>
-                                    <input type="text" id="email" wire:model="email" class="form-control">
+                                    <label for="inputName">อีเมล์</label>
+                                    <input type="text" id="email" wire:model="email" class="form-control"
+                                        placeholder="กรอกอีเมล์">
                                     @error('email')
                                         <span class ="text-danger">{{ $message }}</span>
                                     @enderror
@@ -132,3 +139,18 @@
         <!-- /.content -->
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const inputs = document.querySelectorAll('input[placeholder], select[placeholder]');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.dataset.placeholder = this.placeholder;
+                this.placeholder = '';
+            });
+            input.addEventListener('blur', function() {
+                this.placeholder = this.dataset.placeholder;
+            });
+        });
+    });
+</script>

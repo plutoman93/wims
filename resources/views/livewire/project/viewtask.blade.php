@@ -1,8 +1,8 @@
 <div>
     <div class="content-wrapper">
         <div class="card shadow-sm">
-            <div class="card-header bg-primary text-white">
-                <h4 class="mb-0">ตารางงาน</h4>
+            <div class="card-header bg-dark text-white">
+                <h4 class="mb-0 text-center">จัดการข้อมูลตารางงาน</h4>
             </div>
             <div class="card-body">
                 <div class="row mb-3">

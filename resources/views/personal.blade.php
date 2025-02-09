@@ -2,6 +2,6 @@
 
 @section('content')
 
-@livewire('project')
+@livewire('AccountManagement')
 
 @endsection

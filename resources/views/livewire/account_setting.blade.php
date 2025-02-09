@@ -56,7 +56,7 @@
                                                 @endif
                                             </div>
                                             <div class="form-group row">
-                                                <label for="inputTitle" class="col-sm-2 col-form-label">Title</label>
+                                                <label for="inputTitle" class="col-sm-2 col-form-label">คำนำหน้า</label>
                                                 <div class="col-sm-10">
                                                     <select wire:model="title_id" class="form-control" id="inputTitle">
                                                         <option value="">เลือกคำนำหน้า</option>
@@ -67,16 +67,15 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="inputName" class="col-sm-2 col-form-label">First
-                                                    Name</label>
+                                                <label for="inputName" class="col-sm-2 col-form-label">ขื่อ</label>
                                                 <div class="col-sm-10">
                                                     <input type="text" wire:model="first_name" class="form-control"
                                                         id="inputName" placeholder="ชื่อ">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="inputLastName" class="col-sm-2 col-form-label">Last
-                                                    Name</label>
+                                                <label for="inputLastName"
+                                                    class="col-sm-2 col-form-label">นามสกุล</label>
                                                 <div class="col-sm-10">
                                                     <input type="text" wire:model="last_name" class="form-control"
                                                         id="inputLastName" placeholder="นามสกุล">
@@ -109,6 +108,7 @@
 
                                             <div class="form-group row">
                                                 <div class="offset-sm-2 col-sm-10">
+                                                    <button type="button" class="btn btn-danger" wire:click="resetForm">ยกเลิก</button>
                                                     <button type="submit" class="btn btn-success">บันทึก</button>
                                                 </div>
                                             </div>
