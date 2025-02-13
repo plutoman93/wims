@@ -15,8 +15,7 @@ class DepartmentSeeder extends Seeder
         DB::table('departments')->truncate();
         DB::table('departments')->insert([
             ['department_id' => 1, 'department_name' => 'วิทยาการคอมพิวเตอร์','faculty_id' => 1],
-            ['department_id' => 2, 'department_name' => 'เทคนิคคอมพิวเตอร์','faculty_id' => 1],
-            ['department_id' => 3, 'department_name' => 'เทคโนโลยีคอมพิวเตอร์','faculty_id' => 1],
+            ['department_id' => 2, 'department_name' => 'เทคโนโลยีคอมพิวเตอร์','faculty_id' => 1],
         ]);
     }
 }
