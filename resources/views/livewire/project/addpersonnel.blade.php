@@ -83,7 +83,6 @@
                                             class="form-control custom-select">
                                             <option selected>กรุณาเลือกสาขา</option>
                                             <option value="วิทยาการคอมพิวเตอร์">วิทยาการคอมพิวเตอร์</option>
-                                            <option value="เทคนิคคอมพิวเตอร์">เทคนิคคอมพิวเตอร์</option>
                                             <option value="เทคโนโลยีคอมพิวเตอร์">เทคโนโลยีคอมพิวเตอร์</option>
                                         </select>
                                         @error('department_name')
@@ -129,8 +128,8 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <button type="button" class="btn btn-secondary" wire:click="resetForm">ยกเลิก</button>
                         <button type="submit" class="btn btn-success ">เพิ่ม</button>
+                        <button type="button" class="btn btn-danger" wire:click="resetForm">ยกเลิก</button>
                     </div>
                 </div>
             </form>

@@ -108,8 +108,8 @@
 
                                             <div class="form-group row">
                                                 <div class="offset-sm-2 col-sm-10">
-                                                    <button type="button" class="btn btn-danger" wire:click="resetForm">ยกเลิก</button>
                                                     <button type="submit" class="btn btn-success">บันทึก</button>
+                                                    <button type="button" class="btn btn-danger" wire:click="resetForm">ยกเลิก</button>
                                                 </div>
                                             </div>
                                         </form>

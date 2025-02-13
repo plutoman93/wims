@@ -8,7 +8,7 @@
             <ul class="navbar-nav bg-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
                 <!-- Sidebar - Brand -->
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center">
                     <div class="sidebar-brand-icon rotate-n-15">
                         <i class="fas fa-laugh-wink"></i>
                     </div>
@@ -33,11 +33,11 @@
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                         aria-expanded="true" aria-controls="collapseTwo">
                         <i class="fas fa-fw fa-table"></i>
-                        <span>จัดการข้อมูลงานในระบบ</span>
+                        <span>ข้อมูลงาน</span>
                     </a>
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="{{ route('projects') }}">จัดการข้อมูลตารางงาน</a>
+                            <a class="collapse-item" href="{{ route('projects') }}">ข้อมูลตารางงาน</a>
                             <a class="collapse-item" href="{{ route('add-task') }}">เพิ่มข้อมูลงาน</a>
                             <a class="collapse-item" href="{{ route('summary-schedule') }}">สรุปตารางงาน</a>
                         </div>
@@ -50,12 +50,12 @@
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                             aria-expanded="true" aria-controls="collapseUtilities">
                             <i class="fas fa-fw fa-user"></i>
-                            <span>จัดการข้อมูลบุคลากรในระบบ</span>
+                            <span>ข้อมูลบุคลากร</span>
                         </a>
                         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                             data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
-                                <a class="collapse-item" href="{{ route('personal') }}">จัดการบุคลากร</a>
+                                <a class="collapse-item" href="{{ route('personal') }}">บุคลากร</a>
                                 <a class="collapse-item" href="{{ route('addpersonal') }}">เพิ่มบุคลากร</a>
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('account_setting') }}">
                         <i class="fas fa-fw fa-cog"></i>
-                        <span>จัดการบัญชีผู้ใช้</span></a>
+                        <span>บัญชีผู้ใช้</span></a>
                 </li>
 
                 @can('can-view-function')
@@ -84,7 +84,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('email') }}">
                             <i class="fas fa-fw fa-envelope"></i>
-                            <span>ส่งเมล์ (ทดสอบ) </span>
+                            <span>ส่งเมล (ทดสอบ) </span>
                         </a>
                     </li>
                 @endcan

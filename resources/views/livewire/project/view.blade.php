@@ -28,7 +28,6 @@
                             <h3 class="profile-username text-center">{{ $title_name }} {{ $first_name }}
                                 {{ $last_name }}</h3>
 
-                            <p class="text-muted text-center">{{ $department_name }}</p>
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -41,6 +40,14 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
+                            <strong><i class="fa fa-envelope mr-1"></i> อีเมล</strong>
+
+                            <p class="text-muted">
+                                {{ $email }}
+                            </p>
+
+                            <hr>
+
                             <strong><i class="fas fa-phone mr-1"></i> เบอร์มือถือ</strong>
 
                             <p class="text-muted">
@@ -55,11 +62,9 @@
 
                             <hr>
 
-                            <strong><i class="fa fa-envelope mr-1"></i> อีเมล์</strong>
+                            <strong><i class="fa fa-address-card mr-1"></i> สาขา</strong>
 
-                            <p class="text-muted">
-                                {{ $email }}
-                            </p>
+                            <p class="text-muted">{{ $department_name }}</p>
 
                             <hr>
 

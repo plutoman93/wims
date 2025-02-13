@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="task_detail">รายละเอียดงาน</label>
-                                    <input type="text" id="task_detail" wire:model="task_detail" class="form-control"
+                                    <input type="area" id="task_detail" wire:model="task_detail" class="form-control"
                                         placeholder="กรอกรายละเอียดงาน">
                                     @error('task_detail')
                                         <span class="text-danger">{{ $message }}</span>
@@ -85,8 +85,8 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <button type="button" class="btn btn-danger" wire:click="resetForm">ยกเลิก</button>
                         <button type="submit" class="btn btn-success">เพิ่ม</button>
+                        <button type="button" class="btn btn-danger" wire:click="resetForm">ยกเลิก</button>
                     </div>
                 </div>
             </form>
