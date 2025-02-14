@@ -12,19 +12,29 @@ use Illuminate\Support\Facades\Log;
 class TaskPersonal extends Component
 {
     use WithPagination;
-
     public $tasks;
     public $delete_id;
     public $search = '';
     public $selectedUser = '';
     public $statusFilter = '';
+    public $selectedTasks = [];
+    public $selectAll = false;
 
-    protected $listeners = ['deleteConfirmed' => 'deleteTask']; // รับ Event จาก SweetAlert
+    protected $listeners = ['deleteConfirmed' => 'deleteTask', 'deleteSelectedConfirmed' => 'deleteSelectedTasks']; // รับ Event จาก SweetAlert
     protected $queryString = ['search', 'selectedUser', 'statusFilter']; // ทำให้ Search Query ถูกเก็บไว้ใน URL
 
     public function updatingSearch()
     {
         $this->resetPage(); // รีเซ็ตหน้าปัจจุบันเมื่อค้นหาใหม่
+    }
+
+    public function updatedSelectAll($value)
+    {
+        if ($value) {
+            $this->selectedTasks = Task::pluck('task_id')->toArray();
+        } else {
+            $this->selectedTasks = [];
+        }
     }
 
     public function delete($task_id) // ลบ Task
@@ -53,6 +63,19 @@ class TaskPersonal extends Component
                 'message' => 'ไม่พบ Task ที่ต้องการลบ'
             ]);
         }
+    }
+
+    public function confirmDeleteSelectedTasks()
+    {
+        $this->dispatch('confirmDeleteSelected');
+    }
+
+    public function deleteSelectedTasks()
+    {
+        Task::whereIn('task_id', $this->selectedTasks)->delete();
+        $this->selectedTasks = [];
+        $this->selectAll = false;
+        $this->dispatch('alert', ['type' => 'success', 'message' => 'ลบงานที่เลือกเรียบร้อยแล้ว']);
     }
 
     public function mount() // โหลดข้อมูล Task

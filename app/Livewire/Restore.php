@@ -2,55 +2,85 @@
 
 namespace App\Livewire;
 
+use Livewire\Component;
 use App\Models\User;
 use App\Models\Task;
-use Livewire\Component;
+use Illuminate\Support\Facades\Log;
 
 class Restore extends Component
 {
-    public $users, $tasks;
+    public $selectedUsers = [];
+    public $selectedTasks = [];
+    public $selectAllUsers = false;
+    public $selectAllTasks = false;
 
-    public function mount() // โหลดข้อมูล User และ Task ที่ถูกลบ
+    public function updatedSelectAllUsers($value)
     {
-        $this->users = collect();
-        $this->tasks = collect();
-        $this->showTrash();
+        if ($value) {
+            $this->selectedUsers = User::onlyTrashed()->pluck('user_id')->toArray();
+        } else {
+            $this->selectedUsers = [];
+        }
     }
 
-    public function showTrash() // แสดงข้อมูล User และ Task ที่ถูกลบ
+    public function updatedSelectAllTasks($value)
     {
-        $this->users = User::onlyTrashed()->get();
-        $this->tasks = Task::onlyTrashed()->get();
-
-        // return view('livewire.restore')->with('users', $this->users)->with('tasks', $this->tasks);
+        if ($value) {
+            $this->selectedTasks = Task::onlyTrashed()->pluck('task_id')->toArray();
+        } else {
+            $this->selectedTasks = [];
+        }
     }
 
-    public function restoreUser($id)
+    public function restoreUser($user_id)
     {
-        $user = User::onlyTrashed()->find($id);
-        $user->restore();
-        $this->refreshUsers();
+        $user = User::withTrashed()->find($user_id);
+        if ($user) {
+            $user->restore();
+            session()->flash('message', 'กู้คืนบัญชีเรียบร้อยแล้ว');
+        }
     }
 
-    public function restoreTask($id)
+    public function restoreTask($task_id)
     {
-        $task = Task::onlyTrashed()->find($id);
-        $task->restore();
-        $this->refreshTasks();
+        $task = Task::withTrashed()->find($task_id);
+        if ($task) {
+            $task->restore();
+            session()->flash('message', 'กู้คืนงานเรียบร้อยแล้ว');
+        }
     }
 
-    public function refreshUsers()
+    public function confirmRestoreSelectedUsers()
     {
-        $this->users = User::onlyTrashed()->get(); // โหลดข้อมูล User ที่ถูกลบ
+        $this->dispatch('confirmRestoreSelectedUsers');
     }
 
-    public function refreshTasks()
+    public function confirmRestoreSelectedTasks()
     {
-        $this->tasks = Task::onlyTrashed()->get(); // โหลดข้อมูล Task ที่ถูกลบ
+        $this->dispatch('confirmRestoreSelectedTasks');
+    }
+
+    public function restoreSelectedUsers()
+    {
+        User::withTrashed()->whereIn('user_id', $this->selectedUsers)->restore();
+        $this->selectedUsers = [];
+        $this->selectAllUsers = false;
+        $this->dispatch('alert', ['type' => 'success', 'message' => 'กู้คืนบัญชีที่เลือกเรียบร้อยแล้ว']);
+    }
+
+    public function restoreSelectedTasks()
+    {
+        Task::withTrashed()->whereIn('task_id', $this->selectedTasks)->restore();
+        $this->selectedTasks = [];
+        $this->selectAllTasks = false;
+        $this->dispatch('alert', ['type' => 'success', 'message' => 'กู้คืนงานที่เลือกเรียบร้อยแล้ว']);
     }
 
     public function render()
     {
-        return view('livewire.restore')->with('users', $this->users)->with('tasks', $this->tasks);
+        return view('livewire.restore', [
+            'users' => User::onlyTrashed()->get(),
+            'tasks' => Task::onlyTrashed()->get(),
+        ]);
     }
 }

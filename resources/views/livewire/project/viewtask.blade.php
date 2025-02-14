@@ -27,10 +27,16 @@
                         </select>
                     </div>
                 </div>
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <button class="btn btn-danger" wire:click="confirmDeleteSelectedTasks">ลบงานที่เลือก</button>
+                    </div>
+                </div>
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped">
                         <thead class="bg-secondary text-white">
                             <tr class="text-center">
+                                <th><input type="checkbox" wire:model="selectAll"></th>
                                 <th>ลำดับ</th>
                                 <th>ชื่องาน</th>
                                 <th>รายละเอียดงาน</th>
@@ -43,9 +49,13 @@
                         <tbody>
                             @forelse ($data as $key => $item)
                                 <tr>
+                                    <td class="text-center"><input type="checkbox" wire:model="selectedTasks"
+                                            value="{{ $item->task_id }}"></td>
                                     <td class="text-center">{{ $data->firstItem() + $key }}</td>
-                                    <td class="text-center text-truncate" style="max-width: 200px;">{{ $item->task_name }}</td>
-                                    <td class="text-center text-truncate" style="max-width: 400px;">{{ $item->task_detail }}</td>
+                                    <td class="text-center text-truncate" style="max-width: 200px;">
+                                        {{ $item->task_name }}</td>
+                                    <td class="text-center text-truncate" style="max-width: 400px;">
+                                        {{ $item->task_detail }}</td>
                                     <td class="text-center">
                                         {{ \Carbon\Carbon::parse($item->start_date)->addYears(543)->translatedFormat('d-M-Y') }}
                                     </td>
@@ -74,7 +84,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="text-center">ไม่พบข้อมูล</td>
+                                    <td colspan="8" class="text-center">ไม่พบข้อมูล</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -103,6 +113,23 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     @this.call('deleteTask', event.detail); // เรียก Livewire Method deleteTask
+                }
+            });
+        });
+
+        window.addEventListener('confirmDeleteSelected', event => {
+            Swal.fire({
+                title: 'คุณแน่ใจใช่มั้ย?',
+                text: "คุณต้องการลบงานที่เลือกทั้งหมดหรือไม่ ?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'ใช่, ลบเลย!',
+                cancelButtonText: 'ยกเลิก'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    @this.call('deleteSelectedTasks',event.detail); // เรียก Livewire Method deleteSelectedTasks
                 }
             });
         });
