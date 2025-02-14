@@ -15,9 +15,14 @@ class EditAccounts extends Component
     use WithFileUploads;
     public $idd, $username, $first_name, $last_name, $title_name, $phone, $department_name, $faculty_name, $email, $user_status_name, $password;
     public $title_id, $department_id, $faculty_id, $user_status_id;
+
     public function mount($id)
     {
-        // dd($id);
+        $this->loadUserData($id);
+    }
+
+    public function loadUserData($id)
+    {
         $data = User::find($id);
         $this->idd = $id;
         $this->username = $data->username;
@@ -29,7 +34,7 @@ class EditAccounts extends Component
         $this->faculty_id = $data->faculty_id;
         $this->email = $data->email;
         $this->user_status_id = $data->user_status_id;
-        $this->password = $data->password;
+        $this->password = ''; // ไม่โหลดรหัสผ่านเดิม
     }
 
     public function edit()
@@ -52,6 +57,11 @@ class EditAccounts extends Component
         } catch (\Exception $e) {
             dd($e);
         }
+    }
+
+    public function resetForm()
+    {
+        $this->loadUserData($this->idd); // โหลดข้อมูลเดิม
     }
 
     public function render()

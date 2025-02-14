@@ -8,6 +8,7 @@ use App\Models\TaskTypes;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class Add extends Component
 {
@@ -31,14 +32,18 @@ class Add extends Component
             'type_id' => 'required|exists:task_types,type_id',
         ]);
 
+        // แปลงวันที่เป็นปี พ.ศ.
+        $start_date = Carbon::createFromFormat('Y-m-d', $this->start_date)->subYears(543)->format('Y-m-d');
+        $due_date = Carbon::createFromFormat('Y-m-d', $this->due_date)->subYears(543)->format('Y-m-d');
+
         // หากไม่เลือกบุคลากรให้บันทึก user_id เป็น Admin ที่ล็อกอินอยู่
         $assignedUserId = $this->user_id ?? Auth::id();
 
         $task = Task::create([
             'task_name' => $this->task_name,
             'task_detail' => $this->task_detail,
-            'start_date' => $this->start_date,
-            'due_date' => $this->due_date,
+            'start_date' => $start_date,
+            'due_date' => $due_date,
             'type_id' => $this->type_id,
             'user_id' => $assignedUserId,
             'created_by' => Auth::id(),

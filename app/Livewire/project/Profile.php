@@ -11,10 +11,15 @@ class Profile extends Component
 {
     use WithFileUploads;
 
-    public $first_name, $last_name, $email, $phone, $photo, $title_name, $department_name, $faculty_name;
+    public $first_name, $last_name, $email, $phone, $photo, $title_name, $department_name, $faculty_name, $username, $password;
     public $title_id, $department_id, $faculty_id, $user_status_id;
 
     public function mount()
+    {
+        $this->loadUserData();
+    }
+
+    public function loadUserData()
     {
         $user = Auth::user();
 
@@ -26,6 +31,8 @@ class Profile extends Component
         $this->title_id = $user->title_id;
         $this->department_id = $user->department_id;
         $this->faculty_id = $user->faculty_id;
+        $this->username = $user->username;
+        $this->password = ''; // ไม่โหลดรหัสผ่านเดิม
     }
 
     public function updateProfile()
@@ -40,6 +47,8 @@ class Profile extends Component
                 'title_id' => $this->title_id,
                 'faculty_id' => $this->faculty_id,
                 'department_id' => $this->department_id,
+                'username' => $this->username,
+                'password' => $this->password ? bcrypt($this->password) : $user->password,
             ]);
             // แจ้งเตือนว่าอัปเดตข้อมูลสำเร็จ
             session()->flash('message', 'อัปเดตข้อมูลสำเร็จแล้ว');
@@ -51,7 +60,7 @@ class Profile extends Component
     public function resetForm()
     {
         $this->reset(); // รีเซ็ตค่าในฟอร์ม
-        $this->mount(); // ดึงข้อมูลใหม่
+        $this->loadUserData(); // ดึงข้อมูลใหม่
     }
 
     public function render()

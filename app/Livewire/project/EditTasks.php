@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Livewire\Project;
+
 use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\TaskTypes;
@@ -8,10 +9,14 @@ use Livewire\Component;
 
 class EditTasks extends Component
 {
-    public $task_id, $task_name, $task_detail, $start_date, $due_date, $task_status_name, $user_id;
-    public $task_status_id,$type_id;
+    public $task_id, $task_name, $task_detail, $start_date, $due_date, $task_status_id, $type_id, $user_id;
 
     public function mount($id)
+    {
+        $this->loadTaskData($id);
+    }
+
+    public function loadTaskData($id)
     {
         $data = Task::find($id);
         $this->task_id = $id;
@@ -27,7 +32,7 @@ class EditTasks extends Component
     public function edit()
     {
         try {
-            $task = Task::with('task_status','task_type')->find($this->task_id);
+            $task = Task::with('task_status', 'task_type')->find($this->task_id);
 
             $task->update([
                 'task_name' => $this->task_name,
@@ -43,6 +48,12 @@ class EditTasks extends Component
             dd($e);
         }
     }
+
+    public function resetForm()
+    {
+        $this->loadTaskData($this->task_id); // โหลดข้อมูลเดิม
+    }
+
     public function render()
     {
         return view('livewire.project.edittask', [
