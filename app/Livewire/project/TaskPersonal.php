@@ -69,6 +69,16 @@ class TaskPersonal extends Component
         $this->tasks = Task::all(); // อัปเดตข้อมูล Task ในคอมโพเนนต์
     }
 
+    public function updatedSelectedUser()
+    {
+        $this->resetPage(); // รีเซ็ต pagination เมื่อเปลี่ยนผู้ใช้
+    }
+
+    public function updatedStatusFilter()
+    {
+        $this->resetPage(); // รีเซ็ต pagination เมื่อเปลี่ยนสถานะงาน
+    }
+
     public function render()
     {
         $data = Task::query()
@@ -82,8 +92,8 @@ class TaskPersonal extends Component
                 $query->where('user_id', $this->selectedUser);
             })
             ->when($this->statusFilter, function ($query) { // Filter ตามสถานะงาน
-                if ($this->statusFilter == '1') { 
-                    $query->where('task_status_id', '1'); 
+                if ($this->statusFilter == '1') {
+                    $query->where('task_status_id', '1');
                 } elseif ($this->statusFilter == '2') {
                     $query->where('task_status_id', '2');
                 }

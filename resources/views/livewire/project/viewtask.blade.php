@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-bordered table-dark table-striped">
+                    <table class="table table-bordered table-striped">
                         <thead class="bg-secondary text-white">
                             <tr class="text-center">
                                 <th>ลำดับ</th>
@@ -44,12 +44,14 @@
                             @forelse ($data as $key => $item)
                                 <tr>
                                     <td class="text-center">{{ $data->firstItem() + $key }}</td>
-                                    <td class="text-center col-6 col-md-4">{{ $item->task_name }}</td>
-                                    <td class="text-center col-6 col-md-4">{{ $item->task_detail }}</td>
+                                    <td class="text-center text-truncate" style="max-width: 200px;">{{ $item->task_name }}</td>
+                                    <td class="text-center text-truncate" style="max-width: 400px;">{{ $item->task_detail }}</td>
                                     <td class="text-center">
-                                        {{ \Carbon\Carbon::parse($item->start_date)->format('d-m-Y') }}</td>
+                                        {{ \Carbon\Carbon::parse($item->start_date)->addYears(543)->translatedFormat('d-M-Y') }}
+                                    </td>
                                     <td class="text-center">
-                                        {{ \Carbon\Carbon::parse($item->due_date)->format('d-m-Y') }}</td>
+                                        {{ \Carbon\Carbon::parse($item->due_date)->addYears(543)->translatedFormat('d-M-Y') }}
+                                    </td>
                                     <td class="text-center">
                                         @if ($item->task_status_id == 1)
                                             <button wire:click="taskStatus({{ $item->task_id }}, 2)"
@@ -90,7 +92,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         window.addEventListener('confirmDelete', event => {
             Swal.fire({
-                title: 'Are you sure?',
+                title: 'คุณแน่ใจใช่มั้ย?',
                 text: "คุณต้องการลบงานนี้หรือไม่ ?",
                 icon: 'warning',
                 showCancelButton: true,
