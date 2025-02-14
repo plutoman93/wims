@@ -79,7 +79,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         window.addEventListener('confirmDelete', event => { // รับ Event จาก Livewire
             Swal.fire({ // แสดง SweetAlert
-                title: 'Are you sure?',
+                title: 'คุณแน่ใจใช่มั้ย?',
                 text: "คุณต้องการลบผู้ใช้นี้หรือไม่ ?",
                 icon: 'warning',
                 showCancelButton: true,

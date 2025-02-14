@@ -100,16 +100,39 @@
                                                         id="inputDepartment">
                                                         <option value="">เลือกสาขา</option>
                                                         <option value="1">วิทยาการคอมพิวเตอร์</option>
-                                                        <option value="2">เทคนิคคอมพิวเตอร์</option>
-                                                        <option value="3">เทคโนโลยีคอมพิวเตอร์</option>
+                                                        <option value="2">เทคโนโลยีคอมพิวเตอร์</option>
                                                     </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputEmail" class="col-sm-2 col-form-label">อีเมล</label>
+                                                <div class="col-sm-10">
+                                                    <input type="email" wire:model="email" class="form-control"
+                                                        id="inputEmail" placeholder="อีเมล">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputUserName"
+                                                    class="col-sm-2 col-form-label">ชื่อผู้ใช้</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" wire:model="username" class="form-control"
+                                                        id="inputUsername" placeholder="ชื่อผู้ใช้">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputPassword"
+                                                    class="col-sm-2 col-form-label">รหัสผ่าน</label>
+                                                <div class="col-sm-10">
+                                                    <input type="password" wire:model="password" class="form-control"
+                                                        id="inputPassword" placeholder="รหัสผ่าน">
                                                 </div>
                                             </div>
 
                                             <div class="form-group row">
                                                 <div class="offset-sm-2 col-sm-10">
                                                     <button type="submit" class="btn btn-success">บันทึก</button>
-                                                    <button type="button" class="btn btn-danger" wire:click="resetForm">ยกเลิก</button>
+                                                    <button type="button" class="btn btn-danger"
+                                                        wire:click="resetForm">ยกเลิก</button>
                                                 </div>
                                             </div>
                                         </form>

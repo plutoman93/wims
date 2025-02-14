@@ -2,10 +2,8 @@
     <div class="content-wrapper">
         <section class="content-header">
             <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>เพิ่มบุคลากร</h1>
-                    </div>
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0 text-center">เพิ่มบุคลากร</h4>
                 </div>
             </div><!-- /.container-fluid -->
         </section>
@@ -16,9 +14,6 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card card-primary">
-                            <div class="card-header bg-dark">
-                                <h3 class="card-title">กรอกข้อมูลเพิ่มบุคลากร</h3>
-                            </div>
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="inputName">ชื่อผู้ใช้</label>
@@ -31,7 +26,7 @@
                                 <div class="form-group">
                                     <label for="inputTitle">คำนำหน้า</label>
                                     <select id="inputTitle" wire:model="title_name" class="form-control custom-select">
-                                        <option selected>Select one</option>
+                                        <option selected>เลือกคำนำหน้า</option>
                                         @foreach ($titles as $title)
                                             <option value="{{ $title->title_name }}">{{ $title->title_name }}</option>
                                         @endforeach
@@ -92,9 +87,9 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputName">อีเมล์</label>
+                                    <label for="inputName">อีเมล</label>
                                     <input type="text" id="email" wire:model="email" class="form-control"
-                                        placeholder="กรอกอีเมล์">
+                                        placeholder="กรอกอีเมล">
                                     @error('email')
                                         <span class ="text-danger">{{ $message }}</span>
                                     @enderror
