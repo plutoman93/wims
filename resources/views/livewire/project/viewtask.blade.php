@@ -36,7 +36,7 @@
                     <table class="table table-bordered table-striped">
                         <thead class="bg-secondary text-white">
                             <tr class="text-center">
-                                <th><input type="checkbox" wire:model="selectAll"></th>
+                                <th><input type="checkbox" wire:click="toggleSelectAll"></th>
                                 <th>ลำดับ</th>
                                 <th>ชื่องาน</th>
                                 <th>รายละเอียดงาน</th>
@@ -129,7 +129,8 @@
                 cancelButtonText: 'ยกเลิก'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    @this.call('deleteSelectedTasks',event.detail); // เรียก Livewire Method deleteSelectedTasks
+                    @this.call('deleteSelectedTasks', event
+                    .detail); // เรียก Livewire Method deleteSelectedTasks
                 }
             });
         });
