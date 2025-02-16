@@ -75,7 +75,14 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('restore') }}">
                             <i class="fas fa-fw fa-trash"></i>
-                            <span>กู้คืนบัญชีและข้อมูลงาน</span></a>
+                            <span>กู้คืนบัญชี</span></a>
+                    </li>
+                @endcan
+                @can('can-view-function')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('restore-task') }}">
+                            <i class="fas fa-fw fa-trash"></i>
+                            <span>กู้คืนข้อมูลงาน</span></a>
                     </li>
                 @endcan
 

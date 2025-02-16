@@ -17,19 +17,37 @@ class Restore extends Component
     public function updatedSelectAllUsers($value)
     {
         if ($value) {
-            $this->selectedUsers = User::onlyTrashed()->pluck('user_id')->toArray();
+            $this->selectedUsers = User::onlyTrashed()->pluck('user_id')->map(fn($user_id) => (string) $user_id)->toArray();
         } else {
             $this->selectedUsers = [];
         }
+        $this->selectAllUsers = $value;
     }
 
     public function updatedSelectAllTasks($value)
     {
         if ($value) {
-            $this->selectedTasks = Task::onlyTrashed()->pluck('task_id')->toArray();
+            $this->selectedTasks = Task::onlyTrashed()->pluck('task_id')->map(fn($task_id) => (string) $task_id)->toArray();
         } else {
             $this->selectedTasks = [];
         }
+        $this->selectAllTasks = $value;
+    }
+
+    public function updatedSelectedUsers()
+    {
+        $this->selectAllUsers = count($this->selectedUsers) === User::onlyTrashed()->count();
+    }
+
+    public function updatedSelectedTasks()
+    {
+        $this->selectAllTasks = count($this->selectedTasks) === Task::onlyTrashed()->count();
+    }
+
+    public function hydrate()
+    {
+        $this->selectAllUsers = count($this->selectedUsers) === User::onlyTrashed()->count();
+        $this->selectAllTasks = count($this->selectedTasks) === Task::onlyTrashed()->count();
     }
 
     public function restoreUser($user_id)

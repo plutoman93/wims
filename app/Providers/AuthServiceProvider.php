@@ -22,5 +22,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('can-filter-task', function ($user) {
             return $user->status->user_status_name === 'admin';
         });
+
+        Gate::define('can-restore-task', function ($user) {
+            return $user->status->user_status_name === 'admin';
+        });
     }
 }
