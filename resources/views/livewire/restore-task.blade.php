@@ -2,17 +2,16 @@
     <div class="content-wrapper">
         <div class="card shadow-sm"></div>
         <div class="card-header bg-dark text-white">
-            <h4 class="mb-0 text-center">กู้คืนข้อมูลงาาน</h4>
+            <h4 class="mb-0 text-center">กู้คืนข้อมูลงาน</h4>
         </div>
         <div class="tab-content mt-3" id="restoreTabContent">
             <!-- Restore Account Tab -->
-            <div class="tab-pane fade show active" id="restore-account" role="tabpanel"
-                aria-labelledby="restore-account-tab">
+            <div class="tab-pane fade show active" id="restore-task" role="tabpanel" aria-labelledby="restore-task-tab">
 
                 <!-- ปุ่มกู้คืนที่เลือก -->
                 <div class="d-flex justify-content-between mb-3">
                     <button class="btn btn-success " wire:click="confirmRestoreSelectedTasks">
-                        <i class="fas fa-undo-alt"></i> กู้คืนบัญชีที่เลือก
+                        <i class="fas fa-undo-alt"></i> กู้คืนงานที่เลือก
                     </button>
                 </div>
 
@@ -21,7 +20,7 @@
                     <table class="table table-bordered table-striped">
                         <thead class="bg-secondary text-white text-center">
                             <tr>
-                                <th><input type="checkbox" wire:model="selectAllUsers"></th>
+                                <th><input type="checkbox" wire:model="selectAll"></th>
                                 <th>ลำดับ</th>
                                 <th>ชื่องาน</th>
                                 <th>รายละเอียดงาน</th>
@@ -31,10 +30,13 @@
                         <tbody>
                             @forelse ($tasks as $task)
                                 <tr class="text-center">
-                                    <td><input type="checkbox" wire:model="selectedUsers" value="{{ $task->task_id }}"></td>
+                                    <td><input type="checkbox" wire:model="selectedTasks" value="{{ $task->task_id }}">
+                                    </td>
                                     <td>{{ $task->task_id }}</td>
-                                    <td class="text-center text-truncate" style="max-width: 200px;">{{ $task->task_name }}</td>
-                                    <td class="text-center text-truncate" style="max-width: 400px;">{{ $task->task_detail }}</td>
+                                    <td class="text-center text-truncate" style="max-width: 200px;">
+                                        {{ $task->task_name }}</td>
+                                    <td class="text-center text-truncate" style="max-width: 400px;">
+                                        {{ $task->task_detail }}</td>
                                     <td>
                                         <button class="btn btn-success btn-sm"
                                             wire:click="restoreTask({{ $task->task_id }})">
@@ -81,6 +83,25 @@
                 title: "สำเร็จ!",
                 text: event.detail.message,
                 icon: event.detail.type
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            window.addEventListener('updateSelectAllUI', event => {
+                let selectedTasks = event.detail.selectedTasks;
+                let allCheckbox = document.querySelector(
+                    'input[type="checkbox"][wire\\:model="selectAll"]');
+                let checkboxes = document.querySelectorAll(
+                    'input[type="checkbox"][wire\\:model="selectedTasks"]');
+
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = selectedTasks.includes(parseInt(checkbox.value));
+                });
+
+                if (allCheckbox) {
+                    allCheckbox.checked = checkboxes.length === checkboxes.filter(checkbox =>
+                        checkbox.checked).length;
+                }
             });
         });
     });

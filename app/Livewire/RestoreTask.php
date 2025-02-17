@@ -11,32 +11,25 @@ class RestoreTask extends Component
     use WithPagination;
 
     public $selectedTasks = [];
-    public $selectAllTasks = false;
     public $selectAll = false;
-
-    public function updatedSelectAllTasks($value)
-    {
-        if ($value) {
-            $this->selectedTasks = Task::onlyTrashed()->pluck('task_id')->map(fn($task_id) => (string) $task_id)->toArray();
-        } else {
-            $this->selectedTasks = [];
-        }
-        $this->selectAllTasks = $value;
-    }
-
-    public function updatedSelectedTasks()
-    {
-        $this->selectAllTasks = count($this->selectedTasks) === Task::onlyTrashed()->count();
-    }
 
     public function updatedSelectAll($value)
     {
         if ($value) {
             $this->selectedTasks = Task::onlyTrashed()->pluck('task_id')->toArray();
-            $this->dispatch('alert', ['type' => 'info', 'message' => 'เลือกงานทั้งหมด']);
         } else {
             $this->selectedTasks = [];
         }
+
+        $this->dispatch('updateSelectAllUI', ['selectedTasks' => $this->selectedTasks]);
+    }
+
+    public function updatedSelectedTasks()
+    {
+        $tasksCount = Task::onlyTrashed()->count();
+        $this->selectAll = count($this->selectedTasks) === $tasksCount;
+
+        $this->dispatch('updateSelectAllUI', ['selectedTasks' => $this->selectedTasks]);
     }
 
     public function restoreTask($task_id)
@@ -53,18 +46,37 @@ class RestoreTask extends Component
         $this->dispatch('confirmRestoreSelectedTasks');
     }
 
+    // public function restoreSelectedTasks()
+    // {
+    //     Task::withTrashed()->whereIn('task_id', $this->selectedTasks)->restore();
+    //     $this->selectedTasks = [];
+    //     $this->selectAll = false;
+
+    //     // ส่ง event ไปอัปเดต checkbox ใน UI
+    //     $this->dispatch('updateSelectAllUI', ['selectedTasks' => $this->selectedTasks]);
+
+    //     // แจ้งเตือนสำเร็จ
+    //     $this->dispatch('alert', ['type' => 'success', 'message' => 'กู้คืนงานที่เลือกเรียบร้อยแล้ว']);
+    // }
+
     public function restoreSelectedTasks()
     {
-        Task::withTrashed()->whereIn('task_id', $this->selectedTasks)->restore();
-        $this->selectedTasks = [];
-        $this->selectAll = false;
-        $this->dispatch('alert', ['type' => 'success', 'message' => 'กู้คืนงานที่เลือกเรียบร้อยแล้ว']);
+        if (!empty($this->selectedTasks)) {
+            Task::withTrashed()->whereIn('task_id', $this->selectedTasks)->restore();
+            $this->selectedTasks = [];
+            $this->selectAll = false;
+
+            $this->dispatch('updateSelectAllUI', ['selectedTasks' => $this->selectedTasks]);
+            $this->dispatch('alert', ['type' => 'success', 'message' => 'กู้คืนงานที่เลือกเรียบร้อยแล้ว']);
+        } else {
+            $this->dispatch('alert', ['type' => 'warning', 'message' => 'กรุณาเลือกงานที่ต้องการกู้คืน']);
+        }
     }
 
     public function render()
     {
-        return view(
-            'livewire.restore-task'
-        )->with('tasks', Task::onlyTrashed()->paginate(10));
+        return view('livewire.restore-task', [
+            'tasks' => Task::onlyTrashed()->get(),
+        ]);
     }
 }
