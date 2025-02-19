@@ -65,8 +65,10 @@
                                         <select id="faculty_name" wire:model="faculty_name"
                                             class="form-control custom-select">
                                             <option selected>กรุณาเลือกคณะ</option>
-                                            <option value="เกษตรศาสตร์และเทคโนโลยี">เกษตรศาสตร์และเทคโนโลยี</option>
-                                            <option value="เทคโนโลยีการจัดการ">เทคโนโลยีการจัดการ</option>
+                                            @foreach ($faculties as $faculty)
+                                                <option value="{{ $faculty->faculty_name }}">
+                                                    {{ $faculty->faculty_name }}</option>
+                                            @endforeach
                                         </select>
                                         @error('faculty_name')
                                             <span class="text-danger">{{ $message }}</span>
@@ -77,8 +79,10 @@
                                         <select id="department_name" wire:model="department_name"
                                             class="form-control custom-select">
                                             <option selected>กรุณาเลือกสาขา</option>
-                                            <option value="วิทยาการคอมพิวเตอร์">วิทยาการคอมพิวเตอร์</option>
-                                            <option value="เทคโนโลยีคอมพิวเตอร์">เทคโนโลยีคอมพิวเตอร์</option>
+                                            @foreach ($departments as $item)
+                                                <option value="{{ $item->department_name }}">
+                                                    {{ $item->department_name }}</option>
+                                            @endforeach
                                         </select>
                                         @error('department_name')
                                             <span class="text-danger">{{ $message }}</span>
