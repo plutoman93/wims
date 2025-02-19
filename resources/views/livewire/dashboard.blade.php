@@ -100,7 +100,7 @@
                         var taskChart = new Chart(ctx, {
                             type: "bar", // ประเภทของกราฟ (เช่น bar, line, pie)
                             data: {
-                                labels: @json($tasksData['labels']),
+                                labels: @json($tasksData['labels'] ?? []),
                                 datasets: [{
                                     label: "จำนวนงาน",
                                     data: @json($tasksData['data']),
