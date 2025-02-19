@@ -1,6 +1,6 @@
 @extends('layouts.backend.master')
 @section('content')
-@livewire('admin-dashboard')
+@livewire('userdashboard')
     <div>
         <div class="content-wrapper">
             <section class="content-header">
