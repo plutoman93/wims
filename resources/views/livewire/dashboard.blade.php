@@ -2,7 +2,6 @@
     <div class="content-wrapper">
         <section class="content-header">
             <div class="container-fluid">
-
             </div><!-- /.container-fluid -->
         </section>
 
@@ -103,7 +102,7 @@
                                 labels: @json($tasksData['labels'] ?? []),
                                 datasets: [{
                                     label: "จำนวนงาน",
-                                    data: @json($tasksData['data']),
+                                    data: @json($tasksData['data'] ?? []),
                                     backgroundColor: ["#3B71CA", "#4CAF50", "#FFCE56"],
                                     borderWidth: 1
                                 }]
@@ -120,7 +119,6 @@
                         });
                     });
                 </script>
-
 
                 <!-- Pie Chart -->
                 <div class="col-xl-4 col-lg-5">
