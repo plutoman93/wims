@@ -31,7 +31,7 @@ class UserDashboard extends Component
     }
     public function render()
     {
-        return view('dashboard',[
+        return view('livewire.dashboard',[
             'count' => $this->count,
             'countCompleted' => $this->countCompleted,
             'countUncompleted' => $this->countUncompleted,
