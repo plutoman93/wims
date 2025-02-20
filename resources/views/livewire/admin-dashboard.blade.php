@@ -96,34 +96,37 @@
                         </div>
                     </div>
                     <script>
-                        document.addEventListener("DOMContentLoaded", function () {
-                            var ctx = document.getElementById("barChart").getContext("2d");
+                        document.addEventListener('DOMContentLoaded', function () {
+                            var ctx = document.getElementById('barChart').getContext('2d');
+                            var labels = @json($labels);
+                            var data = @json($data);
+
                             new Chart(ctx, {
-                                type: "bar",
+                                type: 'bar',
                                 data: {
-                                    labels: @json($labels),
+                                    labels: labels,
                                     datasets: [{
-                                        label: "จำนวนงาน",
-                                        data: @json($data),
-                                        backgroundColor: ["#3B71CA", "#4CAF50", "#FFCE56", "#E91E63", "#9C27B0"],
-                                        borderWidth: 1
+                                        label: 'จำนวนงาน',
+                                        data: data,
+                                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4CAF50', '#8E44AD'],
                                     }]
                                 },
                                 options: {
                                     responsive: true,
-                                    maintainAspectRatio: false,
+                                    maintainAspectRatio: false, // ทำให้ขนาดยืดหยุ่นตาม container
                                     scales: {
                                         y: {
                                             beginAtZero: true
                                         }
                                     }
                                 }
+
                             });
                         });
                     </script>
 
 
-                    <!-- Bar Chart -->
+                    <!-- Pie Chart -->
                     <div class="col-xl-4 col-lg-5">
                         <div class="card shadow mb-4">
                             <!-- Card Header -->
