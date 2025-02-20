@@ -96,22 +96,22 @@
                         </div>
                     </div>
                     <script>
-                        document.addEventListener("DOMContentLoaded", function () {
+                        document.addEventListener("DOMContentLoaded", function() {
                             var ctx = document.getElementById("barChart").getContext("2d");
-                            new Chart(ctx, {
-                                type: "bar",
+                            var barChart = new Chart(ctx, {
+                                type: "bar", // ประเภทของกราฟ (เช่น bar, line, pie)
                                 data: {
-                                    labels: @json($labels),
+                                    labels: @json($tasksData['labels']),
                                     datasets: [{
                                         label: "จำนวนงาน",
-                                        data: @json($data),
-                                        backgroundColor: ["#3B71CA", "#4CAF50", "#FFCE56", "#E91E63", "#9C27B0"],
+                                        data: @json($tasksData['data']),
+                                        backgroundColor: ["#3B71CA", "#4CAF50", "#FFCE56"],
                                         borderWidth: 1
                                     }]
                                 },
                                 options: {
                                     responsive: true,
-                                    maintainAspectRatio: false,
+                                    maintainAspectRatio: false, // ทำให้ขนาดยืดหยุ่นตาม container
                                     scales: {
                                         y: {
                                             beginAtZero: true
@@ -121,6 +121,7 @@
                             });
                         });
                     </script>
+
 
 
                     <!-- Bar Chart -->
