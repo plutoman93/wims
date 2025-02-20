@@ -82,6 +82,14 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
+                                                <label for="inputPhoneNumber"
+                                                    class="col-sm-2 col-form-label">เบอร์มือถือ</label>
+                                                <div class="col-sm-10">
+                                                    <input type="number" wire:model="phone" class="form-control"
+                                                        id="inputPhoneNumber" placeholder="เบอร์มือถือ">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
                                                 <label for="inputFaculty" class="col-sm-2 col-form-label">คณะ</label>
                                                 <div class="col-sm-10">
                                                     <select wire:model="faculty_id" class="form-control"
