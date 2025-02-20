@@ -24,6 +24,7 @@ class AdminDashboard extends Component
         }
     }
 
+
     public function mount()
     {
         if (Auth::user()->user_status_id == 1) {
