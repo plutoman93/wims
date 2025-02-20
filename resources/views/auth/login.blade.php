@@ -44,14 +44,13 @@
                         {{-- <div class="text-center"><a href="https://computer.surin.rmuti.ac.th/computer/index.php"><img
                                     src="https://rmuti.ac.th/main/wp-content/uploads/2021/05/RMUTI_KORAT-e1620021467198.png"
                                     width="150" height="150" alt="image" class="img-fluid"></a></div> --}}
-                        <div class="text-center"><a href="index.html"><img src="asset/frontend/images/logos/tech.png"
-                                    alt="" class="img-fluid"></a></div>
-                        <div class="text-center"><a href="index.html"><img
-                                    src="asset/frontend/images/logos/worksystem.png" alt=""
-                                    class="img-fluid"></a></div>
+                        <div class="text-center"><img src="asset/frontend/images/logos/tech.png" alt=""
+                                class="img-fluid"></a></div>
+                        <div class="text-center"><img src="asset/frontend/images/logos/worksystem.png" alt=""
+                                class="img-fluid"></a></div>
 
-                        <h3 class="mt-4">Login Here</h3>
-                        <p class="mb-5">Enter your valid username & password</p>
+                        <h3 class="mt-4">ลงชื่อเข้าใช้งาน</h3>
+                        <p class="mb-5">กรุณากรอกชื่อผู้ใช้และรหัสผ่าน</p>
                         @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul>
@@ -72,21 +71,21 @@
                             @csrf
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="loginusername">Username</label>
+                                    <label for="loginusername">ชื่อผู้ใช้</label>
                                     <input type="text" id="username" class="form-control" name="username"
                                         placeholder="Enter username" required>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="loginPassword">Password</label>
+                                    <label for="loginPassword">รหัสผ่าน</label>
                                     <input type="password" id="loginPassword" class="form-control" name="password"
                                         placeholder="Password" required>
                                 </div>
                             </div>
 
                             <div class="col-md-12.5">
-                                <button class="btn btn-primary" type="submit">Login</button>
+                                <button class="btn btn-primary" type="submit">เข้าสู่ระบบ</button>
 
                             </div>
                             {{-- <div class="regis">

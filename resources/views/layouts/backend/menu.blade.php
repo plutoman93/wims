@@ -87,14 +87,14 @@
                 @endcan
 
                 <!-- Nav Item - Tables -->
-                @can('can-view-function')
+                {{-- @can('can-view-function')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('email') }}">
                             <i class="fas fa-fw fa-envelope"></i>
                             <span>ส่งเมล (ทดสอบ) </span>
                         </a>
                     </li>
-                @endcan
+                @endcan --}}
             </ul>
     </nav>
 

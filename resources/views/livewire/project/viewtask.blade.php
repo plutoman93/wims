@@ -57,10 +57,10 @@
                                     <td class="text-center text-truncate" style="max-width: 400px;">
                                         {{ $item->task_detail }}</td>
                                     <td class="text-center">
-                                        {{ \Carbon\Carbon::parse($item->start_date)->addYears(543)->translatedFormat('d-M-Y') }}
+                                        {{ \Carbon\Carbon::parse($item->start_date)->addYears(543)->locale('th')->translatedFormat('d F Y') }}
                                     </td>
                                     <td class="text-center">
-                                        {{ \Carbon\Carbon::parse($item->due_date)->addYears(543)->translatedFormat('d-M-Y') }}
+                                        {{ \Carbon\Carbon::parse($item->due_date)->addYears(543)->locale('th')->translatedFormat('d F Y') }}
                                     </td>
                                     <td class="text-center">
                                         @if ($item->task_status_id == 1)
@@ -130,7 +130,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     @this.call('deleteSelectedTasks', event
-                    .detail); // เรียก Livewire Method deleteSelectedTasks
+                        .detail); // เรียก Livewire Method deleteSelectedTasks
                 }
             });
         });
