@@ -96,19 +96,17 @@
                         </div>
                     </div>
                     <script>
-                        document.addEventListener('DOMContentLoaded', function () {
-                            var ctx = document.getElementById('barChart').getContext('2d');
-                            var labels = @json($labels);
-                            var data = @json($data);
-
-                            new Chart(ctx, {
-                                type: 'bar',
+                        document.addEventListener("DOMContentLoaded", function() {
+                            var ctx = document.getElementById("barChart").getContext("2d");
+                            var barChart = new Chart(ctx, {
+                                type: "bar", // ประเภทของกราฟ (เช่น bar, line, pie)
                                 data: {
-                                    labels: labels,
+                                    labels: @json($tasksData['labels']),
                                     datasets: [{
-                                        label: 'จำนวนงาน',
-                                        data: data,
-                                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4CAF50', '#8E44AD'],
+                                        label: "จำนวนงาน",
+                                        data: @json($tasksData['data']),
+                                        backgroundColor: ["#3B71CA", "#4CAF50", "#FFCE56"],
+                                        borderWidth: 1
                                     }]
                                 },
                                 options: {
@@ -120,13 +118,13 @@
                                         }
                                     }
                                 }
-
                             });
                         });
                     </script>
 
 
-                    <!-- Pie Chart -->
+
+                    <!-- Bar Chart -->
                     <div class="col-xl-4 col-lg-5">
                         <div class="card shadow mb-4">
                             <!-- Card Header -->
