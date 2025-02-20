@@ -118,18 +118,13 @@
                                         }
                                     }
                                 }
-
                             });
                         });
                     </script>
 
 
-<<<<<<< HEAD
 
                     <!-- Bar Chart -->
-=======
-                    <!-- Pie Chart -->
->>>>>>> ed149861d487f50335dd73d874f4378c1711f933
                     <div class="col-xl-4 col-lg-5">
                         <div class="card shadow mb-4">
                             <!-- Card Header -->
