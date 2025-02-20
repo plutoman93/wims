@@ -85,6 +85,49 @@
                         <div class="card shadow mb-4">
                             <!-- Card Header -->
                             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">จำนวนงานของบุคลากร</h6>
+                            </div>
+                            <!-- Card Body -->
+                            <div class="card-body">
+                                <div class="chart-area">
+                                    <canvas id="barChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function () {
+                            var ctx = document.getElementById("barChart").getContext("2d");
+                            new Chart(ctx, {
+                                type: "bar",
+                                data: {
+                                    labels: @json($labels),
+                                    datasets: [{
+                                        label: "จำนวนงาน",
+                                        data: @json($data),
+                                        backgroundColor: ["#3B71CA", "#4CAF50", "#FFCE56", "#E91E63", "#9C27B0"],
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    maintainAspectRatio: false,
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                    }
+                                }
+                            });
+                        });
+                    </script>
+
+
+                    <!-- Bar Chart -->
+                    <div class="col-xl-4 col-lg-5">
+                        <div class="card shadow mb-4">
+                            <!-- Card Header -->
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                 <h6 class="m-0 font-weight-bold text-primary">สถานะงาน</h6>
                             </div>
                             <!-- Card Body -->
@@ -95,12 +138,11 @@
                             </div>
                         </div>
                     </div>
-
                     <script>
                         document.addEventListener("DOMContentLoaded", function() {
                             var ctx = document.getElementById("taskChart").getContext("2d");
                             var taskChart = new Chart(ctx, {
-                                type: "bar", // ประเภทของกราฟ (เช่น bar, line, pie)
+                                type: "pie", // ประเภทของกราฟ (เช่น bar, line, pie)
                                 data: {
                                     labels: @json($tasksData['labels']),
                                     datasets: [{
@@ -122,34 +164,6 @@
                             });
                         });
                     </script>
-
-
-                    <!-- Pie Chart -->
-                    <div class="col-xl-4 col-lg-5">
-                        <div class="card shadow mb-4">
-                            <!-- Card Header - Dropdown -->
-                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">จำนวนงานของบุคลากร</h6>
-                            </div>
-                            <!-- Card Body -->
-                            <div class="card-body">
-                                <div class="chart-pie pt-4 pb-2">
-                                    <canvas id="myPieChart"></canvas>
-                                </div>
-                                <div class="mt-4 text-center small">
-                                    <span class="mr-2">
-                                        <i class="fas fa-circle text-primary"></i> Direct
-                                    </span>
-                                    <span class="mr-2">
-                                        <i class="fas fa-circle text-success"></i> Social
-                                    </span>
-                                    <span class="mr-2">
-                                        <i class="fas fa-circle text-info"></i> Referral
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </section>
 
