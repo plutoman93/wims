@@ -48,15 +48,15 @@
                                     <td class="text-center">
                                         <a href="{{ route('profile-view', ['id' => $item->user_id]) }}"
                                             class="btn btn-primary btn-sm">
-                                            <i class="fas fa-folder"> View</i>
+                                            <i class="fas fa-folder"> ดู</i>
                                         </a>
                                         <a href="{{ route('profile-edit', ['id' => $item->user_id]) }}"
                                             class="btn btn-warning btn-sm">
-                                            <i class="fas fa-edit"> Edit</i>
+                                            <i class="fas fa-edit"> แก้ไข</i>
                                         </a>
                                         <a class="btn btn-danger btn-sm"
                                             wire:click.prevent="delete({{ $item->user_id }})">
-                                            <i class="fas fa-trash"> Delete</i>
+                                            <i class="fas fa-trash"> ลบ</i>
                                         </a>
                                     </td>
                                 </tr>
