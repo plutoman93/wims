@@ -134,11 +134,40 @@
                             <!-- Card Body -->
                             <div class="card-body">
                                 <div class="chart-pie pt-4 pb-2">
-                                    <canvas id="myPieChart"></canvas>
+                                    <canvas id="PieChart"></canvas>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            var typeCountData = @json($typeCountData); // ดึงข้อมูลจาก Controller
+
+                            // แยกค่าจาก typeCountData
+                            var labels = Object.keys(typeCountData);  // รายชื่อ User
+                            var data = Object.values(typeCountData); // จำนวนงานของแต่ละ User
+
+                            var ctx = document.getElementById('PieChart').getContext('2d');
+                            new Chart(ctx, {
+                                type: 'pie',
+                                data: {
+                                    labels: labels, // ชื่อของแต่ละ User
+                                    datasets: [{
+                                        label: 'จำนวนงานของแต่ละบุคคล',
+                                        data: data, // จำนวนงานของแต่ละ User
+                                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4CAF50', '#8E44AD'],
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    maintainAspectRatio: false,
+                                }
+                            });
+                        });
+                    </script>
+
                 </div>
             </section>
 
