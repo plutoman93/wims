@@ -9,8 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminDashboard extends Component
 {
-    public $count,$countCompleted,$countUncompleted,$tasksData = [],$typeCountData = [],$labels = [],
-    $data = [];
+    public $count, $countCompleted, $countUncompleted, $tasksData = [], $typeCountData = [], $labels = [], $data = [];
 
     public function taskCount()
     {
@@ -23,14 +22,15 @@ class AdminDashboard extends Component
     public function mount()
     {
         $this->tasksData = [
-            'labels' => ['งานทั้งหมด','งานที่เสร็จแล้ว','งานที่กำลังทำ'],
+            'labels' => ['งานทั้งหมด', 'งานที่เสร็จแล้ว', 'งานที่กำลังทำ'],
             'data' => [
                 Task::count(),
                 Task::where('task_status_id', 1)->count(),
                 Task::where('task_status_id', 2)->count(),
-                Task::where('task_status_id', 3)->count()
+                //Task::where('task_status_id', 3)->count()
             ]
         ];
+        $this->TypeCountData();
     }
 
     public function TypeCountData()
@@ -38,31 +38,29 @@ class AdminDashboard extends Component
         $this->labels = [];
         $this->data = [];
 
-    if (Auth::user()->user_status_id == 1) {
-        // ดึงข้อมูลผู้ใช้พร้อมนับจำนวน Task ใน Query เดียว
-        $tasksCount = Task::selectRaw('user_id, COUNT(*) as total')
-            ->groupBy('user_id')
-            ->pluck('total', 'user_id');
+        if (Auth::user()->user_status_id == 1) {
+            // ดึงข้อมูลผู้ใช้พร้อมนับจำนวน Task ใน Query เดียว
+            $tasksCount = Task::selectRaw('user_id, COUNT(*) as total')
+                ->groupBy('user_id')
+                ->pluck('total', 'user_id');
 
-        $users = User::all();
-        foreach ($users as $user) {
-            $this->labels[] = $user->username;
-            $this->data[] = $tasksCount[$user->id] ?? 0;
+            $users = User::all();
+            foreach ($users as $user) {
+                $this->labels[] = $user->username;
+                $this->data[] = $tasksCount[$user->id] ?? 0;
+            }
+        } else {
+            $userId = Auth::user()->id;
+            $this->typeCountData = [
+                'labels' => ['ปฏิบัติราชการ', 'ลากิจ', 'ประชุม'],
+                'data' => [
+                    Task::where('user_id', $userId)->where('type_id', 1)->count(),
+                    Task::where('user_id', $userId)->where('type_id', 2)->count(),
+                    Task::where('user_id', $userId)->where('type_id', 3)->count()
+                ]
+            ];
         }
-    } else {
-        $userId = Auth::user()->id;
-        $this->typeCountData =[
-            'labels' => ['ปฏิบัติราชการ', 'ลากิจ', 'ประชุม'],
-            'data' => [
-            Task::where('user_id', $userId)->where('type_id', 1)->count(),
-            Task::where('user_id', $userId)->where('type_id', 2)->count(),
-            Task::where('user_id', $userId)->where('type_id', 3)->count()
-        ]
-        ];
     }
-    }
-
-
 
     public function render()
     {
@@ -72,6 +70,9 @@ class AdminDashboard extends Component
             'countCompleted' => $this->countCompleted,
             'countUncompleted' => $this->countUncompleted,
             'tasksData' => $this->tasksData,
+            'typeCountData' => $this->typeCountData,
+            'labels' => $this->labels,
+            'data' => $this->data,
         ]);
     }
 }
