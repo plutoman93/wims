@@ -2,88 +2,76 @@
 
 namespace App\Livewire;
 
-use App\Models\Task;
 use App\Models\User;
+use App\Models\Task;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 
 class AdminDashboard extends Component
 {
-    public $count, $countCompleted, $countUncompleted, $tasksData = [];
-    public $typeCountData = [];
+    public $count,$countCompleted,$countUncompleted,$tasksData = [],$typeCountData = [],$labels = [],
+    $data = [];
 
     public function taskCount()
     {
-        if (Auth::user()->user_status_id == 1) {
-            $this->count = Task::count();
-            $this->countCompleted = Task::where('task_status_id', 1)->count();
-            $this->countUncompleted = Task::where('task_status_id', 2)->count();
-        } else {
-            $userId = Auth::user()->id;
-            $this->count = Task::where('user_id', $userId)->count();
-            $this->countCompleted = Task::where('user_id', $userId)->where('task_status_id', 1)->count();
-            $this->countUncompleted = Task::where('user_id', $userId)->where('task_status_id', 2)->count();
-        }
-    }
-
-    public function TypeCountData()
-    {
-        if (Auth::user()->user_status_id == 1) {
-            $users = User::all();
-            $result = [];
-            foreach ($users as $user) {
-                $result[$user->username] = Task::where('user_id', $user->id)->count();
-            }
-            $this->typeCountData = $result;
-        } else {
-            $userId = Auth::user()->id;
-            $this->typeCountData = [
-                'Typelabels' => ['ปฏิบัติราชการ', 'ลากิจ', 'ประชุม'],
-                'data' => [
-                    Task::where('user_id', $userId)->where('type_id', 1)->count(),
-                    Task::where('user_id', $userId)->where('type_id', 2)->count(),
-                    Task::where('user_id', $userId)->where('type_id', 3)->count()
-                ]
-            ];
-        }
+        //เขียน if else ตรวจสอบสถานะผู้ใช้แล้วค่อยนับงาน
+        $this->count = Task::count();
+        $this->countCompleted = Task::where('task_status_id', 1)->count();
+        $this->countUncompleted = Task::where('task_status_id', 2)->count();
     }
 
     public function mount()
     {
-        $this->taskCount();
-        $this->TypeCountData();
-
-        if (Auth::user()->user_status_id == 1) {
-            $this->tasksData = [
-                'labels' => ['งานทั้งหมด', 'งานที่เสร็จแล้ว', 'งานที่กำลังทำ'],
-                'data' => [
-                    Task::count(),
-                    Task::where('task_status_id', 1)->count(),
-                    Task::where('task_status_id', 2)->count(),
-                    Task::where('task_status_id', 3)->count()
-                ]
-            ];
-        } else {
-            $userId = Auth::user()->id;
-            $this->tasksData = [
-                'labels' => ['งานทั้งหมด', 'งานที่เสร็จแล้ว', 'งานที่กำลังทำ'],
-                'data' => [
-                    Task::where('user_id', $userId)->count(),
-                    Task::where('user_id', $userId)->where('task_status_id', 1)->count(),
-                    Task::where('user_id', $userId)->where('task_status_id', 2)->count(),
-                ]
-            ];
-        }
+        $this->tasksData = [
+            'labels' => ['งานทั้งหมด','งานที่เสร็จแล้ว','งานที่กำลังทำ'],
+            'data' => [
+                Task::count(),
+                Task::where('task_status_id', 1)->count(),
+                Task::where('task_status_id', 2)->count(),
+                Task::where('task_status_id', 3)->count()
+            ]
+        ];
     }
+
+    public function TypeCountData()
+    {
+        $this->labels = [];
+        $this->data = [];
+
+    if (Auth::user()->user_status_id == 1) {
+        // ดึงข้อมูลผู้ใช้พร้อมนับจำนวน Task ใน Query เดียว
+        $tasksCount = Task::selectRaw('user_id, COUNT(*) as total')
+            ->groupBy('user_id')
+            ->pluck('total', 'user_id');
+
+        $users = User::all();
+        foreach ($users as $user) {
+            $this->labels[] = $user->username;
+            $this->data[] = $tasksCount[$user->id] ?? 0;
+        }
+    } else {
+        $userId = Auth::user()->id;
+        $this->typeCountData =[
+            'labels' => ['ปฏิบัติราชการ', 'ลากิจ', 'ประชุม'],
+            'data' => [
+            Task::where('user_id', $userId)->where('type_id', 1)->count(),
+            Task::where('user_id', $userId)->where('type_id', 2)->count(),
+            Task::where('user_id', $userId)->where('type_id', 3)->count()
+        ]
+        ];
+    }
+    }
+
+
 
     public function render()
     {
+        $this->taskCount();
         return view('livewire.admin-dashboard', [
             'count' => $this->count,
             'countCompleted' => $this->countCompleted,
             'countUncompleted' => $this->countUncompleted,
             'tasksData' => $this->tasksData,
-            'typeCountData' => $this->typeCountData,
         ]);
     }
 }

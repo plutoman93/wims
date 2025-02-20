@@ -22,8 +22,8 @@ class EditTasks extends Component
         $this->task_id = $id;
         $this->task_name = $data->task_name;
         $this->task_detail = $data->task_detail;
-        $this->start_date = date('Y-m-d', strtotime($this->start_date . ' +543 years'));
-        $this->due_date = date('Y-m-d', strtotime($this->due_date . ' +543 years'));
+        $this->start_date = $data->start_date;
+        $this->due_date = $data->due_date;
         $this->task_status_id = $data->task_status_id;
         $this->type_id = $data->type_id;
         $this->user_id = $data->user_id;
