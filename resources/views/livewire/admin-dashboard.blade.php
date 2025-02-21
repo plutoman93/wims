@@ -101,12 +101,12 @@
                             var barChart = new Chart(ctx, {
                                 type: "bar", // ประเภทของกราฟ (เช่น bar, line, pie)
                                 data: {
-                                    labels: @json($tasksData['labels']),
+                                    labels: @json($typeCountData['labels'] ?? []),
                                     datasets: [{
-                                        label: "จำนวนงาน",
-                                        data: @json($tasksData['data']),
-                                        backgroundColor: ["#3B71CA", "#4CAF50", "#FFCE56"],
-                                        borderWidth: 1
+                                    label: "จำนวนงาน",
+                                    data: @json($typeCountData['data'] ?? []),
+                                    backgroundColor: ["#3B71CA", "#4CAF50", "#FFCE56"],
+                                    borderWidth: 1
                                     }]
                                 },
                                 options: {
