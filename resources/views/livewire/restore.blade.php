@@ -22,7 +22,7 @@
                     <table class="table table-bordered table-striped">
                         <thead class="bg-secondary text-white text-center">
                             <tr>
-                                <th><input type="checkbox" wire:model="selectAllUsers"></th>
+                                <th><input type="checkbox" wire:model.live="selectAllUsers"></th>
                                 <th>ลำดับ</th>
                                 <th>ชื่อผู้ใช้</th>
                                 <th>อีเมล</th>
@@ -51,6 +51,9 @@
                             @endforelse
                         </tbody>
                     </table>
+                    <div class="d-flex justify-content-center">
+                        {{ $users->links('vendor.livewire.task-paginate') }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -77,7 +80,11 @@
         });
 
         window.addEventListener('alert', event => {
-            showSweetAlert(event.detail.type, event.detail.message);
+            Swal.fire({
+                title: "กู้คืนเรียบร้อย!",
+                text: event.detail.message,
+                icon: "success"
+            });
         });
     });
 </script>

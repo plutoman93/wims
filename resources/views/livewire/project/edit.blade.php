@@ -16,6 +16,13 @@
                         <div class="card card-primary">
                             <div class="card-body">
                                 <div class="form-group">
+                                    <label for="input_first_name">ชื่อผู้ใช้</label>
+                                    <input type="text" id="username" wire:model="username" class="form-control">
+                                    @error('username')
+                                        <span class ="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
                                     <label for="input_title">เลือกคำนำหน้า</label>
                                     <select id="title" wire:model="title_id" class="form-control custom-select">
                                         <option value="">เลือกคำนำหน้า</option>

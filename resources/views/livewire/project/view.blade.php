@@ -37,15 +37,15 @@
                                     <strong><i class="fa fa-envelope mr-1"></i> อีเมล</strong>
                                     <p class="text-muted">{{ $email }}</p>
                                     <hr>
-                                    <strong><i class="fas fa-phone mr-1"></i> เบอร์มือถือ</strong>
-                                    <p class="text-muted">{{ $phone }}</p>
-                                    <hr>
                                     <strong><i class="fa fa-address-card mr-1"></i> คณะ</strong>
                                     <p class="text-muted">{{ $faculty_name }}</p>
-                                </div>
-                                <div class="col-md-6">
+                                    <hr>
                                     <strong><i class="fa fa-address-card mr-1"></i> สาขา</strong>
                                     <p class="text-muted">{{ $department_name }}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <strong><i class="fas fa-phone mr-1"></i> เบอร์มือถือ</strong>
+                                    <p class="text-muted">{{ $phone }}</p>
                                     <hr>
                                     <strong><i class="fas fa-user-alt mr-1"></i> ระดับผู้ใช้</strong>
                                     <p class="text-muted">{{ $data->status->user_status_name }}</p>

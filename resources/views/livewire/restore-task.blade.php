@@ -20,7 +20,7 @@
                     <table class="table table-bordered table-striped">
                         <thead class="bg-secondary text-white text-center">
                             <tr>
-                                <th><input type="checkbox" wire:model="selectAll"></th>
+                                <th><input type="checkbox" wire:model.live="selectAll"></th>
                                 <th>ลำดับ</th>
                                 <th>ชื่องาน</th>
                                 <th>รายละเอียดงาน</th>
@@ -51,6 +51,9 @@
                             @endforelse
                         </tbody>
                     </table>
+                    <div class="d-flex justify-content-center">
+                        {{ $tasks->links('vendor.livewire.task-paginate') }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -80,9 +83,9 @@
 
         window.addEventListener('alert', event => {
             Swal.fire({
-                title: "สำเร็จ!",
+                title: "กู้คืนเรียบร้อย!",
                 text: event.detail.message,
-                icon: event.detail.type
+                icon: "success"
             });
         });
 

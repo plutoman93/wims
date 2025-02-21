@@ -63,6 +63,7 @@
                                     <div class="form-group col-md-6">
                                         <label for="faculty_name">คณะ</label>
                                         <select id="faculty_name" wire:model="faculty_name"
+                                            wire:change="updateDepartments($event.target.value)"
                                             class="form-control custom-select">
                                             <option selected>กรุณาเลือกคณะ</option>
                                             @foreach ($faculties as $faculty)

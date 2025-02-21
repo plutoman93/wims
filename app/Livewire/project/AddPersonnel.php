@@ -17,6 +17,23 @@ class AddPersonnel extends Component
     use WithFileUploads;
 
     public $username, $title_name, $first_name, $last_name, $email, $password, $phone, $user_status_name, $department_name, $faculty_name;
+    public $filteredDepartments = [];
+
+    public function mount()
+    {
+        $this->filteredDepartments = Department::all();
+    }
+
+    public function updateDepartments($faculty_name)
+    {
+        if ($faculty_name == 'เกษตรศาสตร์และเทคโนโลยี') {
+            $this->filteredDepartments = Department::whereBetween('department_id', [1, 16])->get();
+        } elseif ($faculty_name == 'เทคโนโลยีการจัดการ') {
+            $this->filteredDepartments = Department::whereBetween('department_id', [17, 24])->get();
+        } else {
+            $this->filteredDepartments = Department::all();
+        }
+    }
 
     public function add()
     {
@@ -32,16 +49,16 @@ class AddPersonnel extends Component
             'phone' => 'required|min:8|max:10',
             'user_status_name' => 'required',
         ], [
-            'username.required' => "กรอกชื่อผู้ใช้",
-            'title_name.required' => "กรอกคำนำหน้า",
-            'first_name.required' => "กรอกชื่อจริง",
-            'last_name.required' => "กรอกนามสกุล",
-            'department_name.required' => "กรอกแผนก",
-            'faculty_name.required' => "กรอกคณะ",
-            'email.required' => "กรอกอีเมล",
-            'password.required' => "กรอกรหัสผ่าน",
-            'phone.required' => "กรอกเบอร์มือถือ",
-            'user_status_name.required' => "เลือกระดับผู้ใช้",
+            'username.required' => "กรุณากรอกชื่อผู้ใช้",
+            'title_name.required' => "กรุณาเลือกคำนำหน้า",
+            'first_name.required' => "กรุณากรอกชื่อจริง",
+            'last_name.required' => "กรุณากรอกนามสกุล",
+            'department_name.required' => "กรุณาเลือกแผนก",
+            'faculty_name.required' => "กรุณาเลือกคณะ",
+            'email.required' => "กรุณากรอกอีเมล",
+            'password.required' => "กรุณากรอกรหัสผ่าน",
+            'phone.required' => "กรุณากรอกเบอร์มือถือ",
+            'user_status_name.required' => "กรุณาเลือกระดับผู้ใช้",
         ]);
 
         try {
@@ -82,7 +99,7 @@ class AddPersonnel extends Component
         return view('livewire.project.addpersonnel', [
             'titles' => Title::all(),
             'faculties' => Faculty::all(),
-            'departments' => Department::all(),
+            'departments' => $this->filteredDepartments, // Use filteredDepartments here
             'statuses' => Status::all(),
         ]);
     }

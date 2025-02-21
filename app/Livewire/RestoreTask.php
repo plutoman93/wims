@@ -12,13 +12,14 @@ class RestoreTask extends Component
 
     public $selectedTasks = [];
     public $selectAll = false;
+    public $currentPageTasks = [];
 
     public function updatedSelectAll($value)
     {
         if ($value) {
-            $this->selectedTasks = Task::onlyTrashed()->pluck('task_id')->toArray();
+            $this->selectedTasks = array_merge($this->selectedTasks, $this->currentPageTasks);
         } else {
-            $this->selectedTasks = [];
+            $this->selectedTasks = array_diff($this->selectedTasks, $this->currentPageTasks);
         }
 
         $this->dispatch('updateSelectAllUI', ['selectedTasks' => $this->selectedTasks]);
@@ -26,8 +27,7 @@ class RestoreTask extends Component
 
     public function updatedSelectedTasks()
     {
-        $tasksCount = Task::onlyTrashed()->count();
-        $this->selectAll = count($this->selectedTasks) === $tasksCount;
+        $this->selectAll = count(array_intersect($this->selectedTasks, $this->currentPageTasks)) === count($this->currentPageTasks);
 
         $this->dispatch('updateSelectAllUI', ['selectedTasks' => $this->selectedTasks]);
     }
@@ -46,19 +46,6 @@ class RestoreTask extends Component
         $this->dispatch('confirmRestoreSelectedTasks');
     }
 
-    // public function restoreSelectedTasks()
-    // {
-    //     Task::withTrashed()->whereIn('task_id', $this->selectedTasks)->restore();
-    //     $this->selectedTasks = [];
-    //     $this->selectAll = false;
-
-    //     // ส่ง event ไปอัปเดต checkbox ใน UI
-    //     $this->dispatch('updateSelectAllUI', ['selectedTasks' => $this->selectedTasks]);
-
-    //     // แจ้งเตือนสำเร็จ
-    //     $this->dispatch('alert', ['type' => 'success', 'message' => 'กู้คืนงานที่เลือกเรียบร้อยแล้ว']);
-    // }
-
     public function restoreSelectedTasks()
     {
         if (!empty($this->selectedTasks)) {
@@ -73,10 +60,19 @@ class RestoreTask extends Component
         }
     }
 
+    public function updatingPage()
+    {
+        $this->selectAll = false;
+        $this->selectedTasks = array_diff($this->selectedTasks, $this->currentPageTasks);
+    }
+
     public function render()
     {
+        $tasks = Task::onlyTrashed()->paginate(10);
+        $this->currentPageTasks = array_column($tasks->items(), 'task_id');
+
         return view('livewire.restore-task', [
-            'tasks' => Task::onlyTrashed()->get(),
+            'tasks' => $tasks,
         ]);
     }
 }
