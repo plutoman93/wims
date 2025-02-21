@@ -13,8 +13,10 @@ use Livewire\WithFileUploads;
 class EditAccounts extends Component
 {
     use WithFileUploads;
+
     public $idd, $username, $first_name, $last_name, $title_name, $phone, $department_name, $faculty_name, $email, $user_status_name, $password;
     public $title_id, $department_id, $faculty_id, $user_status_id;
+    public $filteredDepartments = [];
 
     public function mount($id)
     {
@@ -34,13 +36,32 @@ class EditAccounts extends Component
         $this->faculty_id = $data->faculty_id;
         $this->email = $data->email;
         $this->user_status_id = $data->user_status_id;
-        $this->password = ''; // ไม่โหลดรหัสผ่านเดิม
+        $this->password = '';
+
+        // โหลดสาขาตามคณะที่เลือก
+        $this->updateDepartments($this->faculty_id);
+    }
+
+    public function updateDepartments($faculty_id)
+    {
+        if ($faculty_id) {
+            $this->filteredDepartments = Department::where('faculty_id', $faculty_id)->get();
+        } else {
+            $this->filteredDepartments = Department::all();
+        }
+    }
+
+    public function updatedFacultyId($value)
+    {
+        $this->faculty_id = $value;
+        $this->department_id = null; // รีเซ็ตค่า department_id
+        $this->updateDepartments($this->faculty_id);
     }
 
     public function edit()
     {
         try {
-            $user = User::with('title', 'department', 'faculty')->find($this->idd);
+            $user = User::find($this->idd);
 
             $user->update([
                 'username' => $this->username,
@@ -53,6 +74,7 @@ class EditAccounts extends Component
                 'faculty_id' => $this->faculty_id,
                 'department_id' => $this->department_id,
             ]);
+
             return redirect()->to(route('personal'));
         } catch (\Exception $e) {
             dd($e);
@@ -61,14 +83,14 @@ class EditAccounts extends Component
 
     public function resetForm()
     {
-        $this->loadUserData($this->idd); // โหลดข้อมูลเดิม
+        $this->loadUserData($this->idd);
     }
 
     public function render()
     {
         return view('livewire.project.edit', [
             'titles' => Title::all(),
-            'departments' => Department::all(),
+            'departments' => $this->filteredDepartments,
             'faculties' => Faculty::all(),
             'accounts' => Account::all(),
         ]);

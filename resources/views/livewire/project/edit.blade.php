@@ -51,10 +51,14 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="input_faculty">คณะ</label>
-                                    <select id="faculty" wire:model="faculty_id" class="form-control custom-select">
+                                    <select id="faculty" wire:model="faculty_id" class="form-control custom-select"
+                                        wire:change="updateDepartments($event.target.value)">
                                         <option value="">เลือกคณะ</option>
-                                        <option value="1">เกษตรศาสตร์และเทคโนโลยี</option>
-                                        <option value="2">เทคโนโลยีการจัดการ</option>
+                                        <@foreach ($faculties as $faculty)
+                                            <option value="{{ $faculty->faculty_id }}"> {{-- Use faculty_id as value --}}
+                                                {{ $faculty->faculty_name }}
+                                            </option>
+                                            @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -62,17 +66,18 @@
                                     <select id="department" wire:model="department_id"
                                         class="form-control custom-select">
                                         <option value="">เลือกสาขา</option>
-                                        <option value="1">วิทยาการคอมพิวเตอร์</option>
-                                        <option value="2">เทคนิคคอมพิวเตอร์</option>
-                                        <option value="3">เทคโนโลยีคอมพิวเตอร์</option>
+                                        @foreach ($departments as $department)
+                                            <option value="{{ $department->department_id }}">
+                                                {{ $department->department_name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="input_email">Email</label>
+                                    <label for="input_email">อีเมล</label>
                                     <input type="email" id="email" wire:model="email" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="input_password">Password</label>
+                                    <label for="input_password">รหัสผ่าน</label>
                                     <input type="password" id="password" wire:model="password" class="form-control">
                                 </div>
                             </div>
