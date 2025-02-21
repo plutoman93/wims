@@ -36,13 +36,15 @@ class UserDashboard extends Component
     public function countTasksByUser()
 {
 
+    $userId = Auth::id();
+
     $this->typeCountData = [
         'labels' => ['ปฏิบัติราชการ', 'ลากิจ', 'ประชุม'],
         'data' => [
-            Task::where('type_id',1)->count(),
-            Task::where('type_id', 2)->count(),
-            Task::where('type_id', 3)->count(),
-            Task::where('type_id', 4)->count(),
+            Task::where('user_id', $userId)->where('type_id',1)->count(),
+            Task::where('user_id', $userId)->where('type_id', 2)->count(),
+            Task::where('user_id', $userId)->where('type_id', 3)->count(),
+            Task::where('user_id', $userId)->where('type_id', 4)->count(),
 
         ]
     ];
