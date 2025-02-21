@@ -52,7 +52,7 @@
                                 <div class="form-group">
                                     <label for="input_faculty">คณะ</label>
                                     <select id="faculty" wire:model="faculty_id" class="form-control custom-select"
-                                        wire:change="updateDepartments($event.target.value)"">
+                                        wire:change="updateDepartments($event.target.value)">
                                         <option value="">เลือกคณะ</option>
                                         <@foreach ($faculties as $faculty)
                                             <option value="{{ $faculty->faculty_id }}"> {{-- Use faculty_id as value --}}
@@ -73,11 +73,11 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="input_email">Email</label>
+                                    <label for="input_email">อีเมล</label>
                                     <input type="email" id="email" wire:model="email" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="input_password">Password</label>
+                                    <label for="input_password">รหัสผ่าน</label>
                                     <input type="password" id="password" wire:model="password" class="form-control">
                                 </div>
                             </div>

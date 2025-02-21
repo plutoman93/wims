@@ -3,6 +3,8 @@
 namespace App\Livewire\Project;
 
 use App\Models\User;
+use App\Models\Department;
+use App\Models\Faculty;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +15,7 @@ class Profile extends Component
 
     public $first_name, $last_name, $email, $phone, $photo, $title_name, $department_name, $faculty_name, $username, $password;
     public $title_id, $department_id, $faculty_id, $user_status_id;
+    public $filteredDepartments = [];
 
     public function mount()
     {
@@ -33,12 +36,32 @@ class Profile extends Component
         $this->faculty_id = $user->faculty_id;
         $this->username = $user->username;
         $this->password = ''; // ไม่โหลดรหัสผ่านเดิม
+
+        // โหลดรายการสาขาตามคณะที่เลือก
+        $this->updateDepartments($this->faculty_id);
+    }
+
+    public function updateDepartments($faculty_id)
+    {
+        if ($faculty_id) {
+            $this->filteredDepartments = Department::where('faculty_id', $faculty_id)->get();
+        } else {
+            $this->filteredDepartments = Department::all();
+        }
+    }
+
+    public function updatedFacultyId($value)
+    {
+        $this->faculty_id = $value;
+        $this->department_id = null; // รีเซ็ตค่า department_id
+        $this->updateDepartments($this->faculty_id);
     }
 
     public function updateProfile()
     {
         try {
-            $user = User::with('title', 'department', 'faculty')->find(Auth::id());
+            $user = User::find(Auth::id());
+
             $user->update([
                 'first_name' => $this->first_name,
                 'last_name' => $this->last_name,
@@ -50,6 +73,7 @@ class Profile extends Component
                 'username' => $this->username,
                 'password' => $this->password ? bcrypt($this->password) : $user->password,
             ]);
+
             // แจ้งเตือนว่าอัปเดตข้อมูลสำเร็จ
             session()->flash('message', 'อัปเดตข้อมูลสำเร็จแล้ว');
         } catch (\Exception $e) {
@@ -59,12 +83,14 @@ class Profile extends Component
 
     public function resetForm()
     {
-        $this->reset(); // รีเซ็ตค่าในฟอร์ม
-        $this->loadUserData(); // ดึงข้อมูลใหม่
+        $this->loadUserData();
     }
 
     public function render()
     {
-        return view('livewire.account_setting');
+        return view('livewire.account_setting', [
+            'faculties' => Faculty::all(),
+            'departments' => $this->filteredDepartments,
+        ]);
     }
 }

@@ -93,10 +93,13 @@
                                                 <label for="inputFaculty" class="col-sm-2 col-form-label">คณะ</label>
                                                 <div class="col-sm-10">
                                                     <select wire:model="faculty_id" class="form-control"
+                                                        wire:change="updateDepartments($event.target.value)"
                                                         id="inputFaculty">
                                                         <option value="">เลือกคณะ</option>
-                                                        <option value="1">เกษตรศาสตร์และเทคโนโลยี</option>
-                                                        <option value="2">เทคโนโลยีการจัดการ</option>
+                                                        @foreach ($faculties as $faculty)
+                                                            <option value="{{ $faculty->faculty_id }}">
+                                                                {{ $faculty->faculty_name }}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
@@ -107,8 +110,10 @@
                                                     <select wire:model="department_id" class="form-control"
                                                         id="inputDepartment">
                                                         <option value="">เลือกสาขา</option>
-                                                        <option value="1">วิทยาการคอมพิวเตอร์</option>
-                                                        <option value="2">เทคโนโลยีคอมพิวเตอร์</option>
+                                                        @foreach ($departments as $department)
+                                                            <option value="{{ $department->department_id }}">
+                                                                {{ $department->department_name }}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
