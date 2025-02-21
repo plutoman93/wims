@@ -73,14 +73,14 @@
                                 <div class="form-group">
                                     <label for="loginusername">ชื่อผู้ใช้</label>
                                     <input type="text" id="username" class="form-control" name="username"
-                                        placeholder="Enter username" required>
+                                        placeholder="กรอกชื่อผู้ใช้" required>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="loginPassword">รหัสผ่าน</label>
                                     <input type="password" id="loginPassword" class="form-control" name="password"
-                                        placeholder="Password" required>
+                                        placeholder="กรอกรหัสผ่าน" required>
                                 </div>
                             </div>
 
