@@ -2,12 +2,10 @@
     <div class="content-wrapper">
         <section class="content-header">
             <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>แก้ไขข้อมูลงาน</h1>
-                    </div>
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0 text-center">แก้ไขข้อมูลงาน</h4>
                 </div>
-            </div><!-- /.container-fluid -->
+            </div>
         </section>
         {{-- @dd(555) --}}
         <!-- Main content -->
@@ -16,9 +14,6 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card card-primary">
-                            <div class="card-header bg-dark">
-                                <h3 class="card-title">กรอกข้อมูลงาน</h3>
-                            </div>
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="inputName">ชื่องาน</label>

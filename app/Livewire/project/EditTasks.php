@@ -6,6 +6,7 @@ use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\TaskTypes;
 use Livewire\Component;
+use Carbon\Carbon;
 
 class EditTasks extends Component
 {
@@ -22,8 +23,11 @@ class EditTasks extends Component
         $this->task_id = $id;
         $this->task_name = $data->task_name;
         $this->task_detail = $data->task_detail;
-        $this->start_date = $data->start_date;
-        $this->due_date = $data->due_date;
+
+        // แปลงวันที่เป็น พ.ศ. ก่อนแสดง
+        $this->start_date = $data->start_date ? Carbon::parse($data->start_date)->addYears(543)->format('Y-m-d') : null;
+        $this->due_date = $data->due_date ? Carbon::parse($data->due_date)->addYears(543)->format('Y-m-d') : null;
+
         $this->task_status_id = $data->task_status_id;
         $this->type_id = $data->type_id;
         $this->user_id = $data->user_id;
@@ -34,11 +38,15 @@ class EditTasks extends Component
         try {
             $task = Task::with('task_status', 'task_type')->find($this->task_id);
 
+            // แปลงวันที่กลับเป็น ค.ศ. ก่อนบันทึก
+            $start_date_formatted = $this->start_date ? Carbon::parse($this->start_date)->subYears(543)->format('Y-m-d') : null;
+            $due_date_formatted = $this->due_date ? Carbon::parse($this->due_date)->subYears(543)->format('Y-m-d') : null;
+
             $task->update([
                 'task_name' => $this->task_name,
                 'task_detail' => $this->task_detail,
-                'start_date' => $this->start_date,
-                'due_date' => $this->due_date,
+                'start_date' => $start_date_formatted,
+                'due_date' => $due_date_formatted,
                 'task_status_id' => $this->task_status_id,
                 'type_id' => $this->type_id,
                 'user_id' => $this->user_id,
