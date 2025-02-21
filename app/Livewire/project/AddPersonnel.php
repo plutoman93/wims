@@ -17,6 +17,23 @@ class AddPersonnel extends Component
     use WithFileUploads;
 
     public $username, $title_name, $first_name, $last_name, $email, $password, $phone, $user_status_name, $department_name, $faculty_name;
+    public $filteredDepartments = [];
+
+    public function mount()
+    {
+        $this->filteredDepartments = Department::all();
+    }
+
+    public function updateDepartments($faculty_name)
+    {
+        if ($faculty_name == 'เกษตรศาสตร์และเทคโนโลยี') {
+            $this->filteredDepartments = Department::whereBetween('department_id', [1, 16])->get();
+        } elseif ($faculty_name == 'เทคโนโลยีการจัดการ') {
+            $this->filteredDepartments = Department::whereBetween('department_id', [17, 24])->get();
+        } else {
+            $this->filteredDepartments = Department::all();
+        }
+    }
 
     public function add()
     {
@@ -82,7 +99,7 @@ class AddPersonnel extends Component
         return view('livewire.project.addpersonnel', [
             'titles' => Title::all(),
             'faculties' => Faculty::all(),
-            'departments' => Department::all(),
+            'departments' => $this->filteredDepartments, // Use filteredDepartments here
             'statuses' => Status::all(),
         ]);
     }
