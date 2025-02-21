@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UserDashboard extends Component
 {
-    public $count, $countCompleted, $countUncompleted, $tasksData = [];
+    public $count, $countCompleted, $countUncompleted, $tasksData = [],$typeCountData =[];
 
     public function taskCount()
     {
@@ -33,14 +33,32 @@ class UserDashboard extends Component
         ];
     }
 
+    public function countTasksByUser()
+{
+
+    $this->typeCountData = [
+        'labels' => ['ปฏิบัติราชการ', 'ลากิจ', 'ประชุม'],
+        'data' => [
+            Task::where('type_id',1)->count(),
+            Task::where('type_id', 2)->count(),
+            Task::where('type_id', 3)->count(),
+            Task::where('type_id', 4)->count(),
+
+        ]
+    ];
+}
+
     public function render()
     {
         $this->taskCount();
+        $this->countTasksByUser();
+
         return view('livewire.dashboard', [
             'count' => $this->count,
             'countCompleted' => $this->countCompleted,
             'countUncompleted' => $this->countUncompleted,
             'tasksData' => $this->tasksData,
+            'typeCountData' => $this->typeCountData, // ข้อมูลจำนวนงานของแต่ละ user (ใช้ในกราฟแท่ง)
         ]);
     }
 }

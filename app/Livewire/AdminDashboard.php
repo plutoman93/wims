@@ -20,16 +20,20 @@ class AdminDashboard extends Component
     }
 
     public function countTasksByUser()
-    {
-        $users = User::all();
+{
+    $users = User::all();
 
-        $this->typeCountData = [
-            'labels' => $users->pluck('username')->toArray(), // ดึงชื่อผู้ใช้มาเป็น labels
-            'data' => $users->map(function ($user) {
-                return Task::where('user_id', $user->id)->count(); // นับงานทั้งหมดของผู้ใช้แต่ละคน
-            })->toArray()
-        ];
-    }
+    $this->typeCountData = [
+        'labels' => [User::find(1)->first_name, User::find(2)->first_name, User::find(3)->first_name,],
+        'data' => [
+            Task::where('user_id', Auth::id())->count(),
+            Task::where('user_id', 2)->count(),
+            Task::where('user_id', 3)->count(),
+            Task::where('user_id', 4)->count(),
+
+        ]
+    ];
+}
 
     public function mount()
     {
@@ -41,7 +45,7 @@ class AdminDashboard extends Component
                 Task::where('task_status_id', 2)->count(),
             ]
         ];
-        $this->countTasksByUser();
+
     }
 
 
@@ -49,6 +53,7 @@ class AdminDashboard extends Component
     {
         // เรียกใช้ taskCount() เพื่ออัปเดตค่าต่างๆ เกี่ยวกับจำนวนงาน
         $this->taskCount();
+        $this->countTasksByUser();
 
         return view('livewire.admin-dashboard', [
             'count' => $this->count, // ส่งตัวแปร count ไปที่ view

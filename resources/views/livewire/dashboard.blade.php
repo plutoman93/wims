@@ -94,25 +94,22 @@
                     </div>
                 </div>
                 <script>
-                    document.addEventListener("DOMContentLoaded", function () {
-                        var labels = @json($labels ?? []);
-                        var data = @json($data ?? []);
-
+                    document.addEventListener("DOMContentLoaded", function() {
                         var ctx = document.getElementById("barChart").getContext("2d");
-                        new Chart(ctx, {
-                            type: "bar",
+                        var barChart = new Chart(ctx, {
+                            type: "bar", // ประเภทของกราฟ (เช่น bar, line, pie)
                             data: {
-                                labels: labels,
+                                labels: {!! json_encode($typeCountData['labels']) !!},
                                 datasets: [{
                                     label: "จำนวนงาน",
-                                    data: data,
+                                    data: {!! json_encode($typeCountData['data']) !!},
                                     backgroundColor: ["#3B71CA", "#4CAF50", "#FFCE56"],
                                     borderWidth: 1
                                 }]
                             },
                             options: {
                                 responsive: true,
-                                maintainAspectRatio: false,
+                                maintainAspectRatio: false, // ทำให้ขนาดยืดหยุ่นตาม container
                                 scales: {
                                     y: {
                                         beginAtZero: true
