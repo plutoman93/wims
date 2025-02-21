@@ -83,16 +83,39 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        document.querySelectorAll('input[type="date"]').forEach(input => {
-            input.addEventListener('change', function() {
-                let date = new Date(this.value);
-                if (!isNaN(date)) {
-                    let year = date.getFullYear() + 543;
-                    let month = ('0' + (date.getMonth() + 1)).slice(-2);
-                    let day = ('0' + date.getDate()).slice(-2);
-                    this.value = `${year}-${month}-${day}`;
-                }
-            });
+        let originalStartDate = document.getElementById('start_date').value;
+        let originalDueDate = document.getElementById('due_date').value;
+
+        // เมื่อมีการแก้ไขวันที่เริ่มต้น
+        document.getElementById('start_date').addEventListener('change', function() {
+            let newDate = this.value;
+            if (newDate) {
+                let originalYear = originalStartDate.split('-')[0];
+                let originalMonth = originalStartDate.split('-')[1];
+                let originalDay = originalStartDate.split('-')[2];
+
+                let year = newDate.split('-')[0] || originalYear;
+                let month = newDate.split('-')[1] || originalMonth;
+                let day = newDate.split('-')[2] || originalDay;
+
+                this.value = `${year}-${month}-${day}`;
+            }
+        });
+
+        // เมื่อมีการแก้ไขวันที่เสร็จสิ้น
+        document.getElementById('due_date').addEventListener('change', function() {
+            let newDate = this.value;
+            if (newDate) {
+                let originalYear = originalDueDate.split('-')[0];
+                let originalMonth = originalDueDate.split('-')[1];
+                let originalDay = originalDueDate.split('-')[2];
+
+                let year = newDate.split('-')[0] || originalYear;
+                let month = newDate.split('-')[1] || originalMonth;
+                let day = newDate.split('-')[2] || originalDay;
+
+                this.value = `${year}-${month}-${day}`;
+            }
         });
     });
 </script>

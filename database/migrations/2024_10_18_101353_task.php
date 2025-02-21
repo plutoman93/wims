@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id('task_id'); //แก้การประกาศ PrimaryKey
             $table->string('task_name');
             $table->text('task_detail');
-            $table->string('start_date');
-            $table->string('due_date');
+            $table->date('start_date');
+            $table->date('due_date');
             $table->string('file',2048)->nullable();
             $table->foreignId('task_status_id')->references('task_status_id')->on('task_statuses');
             $table->foreignId('type_id')->index();
