@@ -51,6 +51,9 @@
                             @endforelse
                         </tbody>
                     </table>
+                    <div class="d-flex justify-content-center">
+                        {{ $users->links('vendor.livewire.task-paginate') }}
+                    </div>
                 </div>
             </div>
         </div>

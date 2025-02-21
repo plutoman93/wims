@@ -4,15 +4,11 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\User;
-use App\Models\Task;
-use Illuminate\Support\Facades\Log;
 
 class Restore extends Component
 {
     public $selectedUsers = [];
-    public $selectedTasks = [];
     public $selectAllUsers = false;
-    public $selectAllTasks = false;
 
     public function updatedSelectAllUsers($value)
     {
@@ -24,30 +20,14 @@ class Restore extends Component
         $this->selectAllUsers = $value;
     }
 
-    public function updatedSelectAllTasks($value)
-    {
-        if ($value) {
-            $this->selectedTasks = Task::onlyTrashed()->pluck('task_id')->map(fn($task_id) => (string) $task_id)->toArray();
-        } else {
-            $this->selectedTasks = [];
-        }
-        $this->selectAllTasks = $value;
-    }
-
     public function updatedSelectedUsers()
     {
         $this->selectAllUsers = count($this->selectedUsers) === User::onlyTrashed()->count();
     }
 
-    public function updatedSelectedTasks()
-    {
-        $this->selectAllTasks = count($this->selectedTasks) === Task::onlyTrashed()->count();
-    }
-
     public function hydrate()
     {
         $this->selectAllUsers = count($this->selectedUsers) === User::onlyTrashed()->count();
-        $this->selectAllTasks = count($this->selectedTasks) === Task::onlyTrashed()->count();
     }
 
     public function restoreUser($user_id)
@@ -59,23 +39,9 @@ class Restore extends Component
         }
     }
 
-    public function restoreTask($task_id)
-    {
-        $task = Task::withTrashed()->find($task_id);
-        if ($task) {
-            $task->restore();
-            session()->flash('message', 'กู้คืนงานเรียบร้อยแล้ว');
-        }
-    }
-
     public function confirmRestoreSelectedUsers()
     {
         $this->dispatch('confirmRestoreSelectedUsers');
-    }
-
-    public function confirmRestoreSelectedTasks()
-    {
-        $this->dispatch('confirmRestoreSelectedTasks');
     }
 
     public function restoreSelectedUsers()
@@ -86,19 +52,10 @@ class Restore extends Component
         $this->dispatch('alert', ['type' => 'success', 'message' => 'กู้คืนบัญชีที่เลือกเรียบร้อยแล้ว']);
     }
 
-    public function restoreSelectedTasks()
-    {
-        Task::withTrashed()->whereIn('task_id', $this->selectedTasks)->restore();
-        $this->selectedTasks = [];
-        $this->selectAllTasks = false;
-        $this->dispatch('alert', ['type' => 'success', 'message' => 'กู้คืนงานที่เลือกเรียบร้อยแล้ว']);
-    }
-
     public function render()
     {
         return view('livewire.restore', [
-            'users' => User::onlyTrashed()->get(),
-            'tasks' => Task::onlyTrashed()->get(),
+            'users' => User::onlyTrashed()->paginate(10),
         ]);
     }
 }
