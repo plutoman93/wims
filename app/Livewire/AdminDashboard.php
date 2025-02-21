@@ -9,14 +9,20 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminDashboard extends Component
 {
-    public $count, $countCompleted, $countUncompleted, $tasksData = [], $typeCountData = [], $labels = [], $data = [];
-
+    public $count, $countCompleted, $countUncompleted, $tasksData = [], $typeCountData = [], $labels = [], $data = [], $users = [];
+    public $tasktype1, $tasktype2, $tasktype3;
     public function taskCount()
     {
-        //เขียน if else ตรวจสอบสถานะผู้ใช้แล้วค่อยนับงาน
         $this->count = Task::count();
         $this->countCompleted = Task::where('task_status_id', 1)->count();
         $this->countUncompleted = Task::where('task_status_id', 2)->count();
+    }
+
+    public function taskTpyeCount()
+    {
+        $this->tasktype1 = Task::where('type_id', 1)->count();
+        $this->tasktype2 = Task::where('type_id', 2)->count();
+        $this->tasktype3 = Task::where('type_id', 3)->count();
     }
 
     public function countTasksByUser()
@@ -48,19 +54,30 @@ class AdminDashboard extends Component
 
     }
 
+    public function taskUserCount()
+    {
+        // ดึง users และนับจำนวน tasks ของแต่ละ user
+        $this->users = User::withCount('tasks')->get();
+    }
 
     public function render()
     {
         // เรียกใช้ taskCount() เพื่ออัปเดตค่าต่างๆ เกี่ยวกับจำนวนงาน
         $this->taskCount();
         $this->countTasksByUser();
+        $this->taskTpyeCount();
+
 
         return view('livewire.admin-dashboard', [
             'count' => $this->count, // ส่งตัวแปร count ไปที่ view
             'countCompleted' => $this->countCompleted, // ส่งจำนวนงานที่เสร็จแล้ว
             'countUncompleted' => $this->countUncompleted, // ส่งจำนวนงานที่ยังไม่เสร็จ
+            'tasktype1' => $this->tasktype1, // ส่งจำนวนงานประเภท 1
+            'tasktype2' => $this->tasktype2, // ส่งจำนวนงานประเภท 2
+            'tasktype3' => $this->tasktype3, // ส่งจำนวนงานประเภท 3
             'tasksData' => $this->tasksData, // ข้อมูลสถานะของงานทั้งหมด
             'typeCountData' => $this->typeCountData, // ข้อมูลจำนวนงานของแต่ละ user (ใช้ในกราฟแท่ง)
+            'users' => $this->users,
         ]);
     }
 }

@@ -79,7 +79,6 @@
                 <!-- Content Row -->
 
                 <div class="row">
-
                     <!-- Area Chart -->
                     <div class="col-xl-8 col-lg-7">
                         <div class="card shadow mb-4">
@@ -88,84 +87,87 @@
                                 <h6 class="m-0 font-weight-bold text-primary">จำนวนงานของบุคลากร</h6>
                             </div>
                             <!-- Card Body -->
-                            <div class="card-body">
-                                <div class="chart-area">
-                                    <canvas id="barChart"></canvas>
-                                </div>
+                            <div class="row">
+                                @if (!empty($users) && count($users) > 0)
+                                    @foreach($users as $user)
+                                        <div class="col-md-4 mb-4">
+                                            <div class="card border-left-primary shadow h-100 py-2">
+                                                <div class="card-body">
+                                                    <div class="row no-gutters align-items-center">
+                                                        <div class="col mr-2">
+                                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                                {{ $user->name }}
+                                                            </div>
+                                                            <h1 style="text-align: center;">{{ $user->tasks_count }}</h1>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @else
+                                    <p class="text-center text-muted">ไม่มีข้อมูลผู้ใช้</p>
+                                @endif
                             </div>
+
+
                         </div>
                     </div>
-                    <script>
-                        document.addEventListener("DOMContentLoaded", function() {
-                            var ctx = document.getElementById("barChart").getContext("2d");
-                            var barChart = new Chart(ctx, {
-                                type: "bar", // ประเภทของกราฟ (เช่น bar, line, pie)
-                                data: {
-                                    labels: {!! json_encode($typeCountData['labels']) !!},
-                                    datasets: [{
-                                        label: "จำนวนงาน",
-                                        data: {!! json_encode($typeCountData['data']) !!},
-                                        backgroundColor: ["#3B71CA", "#4CAF50", "#FFCE56"],
-                                        borderWidth: 1
-                                    }]
-                                },
-                                options: {
-                                    responsive: true,
-                                    maintainAspectRatio: false, // ทำให้ขนาดยืดหยุ่นตาม container
-                                    scales: {
-                                        y: {
-                                            beginAtZero: true
-                                        }
-                                    }
-                                }
-                            });
-                        });
-                    </script>
-
-
-
                     <!-- Bar Chart -->
                     <div class="col-xl-4 col-lg-5">
                         <div class="card shadow mb-4">
-                            <!-- Card Header -->
                             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">สถานะงาน</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">จำนวนงานแต่ละประเภท</h6>
                             </div>
-                            <!-- Card Body -->
+
                             <div class="card-body">
-                                <div class="chart-area">
-                                    <canvas id="taskChart"></canvas>
+                                <!-- กล่องงานที่กำลังทำ -->
+                                <div class="card border-left-warning shadow h-100 py-2 mb-4">
+                                    <div class="card-body">
+                                        <div class="row align-items-center">
+                                            <div class="col">
+                                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                    ปฏิบัติราชการ
+                                                </div>
+                                                <h1 class="text-center">{{ $tasktype1 }}</h1>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+
+                                <!-- กล่องงานที่เสร็จแล้ว -->
+                                <div class="card border-left-success shadow h-100 py-2 mb-4">
+                                    <div class="card-body">
+                                        <div class="row align-items-center">
+                                            <div class="col">
+                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                    ลากิจ
+                                                </div>
+                                                <h1 class="text-center">{{ $tasktype2 }}</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- กล่องงานที่รอดำเนินการ -->
+                                <div class="card border-left-info shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row align-items-center">
+                                            <div class="col">
+                                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                    ประชุม
+                                                </div>
+                                                <h1 class="text-center">{{ $tasktype3 }}</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
-                    <script>
-                        document.addEventListener("DOMContentLoaded", function() {
-                            var ctx = document.getElementById("taskChart").getContext("2d");
-                            var taskChart = new Chart(ctx, {
-                                type: "pie", // ประเภทของกราฟ (เช่น bar, line, pie)
-                                data: {
-                                    labels: @json($tasksData['labels']),
-                                    datasets: [{
-                                        label: "จำนวนงาน",
-                                        data: @json($tasksData['data']),
-                                        backgroundColor: ["#3B71CA", "#4CAF50", "#FFCE56"],
-                                        borderWidth: 1
-                                    }]
-                                },
-                                options: {
-                                    responsive: true,
-                                    maintainAspectRatio: false, // ทำให้ขนาดยืดหยุ่นตาม container
-                                    scales: {
-                                        y: {
-                                            beginAtZero: true
-                                        }
-                                    }
-                                }
-                            });
-                        });
-                    </script>
-                </div>
+
+
             </section>
 
             <!-- /.content -->
