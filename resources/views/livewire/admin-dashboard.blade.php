@@ -122,7 +122,7 @@
                                             <div class="row align-items-center">
                                                 <div class="col">
                                                     <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                                        ประเภทงาน {{ $task->type_id }}
+                                                         {{ $task->type_id }}
                                                     </div>
                                                     <h1 class="text-center">{{ $task->count }}</h1>
                                                 </div>

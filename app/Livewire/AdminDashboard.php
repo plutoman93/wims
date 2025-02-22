@@ -26,23 +26,6 @@ class AdminDashboard extends Component
             ->get();
 }
 
-
-    public function countTasksByUser()
-{
-    $users = User::all();
-
-    $this->typeCountData = [
-        'labels' => [User::find(1)->first_name, User::find(2)->first_name, User::find(3)->first_name,],
-        'data' => [
-            Task::where('user_id', Auth::id())->count(),
-            Task::where('user_id', 2)->count(),
-            Task::where('user_id', 3)->count(),
-            Task::where('user_id', 4)->count(),
-
-        ]
-    ];
-}
-
     public function mount()
     {
         $this->tasksData = [
@@ -66,7 +49,6 @@ class AdminDashboard extends Component
     {
         // เรียกใช้ taskCount() เพื่ออัปเดตค่าต่างๆ เกี่ยวกับจำนวนงาน
         $this->taskCount();
-        $this->countTasksByUser();
         $this->taskTypeCount();
 
 
@@ -75,8 +57,7 @@ class AdminDashboard extends Component
             'countCompleted' => $this->countCompleted, // ส่งจำนวนงานที่เสร็จแล้ว
             'countUncompleted' => $this->countUncompleted, // ส่งจำนวนงานที่ยังไม่เสร็จ
             'tasksData' => $this->tasksData, // ข้อมูลสถานะของงานทั้งหมด
-            'typeCountData' => $this->typeCountData, // ข้อมูลจำนวนงานของแต่ละ user (ใช้ในกราฟแท่ง)
-            'users' => $this->users,
+
         ]);
     }
 }
