@@ -93,7 +93,7 @@
                                         <div class="col-md-6 col-lg-4 mb-3">
                                             <div class="card border-left-info shadow h-100 d-flex flex-column">
                                                 <div class="card-body d-flex flex-column justify-content-center">
-                                                    <div class="font-weight-bold text-info text-uppercase mb-2" style="font-size: 1rem;">
+                                                    <div class="font-weight-bold text-info text-uppercase mb-2" style="font-size: 16px;">
                                                         {{ $task->first_name ?? 'ไม่พบชื่อ' }}
                                                     </div>
                                                     <h1 class="text-center">{{ $task->count }}</h1>
@@ -124,7 +124,7 @@
                                         <div class="card-body">
                                             <div class="row align-items-center">
                                                 <div class="col">
-                                                    <div class="font-weight-bold text-info text-uppercase mb-2" style="font-size: 1rem;">
+                                                    <div class="font-weight-bold text-info text-uppercase mb-2" style="font-size: 16px;">
                                                         {{ $task->type_name ?? 'ไม่พบประเภท' }}
                                                     </div>
                                                     <h1 class="text-center">{{ $task->count }}</h1>

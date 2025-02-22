@@ -92,7 +92,7 @@
                                     <div class="card-body">
                                         <div class="row align-items-center">
                                             <div class="col">
-                                                <div class="font-weight-bold text-info text-uppercase mb-2" style="font-size: 1rem;">
+                                                <div class="font-weight-bold text-info text-uppercase mb-2" style="font-size: 16px;">
                                                     {{ $task->type_name ?? 'ไม่พบประเภท' }}
                                                 </div>
                                                 <h1 class="text-center">{{ $task->count }}</h1>
