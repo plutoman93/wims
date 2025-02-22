@@ -49,6 +49,9 @@
                                         <div class="flatpickr-wrapper">
                                             <input type="date" id="start_date" wire:model="start_date"
                                                 class="form-control flatpickr" placeholder="วัน/เดือน/ปี">
+                                            @error('start_date')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6">
@@ -56,6 +59,9 @@
                                         <div class="flatpickr-wrapper">
                                             <input type="date" id="due_date" wire:model="due_date"
                                                 class="form-control flatpickr" placeholder="วัน/เดือน/ปี">
+                                            @error('due_date')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>

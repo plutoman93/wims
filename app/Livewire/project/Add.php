@@ -30,6 +30,12 @@ class Add extends Component
             'start_date' => 'required|date',
             'due_date' => 'required|date',
             'type_id' => 'required|exists:task_types,type_id',
+        ],[
+            'task_name.required' => "กรุณากรอกชื่องาน",
+            'task_detail.required' => "กรุณากรอกรายละเอียดงาน",
+            'start_date.required' => "กรุณาเลือกวันที่เริ่มงาน",
+            'due_date.required' => "กรุณาเลือกวันที่สิ้นสุดงาน",
+            'type_id.required' => "กรุณาเลือกชนิด",
         ]);
 
         // แปลงวันที่เป็นปี พ.ศ.
