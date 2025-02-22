@@ -6,11 +6,12 @@ use App\Models\User;
 use App\Models\Task;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AdminDashboard extends Component
 {
     public $count, $countCompleted, $countUncompleted, $tasksData = [], $typeCountData = [], $labels = [], $data = [], $users = [];
-    public $taskCounts;
+    public $taskCounts, $taskUserCounts;
     public function taskCount()
     {
         $this->count = Task::count();
@@ -19,12 +20,20 @@ class AdminDashboard extends Component
     }
 
     public function taskTypeCount()
-{
-    $this->taskCounts = Task::select('type_id')
+    {
+        $this->taskCounts = Task::select('type_id')
             ->selectRaw('COUNT(*) as count')
             ->groupBy('type_id')
             ->get();
-}
+    }
+
+    public function taskUserCounts()
+    {
+        $this->taskUserCounts = Task::select('user_id')
+            ->selectRaw('COUNT(*) as count')
+            ->groupBy('user_id')
+            ->get();
+    }
 
     public function mount()
     {
@@ -36,20 +45,15 @@ class AdminDashboard extends Component
                 Task::where('task_status_id', 2)->count(),
             ]
         ];
-
     }
 
-    public function taskUserCount()
-    {
-        // ดึง users และนับจำนวน tasks ของแต่ละ user
-        $this->users = User::withCount('tasks')->get();
-    }
 
     public function render()
     {
         // เรียกใช้ taskCount() เพื่ออัปเดตค่าต่างๆ เกี่ยวกับจำนวนงาน
         $this->taskCount();
         $this->taskTypeCount();
+        $this->taskUserCounts();
 
 
         return view('livewire.admin-dashboard', [
@@ -57,6 +61,8 @@ class AdminDashboard extends Component
             'countCompleted' => $this->countCompleted, // ส่งจำนวนงานที่เสร็จแล้ว
             'countUncompleted' => $this->countUncompleted, // ส่งจำนวนงานที่ยังไม่เสร็จ
             'tasksData' => $this->tasksData, // ข้อมูลสถานะของงานทั้งหมด
+            'taskCounts' => $this->taskCounts, // ข้อมูลจำนวนงานแต่ละประเภท
+            'taskUserCounts' => $this->taskUserCounts, // ข้อมูลจำนวนงานของแต่ละ user
 
         ]);
     }

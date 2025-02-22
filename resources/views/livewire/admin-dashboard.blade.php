@@ -87,27 +87,28 @@
                                 <h6 class="m-0 font-weight-bold text-primary">จำนวนงานของบุคลากร</h6>
                             </div>
                             <!-- Card Body -->
-                            <div class="row">
-                                @foreach ($taskCounts as $task)
-                                    <div class="card border-left-info shadow h-100 py-2">
-                                        <div class="card-body">
-                                            <div class="row align-items-center">
-                                                <div class="col">
-                                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                                        ประเภทงาน {{ $task->type_id }}
+                            <div class="card-body">
+                                <div class="row">
+                                    @foreach ($taskUserCounts as $task)
+                                        <div class="col-md-6 col-lg-4 mb-3"> <!-- จัดให้กล่องมีขนาดพอดี -->
+                                            <div class="card border-left-info shadow h-100 d-flex flex-column">
+                                                <div class="card-body d-flex flex-column justify-content-center">
+                                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1 text-center">
+                                                        งานของผู้ใช้ ID: {{ $task->user_id }}
                                                     </div>
                                                     <h1 class="text-center">{{ $task->count }}</h1>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                @endforeach
+                                    @endforeach
+                                </div>
                             </div>
 
 
                         </div>
                     </div>
-                    <!-- Bar Chart -->
+
+
                     <div class="col-xl-4 col-lg-5">
                         <div class="card shadow mb-4">
                             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -122,7 +123,7 @@
                                             <div class="row align-items-center">
                                                 <div class="col">
                                                     <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                                         {{ $task->type_id }}
+                                                        ประเภทงาน {{ $task->type_id }}
                                                     </div>
                                                     <h1 class="text-center">{{ $task->count }}</h1>
                                                 </div>
