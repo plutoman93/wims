@@ -90,11 +90,11 @@
                             <div class="card-body">
                                 <div class="row">
                                     @foreach ($taskUserCounts as $task)
-                                        <div class="col-md-6 col-lg-4 mb-3"> <!-- จัดให้กล่องมีขนาดพอดี -->
+                                        <div class="col-md-6 col-lg-4 mb-3">
                                             <div class="card border-left-info shadow h-100 d-flex flex-column">
                                                 <div class="card-body d-flex flex-column justify-content-center">
                                                     <div class="text-xs font-weight-bold text-info text-uppercase mb-1 text-center">
-                                                        งานของผู้ใช้ ID: {{ $task->user_id }}
+                                                        {{ $task->first_name ?? 'ไม่พบชื่อ' }}
                                                     </div>
                                                     <h1 class="text-center">{{ $task->count }}</h1>
                                                 </div>
@@ -103,6 +103,8 @@
                                     @endforeach
                                 </div>
                             </div>
+
+
 
 
                         </div>
@@ -123,7 +125,7 @@
                                             <div class="row align-items-center">
                                                 <div class="col">
                                                     <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                                        ประเภทงาน {{ $task->type_id }}
+                                                        {{ $task->type_name ?? 'ไม่พบประเภท' }}
                                                     </div>
                                                     <h1 class="text-center">{{ $task->count }}</h1>
                                                 </div>
