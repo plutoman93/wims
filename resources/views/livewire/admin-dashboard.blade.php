@@ -88,26 +88,20 @@
                             </div>
                             <!-- Card Body -->
                             <div class="row">
-                                @if (!empty($users) && count($users) > 0)
-                                    @foreach($users as $user)
-                                        <div class="col-md-4 mb-4">
-                                            <div class="card border-left-primary shadow h-100 py-2">
-                                                <div class="card-body">
-                                                    <div class="row no-gutters align-items-center">
-                                                        <div class="col mr-2">
-                                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                                {{ $user->name }}
-                                                            </div>
-                                                            <h1 style="text-align: center;">{{ $user->tasks_count }}</h1>
-                                                        </div>
+                                @foreach ($taskCounts as $task)
+                                    <div class="card border-left-info shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                        ประเภทงาน {{ $task->type_id }}
                                                     </div>
+                                                    <h1 class="text-center">{{ $task->count }}</h1>
                                                 </div>
                                             </div>
                                         </div>
-                                    @endforeach
-                                @else
-                                    <p class="text-center text-muted">ไม่มีข้อมูลผู้ใช้</p>
-                                @endif
+                                    </div>
+                                @endforeach
                             </div>
 
 
@@ -122,46 +116,21 @@
 
                             <div class="card-body">
                                 <!-- กล่องงานที่กำลังทำ -->
-                                <div class="card border-left-warning shadow h-100 py-2 mb-4">
-                                    <div class="card-body">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-                                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                    ปฏิบัติราชการ
+                                @foreach ($taskCounts as $task)
+                                    <div class="card border-left-info shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                        ประเภทงาน {{ $task->type_id }}
+                                                    </div>
+                                                    <h1 class="text-center">{{ $task->count }}</h1>
                                                 </div>
-                                                <h1 class="text-center">{{ $tasktype1 }}</h1>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endforeach
 
-                                <!-- กล่องงานที่เสร็จแล้ว -->
-                                <div class="card border-left-success shadow h-100 py-2 mb-4">
-                                    <div class="card-body">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                    ลากิจ
-                                                </div>
-                                                <h1 class="text-center">{{ $tasktype2 }}</h1>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- กล่องงานที่รอดำเนินการ -->
-                                <div class="card border-left-info shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-                                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                                    ประชุม
-                                                </div>
-                                                <h1 class="text-center">{{ $tasktype3 }}</h1>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
                             </div>
                         </div>
