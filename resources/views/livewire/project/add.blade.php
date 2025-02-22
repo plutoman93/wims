@@ -91,39 +91,27 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        let originalStartDate = document.getElementById('start_date').value;
-        let originalDueDate = document.getElementById('due_date').value;
+        const dateInputs = document.querySelectorAll('input[type="date"]');
+        dateInputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.dataset.placeholder = this.placeholder;
+                this.placeholder = '';
+            });
+            input.addEventListener('blur', function() {
+                this.placeholder = this.dataset.placeholder || 'วัน/เดือน/ปี';
+            });
+            input.placeholder = 'วัน/เดือน/ปี';
 
-        // เมื่อมีการแก้ไขวันที่เริ่มต้น
-        document.getElementById('start_date').addEventListener('change', function() {
-            let newDate = this.value;
-            if (newDate) {
-                let originalYear = originalStartDate.split('-')[0];
-                let originalMonth = originalStartDate.split('-')[1];
-                let originalDay = originalStartDate.split('-')[2];
-
-                let year = newDate.split('-')[0] || originalYear;
-                let month = newDate.split('-')[1] || originalMonth;
-                let day = newDate.split('-')[2] || originalDay;
-
-                this.value = `${year}-${month}-${day}`;
-            }
-        });
-
-        // เมื่อมีการแก้ไขวันที่เสร็จสิ้น
-        document.getElementById('due_date').addEventListener('change', function() {
-            let newDate = this.value;
-            if (newDate) {
-                let originalYear = originalDueDate.split('-')[0];
-                let originalMonth = originalDueDate.split('-')[1];
-                let originalDay = originalDueDate.split('-')[2];
-
-                let year = newDate.split('-')[0] || originalYear;
-                let month = newDate.split('-')[1] || originalMonth;
-                let day = newDate.split('-')[2] || originalDay;
-
-                this.value = `${year}-${month}-${day}`;
-            }
+            // แปลงปี ค.ศ. เป็น พ.ศ.
+            input.addEventListener('change', function() {
+                const date = new Date(this.value);
+                if (!isNaN(date.getTime())) {
+                    const year = date.getFullYear() + 543;
+                    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+                    const day = ('0' + date.getDate()).slice(-2);
+                    this.value = `${year}-${month}-${day}`;
+                }
+            });
         });
     });
 </script>
