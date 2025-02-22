@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UserDashboard extends Component
 {
-    public $count, $countCompleted, $countUncompleted, $tasksData = [],$typeCountData =[];
+    public $count, $countCompleted, $countUncompleted, $taskCounts;
 
     public function taskCount()
     {
@@ -19,48 +19,28 @@ class UserDashboard extends Component
         $this->countUncompleted = Task::where('user_id', $userId)->where('task_status_id', 2)->count();
     }
 
-    public function mount()
+    public function taskTypeCount()
     {
-        $userId = Auth::id(); // ดึง user_id ของผู้ใช้ที่ล็อกอินอยู่
-
-        $this->tasksData = [
-            'labels' => ['งานทั้งหมด', 'งานที่เสร็จแล้ว', 'งานที่กำลังทำ'],
-            'data' => [
-                Task::where('user_id', $userId)->count(),
-                Task::where('user_id', $userId)->where('task_status_id', 1)->count(),
-                Task::where('user_id', $userId)->where('task_status_id', 2)->count()
-            ]
-        ];
+        $userId = Auth::id(); // ดึง user_id ของผู้ใช้ที่ล็อกอิน
+        $this->taskCounts = Task::join('task_types', 'tasks.type_id', '=', 'task_types.type_id') // เชื่อมกับ task_types
+            ->select('tasks.type_id', 'task_types.type_name') // ดึง type_id และ type_name
+            ->selectRaw('COUNT(*) as count') // นับจำนวนงานตาม type_id
+            ->where('tasks.user_id', $userId) // กรองเฉพาะงานของ user ที่ล็อกอิน
+            ->groupBy('tasks.type_id', 'task_types.type_name') // Group by ให้ตรงกับ select
+            ->get();
     }
 
-    public function countTasksByUser()
-{
-
-    $userId = Auth::id();
-
-    $this->typeCountData = [
-        'labels' => ['ปฏิบัติราชการ', 'ลากิจ', 'ประชุม'],
-        'data' => [
-            Task::where('user_id', $userId)->where('type_id',1)->count(),
-            Task::where('user_id', $userId)->where('type_id', 2)->count(),
-            Task::where('user_id', $userId)->where('type_id', 3)->count(),
-            Task::where('user_id', $userId)->where('type_id', 4)->count(),
-
-        ]
-    ];
-}
 
     public function render()
     {
         $this->taskCount();
-        $this->countTasksByUser();
+        $this->taskTypeCount();
 
         return view('livewire.dashboard', [
             'count' => $this->count,
             'countCompleted' => $this->countCompleted,
             'countUncompleted' => $this->countUncompleted,
-            'tasksData' => $this->tasksData,
-            'typeCountData' => $this->typeCountData, // ข้อมูลจำนวนงานของแต่ละ user (ใช้ในกราฟแท่ง)
+            'taskCounts' => $this->taskCounts
         ]);
     }
 }

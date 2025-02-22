@@ -17,13 +17,13 @@ class AdminDashboard extends Component
     }
 
     public function taskTypeCount()
-{
-    $this->taskCounts = Task::join('task_types', 'tasks.type_id', '=', 'task_types.type_id') // เชื่อมกับ task_types
-        ->select('tasks.type_id', 'task_types.type_name') // ดึง type_id และ type_name
-        ->selectRaw('COUNT(*) as count') // นับจำนวนงานตาม type_id
-        ->groupBy('tasks.type_id', 'task_types.type_name') // Group by ให้ตรงกับ select
-        ->get();
-}
+    {
+        $this->taskCounts = Task::join('task_types', 'tasks.type_id', '=', 'task_types.type_id') // เชื่อมกับ task_types
+            ->select('tasks.type_id', 'task_types.type_name') // ดึง type_id และ type_name
+            ->selectRaw('COUNT(*) as count') // นับจำนวนงานตาม type_id
+            ->groupBy('tasks.type_id', 'task_types.type_name') // Group by ให้ตรงกับ select
+            ->get();
+    }
 
     public function taskUserCounts()
     {
