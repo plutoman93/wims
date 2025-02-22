@@ -35,28 +35,28 @@ class DatabaseSeeder extends Seeder
                 'account_status_id' => 1, // ค่า foreign key
             ],
             [
-                'username' => 'user1998',
+                'username' => 'user1111',
                 'title_id' => 2, // ค่า foreign key
                 'email' => 'user2@dd.com',
                 'phone' => '0888888888',
                 'password' => bcrypt(value: '12345678900'),
-                'first_name' => 'Random',
-                'last_name' => 'User',
+                'first_name' => 'ผู้ใช้',
+                'last_name' => 'ทั่วไป',
                 'faculty_id' => 2, // ค่า foreign key
                 'department_id' => 1, // ค่า foreign key
                 'user_status_id' => 2, // ค่า foreign key
                 'account_status_id' => 1, // ค่า foreign key
             ],
             [
-                'username' => 'user1234',
+                'username' => 'user2222',
                 'title_id' => 3, // ค่า foreign key
                 'email' => 'user3@dd.com',
                 'phone' => '0777777777',
                 'password' => bcrypt('12345678901'),
-                'first_name' => 'some',
-                'last_name' => 'where',
+                'first_name' => 'ผู้ใช้',
+                'last_name' => 'ทั่วไป',
                 'faculty_id' => 2, // ค่า foreign key
-                'department_id' => 2, // ค่า foreign key
+                'department_id' => 20, // ค่า foreign key
                 'user_status_id' => 2, // ค่า foreign key
                 'account_status_id' => 1, // ค่า foreign key
             ],
