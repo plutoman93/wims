@@ -125,13 +125,12 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="inputUserName"
-                                                    class="col-sm-2 col-form-label">ชื่อผู้ใช้</label>
+                                                <label for="inputUserName" class="col-sm-2 col-form-label">ชื่อผู้ใช้</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" wire:model="username" class="form-control"
-                                                        id="inputUsername" placeholder="ชื่อผู้ใช้">
+                                                    <input type="text" wire:model="username" class="form-control" id="inputUsername" placeholder="ชื่อผู้ใช้" readonly>
                                                 </div>
                                             </div>
+
                                             <div class="form-group row">
                                                 <label for="inputPassword"
                                                     class="col-sm-2 col-form-label">รหัสผ่าน</label>
