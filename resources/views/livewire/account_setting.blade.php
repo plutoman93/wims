@@ -67,7 +67,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="inputName" class="col-sm-2 col-form-label">ขื่อ</label>
+                                                <label for="inputName" class="col-sm-2 col-form-label">ชื่อ</label>
                                                 <div class="col-sm-10">
                                                     <input type="text" wire:model="first_name" class="form-control"
                                                         id="inputName" placeholder="ชื่อ">
