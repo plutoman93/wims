@@ -18,24 +18,24 @@ class DatabaseSeeder extends Seeder
             TaskTypeSeeder::class,
             TitleSeeder::class,
             AccountStatusSeeder::class,
-            TaskSeeder::class,
+            // TaskSeeder::class,
         ]);
         DB::table('users')->insert([
             [
-                'username' => 'godmaster9999',
+                'username' => 'admin9999',
                 'title_id' => 1, // ค่า foreign key
                 'email' => 'god@gg.com',
                 'phone' => '0999999999',
                 'password' => bcrypt(value: '11111111110'),
-                'first_name' => 'God',
-                'last_name' => 'Master',
+                'first_name' => 'ผู้ดูแลระบบ',
+                'last_name' => 'แอดมิน',
                 'faculty_id' => 1, // ค่า foreign key
                 'department_id' => 1, // ค่า foreign key
                 'user_status_id' => 1, // ค่า foreign key
                 'account_status_id' => 1, // ค่า foreign key
             ],
             [
-                'username' => 'random1998',
+                'username' => 'user1998',
                 'title_id' => 2, // ค่า foreign key
                 'email' => 'user2@dd.com',
                 'phone' => '0888888888',
@@ -48,7 +48,7 @@ class DatabaseSeeder extends Seeder
                 'account_status_id' => 1, // ค่า foreign key
             ],
             [
-                'username' => 'admin1234',
+                'username' => 'user1234',
                 'title_id' => 3, // ค่า foreign key
                 'email' => 'user3@dd.com',
                 'phone' => '0777777777',
