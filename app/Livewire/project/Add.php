@@ -18,6 +18,12 @@ class Add extends Component
     use WithFileUploads;
 
     public $task_name, $task_detail, $start_date, $due_date, $type_id, $created_by, $updated_by, $deleted_by, $user_id;
+    public bool $isAdmin;
+
+    public function mount()
+    {
+        $this->isAdmin = Auth::user()->user_status_id == 1; // ตรวจสอบว่าเป็น Admin หรือไม่
+    }
 
     public function add()
     {
@@ -27,15 +33,16 @@ class Add extends Component
             'start_date' => 'required|date',
             'due_date' => 'required|date',
             'type_id' => 'required|exists:task_types,type_id',
-            'user_id' => 'required',
         ], [
             'task_name.required' => "กรุณากรอกชื่องาน",
             'task_detail.required' => "กรุณากรอกรายละเอียดงาน",
             'start_date.required' => "กรุณาเลือกวันที่เริ่มงาน",
             'due_date.required' => "กรุณาเลือกวันที่สิ้นสุดงาน",
             'type_id.required' => "กรุณาเลือกชนิด",
-            'user_id.required' => "กรุณาเลือกเจ้าของงาน",
         ]);
+
+// หากไม่เลือกบุคลากรให้บันทึก user_id เป็น Admin ที่ล็อกอินอยู่
+        $assignedUserId = $this->user_id ?? Auth::id();
 
         // ตรวจสอบวันที่ก่อนแปลง
         $start_date = Carbon::createFromFormat('Y-m-d', $this->start_date);
@@ -45,13 +52,10 @@ class Add extends Component
         $start_date_th = $start_date->addYears(543)->format('Y-m-d');
         $due_date_th = $due_date->addYears(543)->format('Y-m-d');
 
-        // บันทึกวันที่หลังแปลง
-        Log::info("Start Date After Conversion: {$start_date_th}");
-        Log::info("Due Date After Conversion: {$due_date_th}");
-
         // สร้าง Task
         $task = Task::create([
             'user_id' => $this->user_id,
+            'user_id' => $assignedUserId,
             'task_name' => $this->task_name,
             'task_detail' => $this->task_detail,
             'start_date' => $start_date_th,
@@ -75,8 +79,9 @@ class Add extends Component
     public function render()
     {
         return view('livewire.project.add', [
-            'users' => User::all(),  // กรองบุคลากรที่ไม่ใช่ admin
+            'users' => User::where('user_status_id', '!=', 1)->get(),
             'task_types' => TaskTypes::all(),
+            'isAdmin' => $this->isAdmin,
         ]);
     }
 }
