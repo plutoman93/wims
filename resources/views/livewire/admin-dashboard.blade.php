@@ -118,8 +118,62 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Pie Chart -->
+                    <div class="col-xl-4 col-lg-5">
+                        <div class="card shadow mb-4">
+                            <!-- Card Header - Dropdown -->
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">สถาณะงาน</h6>
+                            </div>
+                            <!-- Card Body -->
+                            <div class="card-body">
+                                <canvas id="taskStatusChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
             </section>
+
+            <!-- /.content -->
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('taskStatusChart').getContext('2d');
+            const taskStatusChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['งานทั้งหมด', 'งานที่เสร็จแล้ว', 'งานที่กำลังทำ'],
+                    datasets: [{
+                        data: [{{ $count }}, {{ $countCompleted }}, {{ $countUncompleted }}],
+                        backgroundColor: ['#4e73df', '#1cc88a', '#f6c23e'],
+                        hoverBackgroundColor: ['#2e59d9', '#17a673', '#f4b619'],
+                        hoverBorderColor: "rgba(234, 236, 244, 1)",
+                    }],
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    tooltips: {
+                        backgroundColor: "rgb(255,255,255)",
+                        bodyFontColor: "#858796",
+                        borderColor: '#dddfeb',
+                        borderWidth: 1,
+                        xPadding: 15,
+                        yPadding: 15,
+                        displayColors: false,
+                        caretPadding: 10,
+                    },
+                    legend: {
+                        display: true,
+                        position: 'right',
+                    },
+                    cutoutPercentage: 0,
+                },
+            });
+        });
+    </script>
 @endsection
