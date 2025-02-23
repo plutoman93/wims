@@ -24,17 +24,18 @@
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                    @if ($isAdmin)
-                                        <div class="form-group col-md-6">
-                                            <label for="user_id">มอบหมายให้</label>
-                                            <select wire:model="user_id" class="form-control">
-                                                <option value="">เลือกบุคลากร</option>
-                                                @foreach ($users as $user)
-                                                    <option value="{{ $user->user_id }}">{{ $user->username }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    @endif
+                                    <div class="form-group col-md-6">
+                                        <label for="user_id">มอบหมายให้</label>
+                                        <select wire:model="user_id" class="form-control">
+                                            <option value="">เลือกบุคลากร</option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->user_id }}">{{ $user->first_name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('user_id')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="task_detail">รายละเอียดงาน</label>

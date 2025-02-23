@@ -7,7 +7,7 @@
             <div class="card-body">
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <input type="search" class="form-control" placeholder="ค้นหา" wire:model.live="search">
+                        <input type="search" class="form-control" placeholder="ค้นหาชื่องาน" wire:model.live="search">
                     </div>
                     @can('can-filter-task')
                         <div class="col-md-4">

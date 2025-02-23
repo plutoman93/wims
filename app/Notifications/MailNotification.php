@@ -41,7 +41,7 @@ class MailNotification extends Notification
     {
         return (new MailMessage)
             ->subject('ได้รับมอบหมายงานใหม่: ' . $this->task->task_name) // Subject with task name
-            ->line('สวัสดี ' . $notifiable->first_name . ',') // Greet the user
+            ->line('สวัสดี ' . $notifiable->first_name . ' ' . $notifiable->last_name . ',') // Greet the user
             ->line('คุณได้รับมอบหมายงานใหม่')
             ->line('ชื่องาน: ' . $this->task->task_name) // Task name
             ->line('รายละเอียด: ' . $this->task->task_detail) // Task description (optional)
