@@ -3,11 +3,11 @@
 namespace App\Livewire;
 
 use App\Models\User;
+use App\Models\Task;
 use Livewire\Component;
 use Livewire\Withpagination;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-
 
 class AccountManagement extends Component
 {
@@ -19,24 +19,32 @@ class AccountManagement extends Component
 
     public function delete($user_id)    // ลบ User
     {
-        $this->delete_id = $user_id;    
+        $this->delete_id = $user_id;
         $this->dispatch('confirmDelete', $user_id); // ส่ง Event ไปยัง SweetAlert
     }
 
-
-    public function deleteUser() // ลบ User
+    public function deleteUser() // ลบ User และงานทั้งหมดของผู้ใช้
     {
-        $task = User::find($this->delete_id); // ค้นหา User ที่ต้องการลบ
+        $user = User::find($this->delete_id); // ค้นหา User ที่ต้องการลบ
 
-        if ($task) {
-            $task->deleted_by = Auth::user()->user_id; // ระบุผู้ที่ลบ
-            $task->save();
-            $task->delete(); // ลบ task
+        if ($user) {
+            // ลบงานทั้งหมดของผู้ใช้
+            $tasks = Task::where('user_id', $this->delete_id)->get();
+            foreach ($tasks as $task) {
+                $task->deleted_by = Auth::user()->user_id; // ระบุผู้ที่ลบ
+                $task->save();
+                $task->delete(); // ลบ task
+            }
 
-            Log::info('Deleting Task ID: ' . $this->delete_id);
+            // ลบผู้ใช้
+            $user->deleted_by = Auth::user()->user_id; // ระบุผู้ที่ลบ
+            $user->save();
+            $user->delete(); // ลบ user
+
+            Log::info('Deleting User ID: ' . $this->delete_id . ' and their tasks.');
             $this->dispatch('alert', [
                 'type' => 'success',
-                'message' => 'ลบ User เรียบร้อยแล้ว'
+                'message' => 'ลบ User และงานทั้งหมดเรียบร้อยแล้ว'
             ]);
         } else {
             $this->dispatch('alert', [
@@ -45,7 +53,6 @@ class AccountManagement extends Component
             ]);
         }
     }
-
 
     public function mount() // โหลดข้อมูลผู้ใช้
     {
