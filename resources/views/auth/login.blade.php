@@ -41,9 +41,6 @@
             <div class="row align-items-center justify-content-center">
                 <div class="col-lg-7">
                     <div class="login">
-                        {{-- <div class="text-center"><a href="https://computer.surin.rmuti.ac.th/computer/index.php"><img
-                                    src="https://rmuti.ac.th/main/wp-content/uploads/2021/05/RMUTI_KORAT-e1620021467198.png"
-                                    width="150" height="150" alt="image" class="img-fluid"></a></div> --}}
                         <div class="text-center"><img src="asset/frontend/images/logos/tech.png" alt=""
                                 class="img-fluid"></a></div>
                         <div class="text-center"><img src="asset/frontend/images/logos/worksystem.png" alt=""
@@ -60,13 +57,13 @@
                                 </ul>
                             </div>
                         @endif
-                        {{-- @if ('error')
+                        @if (session('error'))
                             <div class="alert alert-danger">
                                 <ul>
-                                    <li>{{ 'บัญชีของคุณถูกระงับ กรุณาติดต่อผู้ดูแลระบบ' }}</li>
+                                    <li>{{ session('error') }}</li>
                                 </ul>
                             </div>
-                        @endif --}}
+                        @endif
                         <form method="POST" action="{{ route('login') }}" class="login-form row">
                             @csrf
                             <div class="col-md-12">
@@ -79,7 +76,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="loginPassword">รหัสผ่าน</label>
-                                    <input type="password" id="loginPassword" class="form-control" name="password"
+                                    <input type="password" id="password" class="form-control" name="password"
                                         placeholder="กรอกรหัสผ่าน" required>
                                 </div>
                             </div>
@@ -88,12 +85,6 @@
                                 <button class="btn btn-primary" type="submit">เข้าสู่ระบบ</button>
 
                             </div>
-                            {{-- <div class="regis">
-                                <p class="mt-3 mb-1">Not a member yet? <a href="{{ route('register') }}">Register
-                                    Here</a></p>
-                            <p class="mt-3 mb-1">Forgot Password<a href="{{ route('password.request') }}">Forgot
-                                    Password</a></p>
-                            </div> --}}
                         </form>
                     </div>
                 </div>
