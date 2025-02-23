@@ -14,7 +14,7 @@
                             <select class="form-control" wire:model.live="selectedUser">
                                 <option value="">เลือกผู้ใช้</option>
                                 @foreach ($users as $user)
-                                    <option value="{{ $user->user_id }}">{{ $user->username }}</option>
+                                    <option value="{{ $user->user_id }}">{{ $user->first_name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -26,10 +26,19 @@
                             <option value="2">ยังไม่เสร็จสิ้น</option>
                         </select>
                     </div>
+                    <div class="col-md-4 mt-3">
+                        <select class="form-control" wire:model.live="typeFilter">
+                            <option value="">เลือกประเภทงาน</option>
+                            @foreach ($taskTypes as $type)
+                                <option value="{{ $type->type_id }}">{{ $type->type_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
                 <div class="row mb-3">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <button class="btn btn-danger" wire:click="confirmDeleteSelectedTasks">ลบงานที่เลือก</button>
+                        <a href="{{ route('add-task') }}" class="btn btn-success ml-2">เพิ่มงานใหม่</a>
                     </div>
                 </div>
                 <div class="table-responsive">
@@ -38,10 +47,12 @@
                             <tr class="text-center">
                                 <th><input type="checkbox" wire:click="toggleSelectAll"></th>
                                 <th>ลำดับ</th>
+                                <th>เจ้าของงาน</th>
                                 <th>ชื่องาน</th>
                                 <th>รายละเอียดงาน</th>
+                                <th>ประเภทงาน</th>                               
                                 <th>วันเริ่มงาน</th>
-                                <th>วันครบกำหนดงาน</th>
+                                <th>วันสิ้นสุด</th>
                                 <th>สถานะงาน</th>
                                 <th>การจัดการ</th>
                             </tr>
@@ -52,10 +63,12 @@
                                     <td class="text-center"><input type="checkbox" wire:model="selectedTasks"
                                             value="{{ $item->task_id }}"></td>
                                     <td class="text-center">{{ $data->firstItem() + $key }}</td>
+                                    <td class="text-center">{{ $item->user->first_name }}</td>
                                     <td class="text-center text-truncate" style="max-width: 200px;">
                                         {{ $item->task_name }}</td>
                                     <td class="text-center text-truncate" style="max-width: 400px;">
                                         {{ $item->task_detail }}</td>
+                                    <td class="text-center">{{ $item->task_type->type_name }}</td>
                                     <td class="text-center">
                                         {{ \Carbon\Carbon::parse($item->start_date)->addYears(543)->locale('th')->translatedFormat('d F Y') }}
                                     </td>
@@ -70,8 +83,8 @@
                                             </button>
                                         @else
                                             <button wire:click="taskStatus({{ $item->task_id }}, 1)"
-                                                class="btn btn-danger btn-sm">
-                                                <i class="fas fa-ban"></i>
+                                                class="btn btn-uncomplete btn-sm">
+                                                <i class="fas fa-hourglass-half"></i>
                                             </button>
                                         @endif
                                     </td>
@@ -84,7 +97,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="8" class="text-center">ไม่พบข้อมูล</td>
+                                    <td colspan="10" class="text-center">ไม่พบข้อมูล</td>
                                 </tr>
                             @endforelse
                         </tbody>

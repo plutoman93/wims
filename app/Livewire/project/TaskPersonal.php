@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Task;
 use App\Models\User;
+use App\Models\TaskTypes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
@@ -17,11 +18,12 @@ class TaskPersonal extends Component
     public $search = '';
     public $selectedUser = '';
     public $statusFilter = '';
+    public $typeFilter = ''; // เพิ่มตัวแปรสำหรับ filter ชนิดงาน
     public $selectedTasks = [];
     public $selectAll = false;
 
     protected $listeners = ['deleteConfirmed' => 'deleteTask', 'deleteSelectedConfirmed' => 'deleteSelectedTasks']; // รับ Event จาก SweetAlert
-    protected $queryString = ['search', 'selectedUser', 'statusFilter']; // ทำให้ Search Query ถูกเก็บไว้ใน URL
+    protected $queryString = ['search', 'selectedUser', 'statusFilter', 'typeFilter']; // ทำให้ Search Query ถูกเก็บไว้ใน URL
 
     public function updatingSearch()
     {
@@ -41,7 +43,7 @@ class TaskPersonal extends Component
         }
     }
 
-    public function toggleSelectAll() 
+    public function toggleSelectAll()
     {
         $currentPageTaskIds = $this->getCurrentPageTaskIds(); // ดึง Task ในหน้าปัจจุบัน
 
@@ -74,6 +76,9 @@ class TaskPersonal extends Component
                 } elseif ($this->statusFilter == '2') { // ถ้าเลือกสถานะงานเป็น 2 (ยังไม่เสร็จสิ้น)
                     $query->where('task_status_id', '2');
                 }
+            })
+            ->when($this->typeFilter, function ($query) { // Filter ตามชนิดงาน
+                $query->where('type_id', $this->typeFilter);
             })
             ->paginate(10) // `paginate()` คืนค่าเป็น `Paginator`
             ->items()) // ใช้ `.items()` ดึงรายการทั้งหมดจากหน้า Pagination
@@ -152,6 +157,11 @@ class TaskPersonal extends Component
         $this->resetPage(); // รีเซ็ต pagination เมื่อเปลี่ยนสถานะงาน
     }
 
+    public function updatedTypeFilter()
+    {
+        $this->resetPage(); // รีเซ็ต pagination เมื่อเปลี่ยนชนิดงาน
+    }
+
     public function render()
     {
         $data = Task::query()
@@ -171,10 +181,14 @@ class TaskPersonal extends Component
                     $query->where('task_status_id', '2');
                 }
             })
+            ->when($this->typeFilter, function ($query) { // Filter ตามชนิดงาน
+                $query->where('type_id', $this->typeFilter);
+            })
             ->paginate(10); // ใช้ Pagination
 
         $users = User::all(); // ดึงข้อมูลผู้ใช้ทั้งหมด
+        $taskTypes = TaskTypes::all(); // ดึงข้อมูลชนิดงานทั้งหมด
 
-        return view('livewire.project.viewtask', compact('data', 'users')); // ส่งข้อมูลไปยัง View
+        return view('livewire.project.viewtask', compact('data', 'users', 'taskTypes')); // ส่งข้อมูลไปยัง View
     }
 }

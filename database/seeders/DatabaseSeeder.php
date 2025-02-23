@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
             TaskTypeSeeder::class,
             TitleSeeder::class,
             AccountStatusSeeder::class,
-            // TaskSeeder::class,
+            TaskSeeder::class,
         ]);
         DB::table('users')->insert([
             [
