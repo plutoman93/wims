@@ -91,9 +91,6 @@
                                         </div>
                                     @endforeach
                                 </div>
-                                <div class="d-flex justify-content-center mt-4">
-                                    {{ $taskUserCounts->links() }}
-                                </div>
                             </div>
                         </div>
 
