@@ -2,8 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\NotificationController;
-use App\Livewire\Restore;
+use App\Exports\TaskExport;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -70,7 +69,9 @@ Route::middleware(['auth', 'banned'])->group(function () {
         return view('restore-task');
     })->name('restore-task');
 
-    Route::get('/email', [NotificationController::class, 'sendMail'])->name('email');
+    Route::get('export-tasks', function () {
+        return (new TaskExport)->export();
+    });
 });
 
 Route::get('/home', [UserController::class, 'index']);

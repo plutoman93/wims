@@ -39,6 +39,7 @@
                     <div class="col-md-6">
                         <button class="btn btn-danger" wire:click="confirmDeleteSelectedTasks">ลบงานที่เลือก</button>
                         <a href="{{ route('add-task') }}" class="btn btn-success ml-2">เพิ่มงานใหม่</a>
+                        <a href="{{ url('export-tasks') }}" class="btn btn-primary ml-2">Export เป็น Excel</a>
                     </div>
                 </div>
                 <div class="table-responsive">
@@ -142,8 +143,7 @@
                 cancelButtonText: 'ยกเลิก'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    @this.call('deleteSelectedTasks', event
-                        .detail); // เรียก Livewire Method deleteSelectedTasks
+                    @this.call('deleteSelectedTasks', event.detail); // เรียก Livewire Method deleteSelectedTasks
                 }
             });
         });
