@@ -51,7 +51,7 @@
                                 <th>เจ้าของงาน</th>
                                 <th>ชื่องาน</th>
                                 <th>รายละเอียดงาน</th>
-                                <th>ประเภทงาน</th>                               
+                                <th>ประเภทงาน</th>
                                 <th>วันเริ่มงาน</th>
                                 <th>วันสิ้นสุด</th>
                                 <th>สถานะงาน</th>
@@ -71,10 +71,10 @@
                                         {{ $item->task_detail }}</td>
                                     <td class="text-center">{{ $item->task_type->type_name }}</td>
                                     <td class="text-center">
-                                        {{ \Carbon\Carbon::parse($item->start_date)->addYears(543)->locale('th')->translatedFormat('d F Y') }}
+                                        {{ \Carbon\Carbon::parse($item->start_date)->locale('th')->translatedFormat('d F Y') }}
                                     </td>
                                     <td class="text-center">
-                                        {{ \Carbon\Carbon::parse($item->due_date)->addYears(543)->locale('th')->translatedFormat('d F Y') }}
+                                        {{ \Carbon\Carbon::parse($item->due_date)->locale('th')->translatedFormat('d F Y') }}
                                     </td>
                                     <td class="text-center">
                                         @if ($item->task_status_id == 1)
@@ -143,7 +143,8 @@
                 cancelButtonText: 'ยกเลิก'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    @this.call('deleteSelectedTasks', event.detail); // เรียก Livewire Method deleteSelectedTasks
+                    @this.call('deleteSelectedTasks', event
+                    .detail); // เรียก Livewire Method deleteSelectedTasks
                 }
             });
         });

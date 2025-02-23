@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
             TaskTypeSeeder::class,
             TitleSeeder::class,
             AccountStatusSeeder::class,
-            TaskSeeder::class,
+            // TaskSeeder::class,
         ]);
         DB::table('users')->insert([
             [
@@ -40,7 +40,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'user2@dd.com',
                 'phone' => '0888888888',
                 'password' => bcrypt(value: '12345678900'),
-                'first_name' => 'ผู้ใช้',
+                'first_name' => 'ผู้ใช้หนึ่ง',
                 'last_name' => 'ทั่วไป',
                 'faculty_id' => 2, // ค่า foreign key
                 'department_id' => 1, // ค่า foreign key
@@ -53,7 +53,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'user3@dd.com',
                 'phone' => '0777777777',
                 'password' => bcrypt('12345678901'),
-                'first_name' => 'ผู้ใช้',
+                'first_name' => 'ผู้ใช้สอง',
                 'last_name' => 'ทั่วไป',
                 'faculty_id' => 2, // ค่า foreign key
                 'department_id' => 20, // ค่า foreign key

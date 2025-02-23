@@ -9,6 +9,9 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
+use App\Mail\TaskCreatedNotification;
 
 class Add extends Component
 {
@@ -34,20 +37,32 @@ class Add extends Component
             'user_id.required' => "กรุณาเลือกเจ้าของงาน",
         ]);
 
-        // แปลงวันที่เป็นปี พ.ศ.
-        $start_date = Carbon::createFromFormat('Y-m-d', $this->start_date)->subYears(543)->format('Y-m-d');
-        $due_date = Carbon::createFromFormat('Y-m-d', $this->due_date)->subYears(543)->format('Y-m-d');
+        // ตรวจสอบวันที่ก่อนแปลง
+        $start_date = Carbon::createFromFormat('Y-m-d', $this->start_date);
+        $due_date = Carbon::createFromFormat('Y-m-d', $this->due_date);
 
-        Task::create([
+        // เพิ่มปี พ.ศ. จากปี ค.ศ.
+        $start_date_th = $start_date->addYears(543)->format('Y-m-d');
+        $due_date_th = $due_date->addYears(543)->format('Y-m-d');
+
+        // บันทึกวันที่หลังแปลง
+        Log::info("Start Date After Conversion: {$start_date_th}");
+        Log::info("Due Date After Conversion: {$due_date_th}");
+
+        // สร้าง Task
+        $task = Task::create([
             'user_id' => $this->user_id,
             'task_name' => $this->task_name,
             'task_detail' => $this->task_detail,
-            'start_date' => $start_date,
-            'due_date' => $due_date,
+            'start_date' => $start_date_th,
+            'due_date' => $due_date_th,
             'type_id' => $this->type_id,
             'created_by' => Auth::id(),
             'updated_by' => Auth::id(),
         ]);
+
+        // ส่งอีเมลแจ้งเตือน
+        Mail::to('hello@example.com')->send(new TaskCreatedNotification($task));
 
         return redirect()->to('project');
     }
