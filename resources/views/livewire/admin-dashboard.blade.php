@@ -10,7 +10,7 @@
             <!-- Main content -->
             <section class="content">
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">ยินดีต้อนรับ {{ Auth::user()->username }}</h1>
+                    <h1 class="h3 mb-0 text-gray-800">ยินดีต้อนรับ {{ Auth::user()->first_name }} {{ Auth::user()->last_name }} </h1>
                 </div>
 
                 <!-- Content Row -->
@@ -149,7 +149,9 @@
                 data: {
                     labels: ['งานทั้งหมด', 'งานที่เสร็จแล้ว', 'งานที่กำลังทำ'],
                     datasets: [{
-                        data: [{{ $count }}, {{ $countCompleted }}, {{ $countUncompleted }}],
+                        data: [{{ $count }}, {{ $countCompleted }},
+                            {{ $countUncompleted }}
+                        ],
                         backgroundColor: ['#4e73df', '#1cc88a', '#f6c23e'],
                         hoverBackgroundColor: ['#2e59d9', '#17a673', '#f4b619'],
                         hoverBorderColor: "rgba(234, 236, 244, 1)",
