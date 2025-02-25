@@ -33,7 +33,6 @@ class Add extends Component
             'task_detail' => 'required',
             'start_date' => 'required|date',
             'due_date' => 'required|date',
-            // 'type_id' => 'required|exists:task_types,type_id'
         ], [
             'task_name.required' => "กรุณากรอกชื่องาน",
             'task_detail.required' => "กรุณากรอกรายละเอียดงาน",
@@ -51,11 +50,10 @@ class Add extends Component
                 'updated_at' => Carbon::now(),
             ]);
 
-            $this->task_name = $taskType->type_name;
             $this->type_id = $taskType->type_id;
         }
 
-// หากไม่เลือกบุคลากรให้บันทึก user_id เป็น Admin ที่ล็อกอินอยู่
+        // หากไม่เลือกบุคลากรให้บันทึก user_id เป็น Admin ที่ล็อกอินอยู่
         $assignedUserId = $this->user_id ?? Auth::id();
 
         // ตรวจสอบวันที่ก่อนแปลง
@@ -68,7 +66,6 @@ class Add extends Component
 
         // สร้าง Task
         $task = Task::create([
-            'user_id' => $this->user_id,
             'user_id' => $assignedUserId,
             'task_name' => $this->task_name,
             'task_detail' => $this->task_detail,
@@ -80,7 +77,7 @@ class Add extends Component
         ]);
 
         // ส่งอีเมลแจ้งเตือน
-        // Mail::to('hello@example.com')->send(new TaskCreatedNotification($task));
+        Mail::to('anucha.se@rmuti.ac.th')->send(new TaskCreatedNotification($task));
 
         return redirect()->to('project');
     }
