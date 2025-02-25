@@ -52,7 +52,7 @@ class DatabaseSeeder extends Seeder
                 'title_id' => 3, // ค่า foreign key
                 'email' => 'user3@dd.com',
                 'phone' => '0777777777',
-                'password' => bcrypt('12345678901'),
+                'password' => bcrypt('12345678900'),
                 'first_name' => 'ผู้ใช้สอง',
                 'last_name' => 'ทั่วไป',
                 'faculty_id' => 2, // ค่า foreign key

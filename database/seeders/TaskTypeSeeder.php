@@ -19,7 +19,8 @@ class TaskTypeSeeder extends Seeder
             ['type_id' => 2, 'type_name' => 'ลาป่วย'],
             ['type_id' => 3, 'type_name' => 'ลาพักผ่อน'],
             ['type_id' => 4, 'type_name' => 'ประชุม'],
-            ['type_id' => 5, 'type_name' => 'อบรม'],
+            ['type_id' => 5, 'type_name' => 'อบรม/สัมมนา'],
+            ['type_id' => 6, 'type_name' => 'ลากิจ'],
         ]);
     }
 }
