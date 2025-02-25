@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Exports\TaskExport;
+use App\Http\Controllers\MailController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -72,6 +73,8 @@ Route::middleware(['auth', 'banned'])->group(function () {
     Route::get('export-tasks', function () {
         return (new TaskExport)->export();
     });
+    
+    Route::get('send-email-tasks', [MailController::class, 'sendEmailTasks'])->name('send-email-tasks');
 });
 
 Route::get('/home', [UserController::class, 'index']);
