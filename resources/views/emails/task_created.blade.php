@@ -86,7 +86,7 @@
                 <li><strong>วันเริ่มต้น:</strong> {{ $taskStartDate }}</li>
                 <li><strong>วันสิ้นสุด:</strong> {{ $taskDueDate }}</li>
                 <li><strong>เจ้าของงาน:</strong> {{ $userName }}</li>
-                <li><strong>ประเภทงาน:</strong> {{ $taskType }}</li>
+                {{-- <li><strong>ประเภทงาน:</strong> {{ $taskType }}</li> --}}
             </ul>
         </div>
 

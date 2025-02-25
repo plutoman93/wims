@@ -72,7 +72,9 @@
                                         @foreach ($task_types as $type)
                                             <option value="{{ $type->type_id }}">{{ $type->type_name }}</option>
                                         @endforeach
+                                        <option value="other">อื่นๆ</option>
                                     </select>
+                                    <input class="form-control custom-input" wire:model="other_select" id="other_select" type="text" hidden>
                                     @error('type_id')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -119,5 +121,16 @@
                 }
             });
         });
+    });
+
+    const option = document.getElementById('inputStatus');
+    const input = document.querySelector('.custom-input');
+
+    option.addEventListener('change', function() {
+        if (this.value === 'other') {
+            input.hidden = false;
+        } else {
+            input.hidden = true;
+        }
     });
 </script>

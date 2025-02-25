@@ -39,7 +39,7 @@ class TaskCreatedNotification extends Mailable
                     ->locale('th')
                     ->translatedFormat('d F Y'), // แปลงเป็น วัน เดือน ปี
                 'userName' => $this->task->user->first_name,
-                'taskType' => $this->task->task_type->type_name,
+                // 'taskType' => $this->task->task_type->type_name,
             ]);
     }
 

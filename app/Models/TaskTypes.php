@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class TaskTypes extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'type_name',
+        // 'created_by',
+        // 'updated_by',
+        // 'deleted_by',
+    ];
 
     public $incrementing = true;
 

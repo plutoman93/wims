@@ -17,7 +17,7 @@ class Add extends Component
 {
     use WithFileUploads;
 
-    public $task_name, $task_detail, $start_date, $due_date, $type_id, $created_by, $updated_by, $deleted_by, $user_id;
+    public $task_name, $task_detail, $start_date, $due_date, $type_id, $other_select, $created_by, $updated_by, $deleted_by, $user_id, $taskType;
     public bool $isAdmin;
 
     public function mount()
@@ -27,12 +27,13 @@ class Add extends Component
 
     public function add()
     {
+        // dd($this->all());
         $this->validate([
             'task_name' => 'required|min:3',
             'task_detail' => 'required',
             'start_date' => 'required|date',
             'due_date' => 'required|date',
-            'type_id' => 'required|exists:task_types,type_id',
+            // 'type_id' => 'required|exists:task_types,type_id'
         ], [
             'task_name.required' => "กรุณากรอกชื่องาน",
             'task_detail.required' => "กรุณากรอกรายละเอียดงาน",
@@ -40,6 +41,19 @@ class Add extends Component
             'due_date.required' => "กรุณาเลือกวันที่สิ้นสุดงาน",
             'type_id.required' => "กรุณาเลือกชนิด",
         ]);
+
+        if ($this->type_id == 'other') {
+            $taskType = TaskTypes::create([
+                'type_name' => $this->other_select,
+                'created_by' => Auth::id(),
+                'updated_by' => Auth::id(),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+
+            $this->task_name = $taskType->type_name;
+            $this->type_id = $taskType->type_id;
+        }
 
 // หากไม่เลือกบุคลากรให้บันทึก user_id เป็น Admin ที่ล็อกอินอยู่
         $assignedUserId = $this->user_id ?? Auth::id();
@@ -66,7 +80,7 @@ class Add extends Component
         ]);
 
         // ส่งอีเมลแจ้งเตือน
-        Mail::to('hello@example.com')->send(new TaskCreatedNotification($task));
+        // Mail::to('hello@example.com')->send(new TaskCreatedNotification($task));
 
         return redirect()->to('project');
     }
