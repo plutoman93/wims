@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\TaskTypes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Debugbar;
 
 class TaskPersonal extends Component
 {
@@ -80,6 +81,7 @@ class TaskPersonal extends Component
             ->when($this->typeFilter, function ($query) { // Filter ตามชนิดงาน
                 $query->where('type_id', $this->typeFilter);
             })
+            ->orderBy('created_at', 'desc')
             ->paginate(10) // `paginate()` คืนค่าเป็น `Paginator`
             ->items()) // ใช้ `.items()` ดึงรายการทั้งหมดจากหน้า Pagination
             ->pluck('task_id') // แปลงเป็น Collection แล้วใช้ pluck()
@@ -184,6 +186,7 @@ class TaskPersonal extends Component
             ->when($this->typeFilter, function ($query) { // Filter ตามชนิดงาน
                 $query->where('type_id', $this->typeFilter);
             })
+            ->orderBy('created_at', 'desc')
             ->paginate(10); // ใช้ Pagination
 
         $users = User::all(); // ดึงข้อมูลผู้ใช้ทั้งหมด
