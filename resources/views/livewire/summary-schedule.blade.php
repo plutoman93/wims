@@ -4,23 +4,36 @@
             <div class="card-header bg-primary text-white">
                 <h4 class="mb-0">สรุปตารางงาน</h4>
             </div>
-            {{-- <div class="card-body">
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-4 mb-3"> <!-- เพิ่ม mb-3 -->
+                        <input type="search" class="form-control" placeholder="ค้นหาชื่องาน" wire:model.live="search">
+                    </div>
+                    <div class="col-md-4 mb-3"> <!-- เพิ่ม mb-3 -->
+                        <select class="form-control">
+                            <option value="">เลือกวันที่</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3"> <!-- เพิ่ม mb-3 -->
+                        <select class="form-control">
+                            <option value="">เลือกช่วงเวลา</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped">
                         <thead class="bg-secondary text-white">
                             <tr class="text-center">
-                                <th>ชื่อบุคลากร</th>
-                                <th>งานไปราชการ</th>
-                                <th>วันเริ่มงาน</th>
-                                <th>ชื่อบุคลากร</th>
-                                <th>งานภายในสาขา</th>
-                                <th>วันเริ่มงาน</th>
-                                <th>ชื่อบุคลากร</th>
-                                <th>ลากิจ/ลาป่วย</th>
-                                <th>วันเริ่มงาน</th>
+                                <th><input type="checkbox" wire:click="toggleSelectAll"></th>
+                                <th>ลำดับ</th>
+                                <th>เจ้าของงาน</th>
+                                <th>ชื่องาน</th>
+                                <th>ประเภทงาน</th>
+                                <th>วันครบกำหนดงาน</th>
+                                <th>สถานะงาน</th>
                             </tr>
                         </thead>
-                        <tbody> --}}
+                        <tbody>
                             {{-- @forelse ($data as $key => $item)
                                 <tr>
                                     <td class="text-center">{{ $data->firstItem() + $loop->index }}</td>
@@ -55,13 +68,13 @@
                                     <td colspan="7" class="text-center">ไม่พบข้อมูล</td>
                                 </tr>
                             @endforelse --}}
-                        {{-- </tbody>
+                        </tbody>
                     </table>
                     <div class="d-flex justify-content-center">
                         {{-- {{ $data->links('vendor.livewire.task-paginate') }} --}}
-                    {{-- </div>
+                    </div>
                 </div>
-            </div> --}}
+            </div>
         </div>
     </div>
 </div>
