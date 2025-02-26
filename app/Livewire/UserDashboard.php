@@ -26,6 +26,7 @@ class UserDashboard extends Component
             ->select('tasks.type_id', 'task_types.type_name') // ดึง type_id และ type_name
             ->selectRaw('COUNT(*) as count') // นับจำนวนงานตาม type_id
             ->where('tasks.user_id', $userId) // กรองเฉพาะงานของ user ที่ล็อกอิน
+            ->where('tasks.task_status_id', '!=', 1) // นับเฉพาะงานที่ยังไม่เสร็จ
             ->groupBy('tasks.type_id', 'task_types.type_name') // Group by ให้ตรงกับ select
             ->get();
     }

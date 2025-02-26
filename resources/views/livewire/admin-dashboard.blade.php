@@ -73,7 +73,7 @@
                     <div class="col-xl-8 col-lg-7">
                         <div class="card shadow mb-4">
                             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">จำนวนงานของบุคลากร</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">จำนวนงานของบุคลากรที่กำลังดำเนินการ</h6>
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -97,7 +97,7 @@
                         <!-- จำนวนงานแต่ละประเภท -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">จำนวนงานแต่ละประเภท</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">จำนวนงานแต่ละประเภทที่กำลังดำเนินการ</h6>
                             </div>
                             <div class="card-body">
                                 <div class="row">
