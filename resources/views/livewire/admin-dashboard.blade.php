@@ -16,6 +16,7 @@
                 <!-- Content Row -->
                 <div class="row">
                     <div class="col-xl-4 col-md-6 mb-4">
+                        <a href="{{ route('projects') }}" class="text-decoration-none">
                         <div class="card border-left-primary shadow h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
@@ -30,9 +31,11 @@
                                 </div>
                             </div>
                         </div>
+                        </a>
                     </div>
 
                     <div class="col-xl-4 col-md-6 mb-4">
+                        <a href="{{ route('projects', ['statusFilter' => 1]) }}" class="text-decoration-none">
                         <div class="card border-left-success shadow h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
@@ -47,9 +50,11 @@
                                 </div>
                             </div>
                         </div>
+                        </a>
                     </div>
 
                     <div class="col-xl-4 col-md-6 mb-4">
+                        <a href="{{ route('projects', ['statusFilter' => 2]) }}" class="text-decoration-none">
                         <div class="card border-left-warning shadow h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
@@ -64,6 +69,7 @@
                                 </div>
                             </div>
                         </div>
+                        </a>
                     </div>
                 </div>
 
@@ -79,6 +85,7 @@
                                 <div class="row">
                                     @foreach ($taskUserCounts as $task)
                                         <div class="col-md-6 col-lg-4 mb-3">
+                                            <a href="{{ route('projects', ['selectedUser' => $task->user_id]) }}" class="text-decoration-none">
                                             <div class="card border-left-info shadow h-100 d-flex flex-column">
                                                 <div class="card-body d-flex flex-column justify-content-center">
                                                     <div class="font-weight-bold text-info text-uppercase mb-2 text-center"
@@ -88,11 +95,13 @@
                                                     <h1 class="text-center">{{ $task->count }}</h1>
                                                 </div>
                                             </div>
+                                            </a>
                                         </div>
                                     @endforeach
                                 </div>
                             </div>
                         </div>
+
 
                         <!-- จำนวนงานแต่ละประเภท -->
                         <div class="card shadow mb-4">
@@ -103,6 +112,7 @@
                                 <div class="row">
                                     @foreach ($taskCounts as $task)
                                         <div class="col-md-6 col-lg-4 mb-3">
+                                            <a href="{{ route('projects', ['typeFilter' => $task->type_id]) }}" class="text-decoration-none">
                                             <div class="card border-left-info shadow h-100 d-flex flex-column">
                                                 <div class="card-body d-flex flex-column justify-content-center">
                                                     <div class="font-weight-bold text-info text-uppercase mb-2 text-center"
@@ -112,6 +122,7 @@
                                                     <h1 class="text-center">{{ $task->count }}</h1>
                                                 </div>
                                             </div>
+                                            </a>
                                         </div>
                                     @endforeach
                                 </div>
