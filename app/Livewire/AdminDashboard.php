@@ -21,6 +21,7 @@ class AdminDashboard extends Component
         $this->taskCounts = Task::join('task_types', 'tasks.type_id', '=', 'task_types.type_id') // เชื่อมกับ task_types
             ->select('tasks.type_id', 'task_types.type_name') // ดึง type_id และ type_name
             ->selectRaw('COUNT(*) as count') // นับจำนวนงานตาม type_id
+            ->where('tasks.task_status_id', '!=', 1) // นับเฉพาะงานที่ยังไม่เสร็จ
             ->groupBy('tasks.type_id', 'task_types.type_name') // Group by ให้ตรงกับ select
             ->get();
     }
@@ -30,6 +31,7 @@ class AdminDashboard extends Component
         $this->taskUserCounts = Task::join('users', 'tasks.user_id', '=', 'users.user_id') // เชื่อมกับตาราง users
             ->select('tasks.user_id', 'users.first_name') // เปลี่ยนจาก username เป็น first_name
             ->selectRaw('COUNT(*) as count') // นับจำนวนงานของแต่ละ user
+            ->where('tasks.task_status_id', '!=', 1) // นับเฉพาะงานที่ยังไม่เสร็จ
             ->groupBy('tasks.user_id', 'users.first_name') // Group by ให้ตรงกับ select
             ->get();
     }
