@@ -25,90 +25,36 @@
                         </select>
                     </div>
                 </div>
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped">
-                        <thead class="bg-secondary text-white">
-                            <tr class="text-center">
-                                <th><input type="checkbox" wire:click="toggleSelectAll"></th>
-                                <th>ลำดับ</th>
-                                <th>เจ้าของงาน</th>
-                                <th>ชื่องาน</th>
-                                <th>ประเภทงาน</th>
-                                <th>วันครบกำหนดงาน</th>
-                                <th>สถานะงาน</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{-- @forelse ($data as $key => $item)
-                                <tr>
-                                    <td class="text-center">{{ $data->firstItem() + $loop->index }}</td>
-                                    <td class="text-center">{{ $item->task_name }}</td>
-                                    <td class="text-center">{{ $item->task_detail }}</td>
-                                    <td class="text-center">
-                                        {{ \Carbon\Carbon::parse($item->start_date)->format('d-m-Y') }}</td>
-                                    <td class="text-center">
-                                        {{ \Carbon\Carbon::parse($item->due_date)->format('d-m-Y') }}</td>
-                                    <td class="text-center">
-                                        @if ($item->task_status_id == 1)
-                                            <button wire:click="taskStatus({{ $item->task_id }}, 2)"
-                                                class="btn btn-success btn-sm">
-                                                <i class="fas fa-check"></i>
-                                            </button>
-                                        @else
-                                            <button wire:click="taskStatus({{ $item->task_id }}, 1)"
-                                                class="btn btn-danger btn-sm">
-                                                <i class="fas fa-ban"></i>
-                                            </button>
-                                        @endif
-                                    </td>
-                                    <td class="text-center">
-                                        <a class="btn btn-sm btn-warning"
-                                            href="{{ route('task-edit', ['id' => $item->task_id]) }}">แก้ไข</a>
-                                        <a class="btn btn-sm btn-danger"
-                                            wire:click.prevent="delete({{ $item->task_id }})">ลบ</a>
-                                    </td>
+                <div class="d-flex">
+                    <!-- ตารางหลัก -->
+                    <div class="table-responsive" style="width: 66.66%;">
+                        <table class="table table-bordered table-striped">
+                            <thead class="bg-secondary text-white">
+                                <tr class="text-center">
+                                    <th>ลำดับ</th>
+                                    <th>เจ้าของงาน</th>
+                                    <th>ชื่องาน</th>
+                                    <th>ประเภทงาน</th>
+                                    <th>เวลาสิ้นสุด</th>
+                                    <th>สถานะ</th>
                                 </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="7" class="text-center">ไม่พบข้อมูล</td>
-                                </tr>
-                            @endforelse --}}
-                        </tbody>
-                    </table>
-                    <div class="d-flex justify-content-center">
-                        {{-- {{ $data->links('vendor.livewire.task-paginate') }} --}}
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-center">
+                            {{-- {{ $data->links('vendor.livewire.task-paginate') }} --}}
+                        </div>
+                    </div>
+
+                    <!-- กล่องด้านข้างสำหรับแสดงข้อมูล -->
+                    <div class="ms-3 p-3 border rounded shadow" style="width: 30%; background-color: #f8f9fa;">
+                        <h5 class="text-primary">ข้อมูลเพิ่มเติม</h5>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
 </div>
-
-{{-- <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        window.addEventListener('confirmDelete', event => {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "คุณต้องการลบ Task นี้หรือไม่?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    @this.call('deleteTask', event.detail.task_id); // เรียก Livewire Method deleteTask
-                }
-            });
-        });
-
-        window.addEventListener('alert', event => {
-            Swal.fire({
-                icon: event.detail.type,
-                title: event.detail.message,
-                showConfirmButton: false,
-                timer: 1500
-            });
-        });
-    });
-</script> --}}
