@@ -163,26 +163,63 @@
                                 <h6 class="m-0 font-weight-bold text-primary">จำนวนงานแต่ละประเภทที่กำลังดำเนินการ</h6>
                             </div>
                             <div class="card-body">
-                                <div class="row">
-                                    @foreach ($taskCounts as $task)
-                                        <div class="col-md-6 col-lg-4 mb-3">
-                                            <a href="{{ route('projects', ['typeFilter' => $task->type_id]) }}"
-                                                class="text-decoration-none">
-                                                <div class="card border-left-info shadow h-100 d-flex flex-column">
-                                                    <div class="card-body d-flex flex-column justify-content-center">
-                                                        <div class="font-weight-bold text-info text-uppercase mb-2 text-center"
-                                                            style="font-size: 16px;">
-                                                            {{ $task->type_name ?? 'ไม่พบประเภท' }}
+                                <div class="d-flex align-items-center">
+                                    <!-- ปุ่มเลื่อนไปทางซ้าย -->
+                                    <button id="prevTaskTypeBtn" class="btn btn-primary me-2">&lt;</button>
+
+                                    <!-- ส่วนที่เลื่อนกล่องได้ (ซ่อน overflow) -->
+                                    <div class="overflow-hidden flex-grow-1">
+                                        <!-- กล่องสำหรับเลื่อนไปซ้ายขวา -->
+                                        <div id="taskTypeSlider" class="d-flex" style="transition: transform 0.3s ease; gap: 1rem;">
+                                            @foreach ($taskCounts as $task)
+                                                <div class="task-type-card" style="min-width: 300px; max-width: 300px;">
+                                                    <a href="{{ route('projects', ['typeFilter' => $task->type_id]) }}" class="text-decoration-none">
+                                                        <div class="card border-left-info shadow h-100 d-flex flex-column">
+                                                            <div class="card-body d-flex flex-column justify-content-center">
+                                                                <div class="font-weight-bold text-info text-uppercase mb-2 text-center" style="font-size: 16px;">
+                                                                    {{ $task->type_name ?? 'ไม่พบประเภท' }}
+                                                                </div>
+                                                                <h1 class="text-center">{{ $task->count }}</h1>
+                                                            </div>
                                                         </div>
-                                                        <h1 class="text-center">{{ $task->count }}</h1>
-                                                    </div>
+                                                    </a>
                                                 </div>
-                                            </a>
+                                            @endforeach
                                         </div>
-                                    @endforeach
+                                    </div>
+
+                                    <!-- ปุ่มเลื่อนไปทางขวา -->
+                                    <button id="nextTaskTypeBtn" class="btn btn-primary ms-2">&gt;</button>
                                 </div>
                             </div>
                         </div>
+
+                        <script>
+                            // ดึง slider และปุ่มมาจาก HTML
+                            const taskTypeSlider = document.getElementById('taskTypeSlider');
+                            const prevTaskTypeBtn = document.getElementById('prevTaskTypeBtn');
+                            const nextTaskTypeBtn = document.getElementById('nextTaskTypeBtn');
+
+                            // ตัวแปรเก็บระยะที่เลื่อนไป
+                            let taskTypeScrollAmount = 0;
+                            const taskTypeCardWidth = 320;
+
+                            // ฟังก์ชันเลื่อนไปทางขวา
+                            nextTaskTypeBtn.addEventListener('click', () => {
+                                const maxScroll = taskTypeSlider.scrollWidth - taskTypeSlider.clientWidth;
+                                taskTypeScrollAmount += taskTypeCardWidth;
+                                if (taskTypeScrollAmount > maxScroll) taskTypeScrollAmount = maxScroll;
+                                taskTypeSlider.style.transform = `translateX(-${taskTypeScrollAmount}px)`;
+                            });
+
+                            // ฟังก์ชันเลื่อนไปทางซ้าย
+                            prevTaskTypeBtn.addEventListener('click', () => {
+                                taskTypeScrollAmount -= taskTypeCardWidth;
+                                if (taskTypeScrollAmount < 0) taskTypeScrollAmount = 0;
+                                taskTypeSlider.style.transform = `translateX(-${taskTypeScrollAmount}px)`;
+                            });
+                        </script>
+
                     </div>
 
                     <!-- Pie Chart -->
