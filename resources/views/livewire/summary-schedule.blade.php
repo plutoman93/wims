@@ -4,7 +4,7 @@
             <div class="card-header bg-primary text-white">
                 <h4 class="mb-0">สรุปตารางงาน</h4>
             </div>
-            <div class="card-body">
+            {{-- <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped">
                         <thead class="bg-secondary text-white">
@@ -20,7 +20,7 @@
                                 <th>วันเริ่มงาน</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody> --}}
                             {{-- @forelse ($data as $key => $item)
                                 <tr>
                                     <td class="text-center">{{ $data->firstItem() + $loop->index }}</td>
@@ -55,13 +55,13 @@
                                     <td colspan="7" class="text-center">ไม่พบข้อมูล</td>
                                 </tr>
                             @endforelse --}}
-                        </tbody>
+                        {{-- </tbody>
                     </table>
                     <div class="d-flex justify-content-center">
                         {{-- {{ $data->links('vendor.livewire.task-paginate') }} --}}
-                    </div>
+                    {{-- </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>
