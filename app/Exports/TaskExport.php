@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class TaskExport
 {
@@ -14,8 +15,20 @@ class TaskExport
     {
         Carbon::setLocale('th'); // กำหนดภาษาไทย
 
-        // ดึงข้อมูลพร้อมความสัมพันธ์
-        $tasks = Task::with(['task_status', 'task_type', 'user'])->get()->map(function ($task) {
+        // ดึง user ที่ login อยู่
+        $user = Auth::user();
+
+        // ตรวจสอบสิทธิ์การ export
+        if ($user->role !== 'admin' && $user->user_status_id !== 1) {
+            // ไม่ใช่ admin และ user_status_id ไม่ใช่ 1 ให้ export งานของตัวเองเท่านั้น
+            $tasks = Task::where('user_id', $user->user_id)->with(['task_status', 'task_type', 'user'])->get();
+        } else {
+            // ถ้าเป็น admin หรือ user_status_id = 1 ให้ดึงงานทั้งหมด
+            $tasks = Task::with(['task_status', 'task_type', 'user'])->get();
+        }
+
+        // แปลงข้อมูลสำหรับ export
+        $tasks = $tasks->map(function ($task) {
             return [
                 'ลำดับ' => $task->task_id,
                 'ชื่องาน' => $task->task_name,
