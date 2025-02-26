@@ -43,14 +43,14 @@ class TaskSeeder extends Seeder
         ];
 
         // สร้างข้อมูลลง tasks
-        foreach (range(1, 20) as $index) {
+        foreach (range(1, 100) as $index) {
             DB::table('tasks')->insert([
                 'task_name' => $faker->randomElement($taskNames), // สุ่มชื่อ Task จากรายการ
                 'task_detail' => $faker->randomElement($taskDetails), // สุ่มรายละเอียด Task
                 'start_date' => $faker->date,
                 'due_date' => $faker->date,
                 'task_status_id' => $faker->randomElement($taskStatusIds), // ใช้ task_status_id จากฐานข้อมูล
-                'type_id' => $faker->numberBetween(1, 3),
+                'type_id' => $faker->numberBetween(1, 6),
                 'user_id' => $faker->numberBetween(1, 3),
                 'created_at' => now(),
                 'updated_at' => now(),

@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 use Livewire\WithFileUploads as LivewireWithFileUploads;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
@@ -87,7 +88,7 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Account::class, 'account_status_id', 'account_status_id');
     }
-    public function task()
+    public function tasks() : HasMany
     {
         return $this->hasMany(Task::class, 'user_id', 'user_id');
     }
