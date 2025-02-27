@@ -9,7 +9,6 @@ use App\Models\User;
 use App\Models\TaskTypes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use Debugbar;
 
 class TaskPersonal extends Component
 {

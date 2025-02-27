@@ -101,7 +101,7 @@
                                                 <!-- กล่องแต่ละใบ -->
                                                 <div class="task-card" style="min-width: 300px; max-width: 300px;">
                                                     <!-- ลิงก์ไปยังรายละเอียดของ user -->
-                                                    <a href="{{ route('projects', ['selectedUser' => $task->user_id]) }}"
+                                                    <a href="{{ route('projects', ['selectedUser' => $task->user_id,'statusFilter' => 2]) }}"
                                                         class="text-decoration-none">
                                                         <!-- สไตล์ของการ์ด -->
                                                         <div class="card border-left-info shadow h-100 d-flex flex-column">
@@ -173,7 +173,7 @@
                                         <div id="taskTypeSlider" class="d-flex" style="transition: transform 0.3s ease; gap: 1rem;">
                                             @foreach ($taskCounts as $task)
                                                 <div class="task-type-card" style="min-width: 300px; max-width: 300px;">
-                                                    <a href="{{ route('projects', ['typeFilter' => $task->type_id]) }}" class="text-decoration-none">
+                                                    <a href="{{ route('projects', ['typeFilter' => $task->type_id,'statusFilter' => 2]) }}" class="text-decoration-none">
                                                         <div class="card border-left-info shadow h-100 d-flex flex-column">
                                                             <div class="card-body d-flex flex-column justify-content-center">
                                                                 <div class="font-weight-bold text-info text-uppercase mb-2 text-center" style="font-size: 16px;">

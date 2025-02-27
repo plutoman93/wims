@@ -59,48 +59,62 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($data as $key => $item)
+                            @forelse ($data as $key => $item)  {{-- วนลูปผ่านตัวแปร $data ซึ่งเป็นรายการของภารกิจ โดยใช้ $key เป็นดัชนี --}}
                                 <tr>
-                                    <td class="text-center"><input type="checkbox" wire:model="selectedTasks"
-                                            value="{{ $item->task_id }}"></td>
+                                    <td class="text-center">
+                                        <input type="checkbox" wire:model="selectedTasks" value="{{ $item->task_id }}">
+                                        {{-- ช่องทำเครื่องหมาย (checkbox) ใช้เลือกภารกิจ โดยใช้ Livewireเพื่อเก็บค่าที่เลือกไว้ในตัวแปร selectedTasks --}}
+                                    </td>
                                     <td class="text-center">{{ $data->firstItem() + $key }}</td>
+                                    {{-- แสดงลำดับของรายการ โดยใช้ firstItem() เพื่อให้รองรับ pagination --}}
                                     <td class="text-center">{{ $item->user->first_name }}</td>
+                                    {{-- แสดงชื่อของผู้ใช้ที่เกี่ยวข้องกับภารกิจ --}}
                                     <td class="text-center text-truncate" style="max-width: 200px;">
-                                        {{ $item->task_name }}</td>
+                                        {{ $item->task_name }}
+                                        {{-- แสดงชื่อของภารกิจ โดยใช้ text-truncate และ max-widthเพื่อให้ข้อความไม่ยาวเกินไป --}}
+                                    </td>
                                     <td class="text-center text-truncate" style="max-width: 400px;">
-                                        {{ $item->task_detail }}</td>
+                                        {{ $item->task_detail }}
+                                        {{-- แสดงรายละเอียดของภารกิจ โดยใช้ text-truncate และ max-width เช่นกัน --}}
+                                    </td>
                                     <td class="text-center">{{ $item->task_type->type_name }}</td>
+                                    {{-- แสดงประเภทของภารกิจ --}}
                                     <td class="text-center">
                                         {{ \Carbon\Carbon::parse($item->start_date)->locale('th')->translatedFormat('d F Y') }}
+                                        {{-- แปลงวันที่เริ่มต้นของภารกิจให้อยู่ในรูปแบบที่อ่านง่าย โดยใช้ Carbonและแสดงเป็นภาษาไทย --}}
                                     </td>
                                     <td class="text-center">
                                         {{ \Carbon\Carbon::parse($item->due_date)->locale('th')->translatedFormat('d F Y') }}
+                                        {{-- แปลงวันครบกำหนดส่งของภารกิจให้อยู่ในรูปแบบที่อ่านง่าย โดยใช้ Carbonและแสดงเป็นภาษาไทย --}}
                                     </td>
                                     <td class="text-center">
                                         @if ($item->task_status_id == 1)
-                                            <button wire:click="taskStatus({{ $item->task_id }}, 2)"
-                                                class="btn btn-success btn-sm">
+                                            {{-- ตรวจสอบว่าสถานะของภารกิจเป็น 1 (ยังไม่เสร็จสิ้น) --}}
+                                            <button wire:click="taskStatus({{ $item->task_id }}, 2)" class="btn btn-success btn-sm">
                                                 <i class="fas fa-check"></i>
                                             </button>
+                                            {{-- ปุ่มเปลี่ยนสถานะเป็นเสร็จสิ้น (2) --}}
                                         @else
-                                            <button wire:click="taskStatus({{ $item->task_id }}, 1)"
-                                                class="btn btn-uncomplete btn-sm">
+                                            <button wire:click="taskStatus({{ $item->task_id }}, 1)" class="btn btn-uncomplete btn-sm">
                                                 <i class="fas fa-hourglass-half"></i>
                                             </button>
+                                            {{-- ปุ่มเปลี่ยนสถานะกลับเป็นยังไม่เสร็จสิ้น (1) --}}
                                         @endif
                                     </td>
                                     <td class="text-center">
-                                        <a class="btn btn-sm btn-warning"
-                                            href="{{ route('task-edit', ['id' => $item->task_id]) }}">แก้ไข</a>
-                                        <a class="btn btn-sm btn-danger"
-                                            wire:click.prevent="delete({{ $item->task_id }})">ลบ</a>
+                                        <a class="btn btn-sm btn-warning" href="{{ route('task-edit', ['id' => $item->task_id]) }}">แก้ไข</a>
+                                        {{-- ปุ่มลิงก์ไปหน้าแก้ไขภารกิจ --}}
+                                        <a class="btn btn-sm btn-danger" wire:click.prevent="delete({{ $item->task_id }})">ลบ</a>
+                                        {{-- ปุ่มลบภารกิจ ใช้ Livewire เพื่อเรียกฟังก์ชัน delete --}}
                                     </td>
                                 </tr>
                             @empty
+                                {{-- กรณีที่ไม่มีข้อมูลภารกิจให้แสดงข้อความ --}}
                                 <tr>
                                     <td colspan="10" class="text-center">ไม่พบข้อมูล</td>
                                 </tr>
                             @endforelse
+
                         </tbody>
                     </table>
                     <div class="d-flex justify-content-center">
@@ -113,7 +127,7 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         // ... (โค้ด JavaScript ส่วนอื่น ๆ)
 
         window.addEventListener('confirmDelete', event => {
