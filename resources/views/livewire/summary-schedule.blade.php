@@ -42,8 +42,8 @@
                                     <th>ลำดับ</th>
                                     <th>เจ้าของงาน</th>
                                     <th>ชื่องาน</th>
+                                    <th>รายละเอียดงาน</th>
                                     <th>ประเภทงาน</th>
-                                    <th>วันเริ่มต้นงาน</th>
                                     <th>วันครบกำหนดงาน</th>
                                 </tr>
                             </thead>
@@ -53,9 +53,8 @@
                                         <td class="text-center">{{ $tasks->firstItem() + $key }}</td>
                                         <td class="text-center">{{ $task->user->first_name ?? '-' }}</td>
                                         <td class="text-center">{{ $task->task_name ?? '-' }}</td>
+                                        <td class="text-center">{{ $task->task_detail ?? '-' }}</td>
                                         <td class="text-center">{{ $task->task_type->type_name ?? '-' }}</td>
-                                        <td class="text-center">{{ \Carbon\Carbon::parse($task->start_date)->translatedFormat('d F Y') }}
-                                        </td>
                                         <td class="text-center">{{ \Carbon\Carbon::parse($task->due_date)->translatedFormat('d F Y') }}</td>
                                     </tr>
                                 @empty
@@ -84,8 +83,13 @@
                         <div class="p-3 border rounded shadow" style="background-color: #f8f9fa;">
                             <h5 class="text-primary fw-bold">จำนวนงานของแต่ละคนในวัน</h5> <!-- ใช้ h4 -->
                             <ul class="list-unstyled">
-                                @foreach ($taskCountsByUser as $user => $count)
-                                    <li class="text-lg fw-semibold text-dark">{{ $user }}: {{ $count }} งาน</li>
+                                @foreach ($taskCountsByUserAndType as $user => $tasks)
+                                    <li class="text-lg fw-semibold text-blue">{{ $user }}:</li>
+                                    <ul>
+                                        @foreach ($tasks as $task)
+                                            <li class="text-lg text-dark">{{ $task->type_name }}: {{ $task->count }} งาน</li>
+                                        @endforeach
+                                    </ul>
                                 @endforeach
                             </ul>
                         </div>
