@@ -6,14 +6,14 @@
             </div>
             <div class="card-body">
                 <div class="row mb-3">
-                    <div class="col-md-4 mb-3"> <!-- เพิ่ม mb-3 -->
-                        <input type="search" class="form-control" placeholder="ค้นหาชื่องาน" wire:model.live="search">
-                    </div>
-                    <div class="col-md-4 mb-3"> <!-- เพิ่ม mb-3 -->
-                        <select class="form-control">
-                            <option value="">เลือกผู้ใช้</option>
-                        </select>
-                    </div>
+                    @can('can-filter-task')
+                        <div class="col-md-4 mb-3"> <!-- เพิ่ม mb-3 -->
+                            <select class="form-control">
+                                <option value="">เลือกผู้ใช้</option>
+
+                            </select>
+                        </div>
+                    @endcan
                     <div class="col-md-4 mb-3"> <!-- เพิ่ม mb-3 -->
                         <select class="form-control">
                             <option value="">เลือกวันที่</option>
@@ -32,57 +32,27 @@
                             <thead class="bg-secondary text-white">
                                 <tr class="text-center">
                                     <th>ลำดับ</th>
-                                    <th>เจ้าของงาน</th>
                                     <th>ชื่องาน</th>
+                                    <th>เจ้าของงาน</th>
                                     <th>ประเภทงาน</th>
-                                    <th>เวลาสิ้นสุด</th>
-                                    <th>สถานะ</th>
+                                    <th>วันครบกำหนดงาน</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($data as $key => $item)  {{-- วนลูปผ่านตัวแปร $data ซึ่งเป็นรายการของภารกิจ โดยใช้ $key เป็นดัชนี --}}
-                                <tr>
-                                    <td class="text-center">{{ $data->firstItem() + $key }}</td>
-                                    {{-- แสดงลำดับของรายการ โดยใช้ firstItem() เพื่อให้รองรับ pagination --}}
-                                    <td class="text-center">{{ $item->user->first_name }}</td>
-                                    {{-- แสดงชื่อของผู้ใช้ที่เกี่ยวข้องกับภารกิจ --}}
-                                    <td class="text-center text-truncate" style="max-width: 200px;">
-                                        {{ $item->task_name }}
-                                        {{-- แสดงชื่อของภารกิจ โดยใช้ text-truncate และ max-widthเพื่อให้ข้อความไม่ยาวเกินไป --}}
-                                    </td>
-                                    <td class="text-center text-truncate" style="max-width: 400px;">
-                                        {{ $item->task_detail }}
-                                        {{-- แสดงรายละเอียดของภารกิจ โดยใช้ text-truncate และ max-width เช่นกัน --}}
-                                    </td>
-                                    <td class="text-center">{{ $item->task_type->type_name }}</td>
-                                    {{-- แสดงประเภทของภารกิจ --}}
-                                    <td class="text-center">
-                                        {{ \Carbon\Carbon::parse($item->due_date)->locale('th')->translatedFormat('d F Y') }}
-                                        {{-- แปลงวันครบกำหนดส่งของภารกิจให้อยู่ในรูปแบบที่อ่านง่าย โดยใช้ Carbonและแสดงเป็นภาษาไทย --}}
-                                    </td>
-                                    <td class="text-center">
-                                        @if ($item->task_status_id == 1)
-                                            {{-- ตรวจสอบว่าสถานะของภารกิจเป็น 1 (ยังไม่เสร็จสิ้น) --}}
-                                            <button wire:click="taskStatus({{ $item->task_id }}, 2)" class="btn btn-success btn-sm">
-                                                <i class="fas fa-check"></i>
-                                            </button>
-                                            {{-- ปุ่มเปลี่ยนสถานะเป็นเสร็จสิ้น (2) --}}
-                                        @else
-                                            <button wire:click="taskStatus({{ $item->task_id }}, 1)" class="btn btn-uncomplete btn-sm">
-                                                <i class="fas fa-hourglass-half"></i>
-                                            </button>
-                                            {{-- ปุ่มเปลี่ยนสถานะกลับเป็นยังไม่เสร็จสิ้น (1) --}}
-                                        @endif
-                                    </td>
-                                </tr>
-                            @empty
-                                {{-- กรณีที่ไม่มีข้อมูลภารกิจให้แสดงข้อความ --}}
-                                <tr>
-                                    <td colspan="10" class="text-center">ไม่พบข้อมูล</td>
-                                </tr>
-                            @endforelse
+                                @foreach ($tasks as $key => $task)
+                                    <tr>
+                                        <td class="text-center">{{ $key + 1 }}</td>
+                                        <td class="text-center">{{ $task->task_name ?? '-' }}</td>
+                                        <td class="text-center">{{ $task->user->first_name ?? '-' }}</td>
+                                        <td class="text-center">{{ $task->task_type->type_name ?? '-' }}</td>
+                                        <td class="text-center">
+                                            {{ $task->due_date ? \Carbon\Carbon::parse($task->due_date)->locale('th')->translatedFormat('d F Y') : '-' }}
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
+
                         <div class="d-flex justify-content-center">
                             {{-- {{ $data->links('vendor.livewire.task-paginate') }} --}}
                         </div>
