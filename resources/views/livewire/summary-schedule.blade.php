@@ -15,13 +15,22 @@
                         </div>
                     @endcan
                     <div class="col-md-4 mb-3"> <!-- เพิ่ม mb-3 -->
-                        <select class="form-control">
+                        <select class="form-control" wire:model="selectedDate">
                             <option value="">เลือกวันที่</option>
+                            @foreach ($start_date ?? [] as $date)
+                                <option value="{{ $date }}">{{ $date }}</option>
+                            @endforeach
+
                         </select>
                     </div>
                     <div class="col-md-4 mb-3"> <!-- เพิ่ม mb-3 -->
                         <select class="form-control">
                             <option value="">เลือกช่วงเวลา</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3"> <!-- เพิ่ม mb-3 -->
+                        <select class="form-control">
+                            <option value="">เลือกประภทงาน</option>
                         </select>
                     </div>
                 </div>
@@ -32,8 +41,8 @@
                             <thead class="bg-secondary text-white">
                                 <tr class="text-center">
                                     <th>ลำดับ</th>
-                                    <th>ชื่องาน</th>
                                     <th>เจ้าของงาน</th>
+                                    <th>ชื่องาน</th>
                                     <th>ประเภทงาน</th>
                                     <th>วันครบกำหนดงาน</th>
                                 </tr>
@@ -42,8 +51,8 @@
                                 @foreach ($tasks as $key => $task)
                                     <tr>
                                         <td class="text-center">{{ $key + 1 }}</td>
-                                        <td class="text-center">{{ $task->task_name ?? '-' }}</td>
                                         <td class="text-center">{{ $task->user->first_name ?? '-' }}</td>
+                                        <td class="text-center">{{ $task->task_name ?? '-' }}</td>
                                         <td class="text-center">{{ $task->task_type->type_name ?? '-' }}</td>
                                         <td class="text-center">
                                             {{ $task->due_date ? \Carbon\Carbon::parse($task->due_date)->locale('th')->translatedFormat('d F Y') : '-' }}
