@@ -11,6 +11,17 @@ use Illuminate\Support\Facades\Auth;
 
 class TaskExport
 {
+    protected $selectedUser;
+    protected $statusFilter;
+    protected $typeFilter;
+
+    public function __construct($selectedUser = null, $statusFilter = null, $typeFilter = null)
+    {
+        $this->selectedUser = $selectedUser;
+        $this->statusFilter = $statusFilter;
+        $this->typeFilter = $typeFilter;
+    }
+
     public function export()
     {
         Carbon::setLocale('th'); // กำหนดภาษาไทย
@@ -19,13 +30,27 @@ class TaskExport
         $user = Auth::user();
 
         // ตรวจสอบสิทธิ์การ export
+        $query = Task::with(['task_status', 'task_type', 'user']);
+
         if ($user->role !== 'admin' && $user->user_status_id !== 1) {
             // ไม่ใช่ admin และ user_status_id ไม่ใช่ 1 ให้ export งานของตัวเองเท่านั้น
-            $tasks = Task::where('user_id', $user->user_id)->with(['task_status', 'task_type', 'user'])->get();
-        } else {
-            // ถ้าเป็น admin หรือ user_status_id = 1 ให้ดึงงานทั้งหมด
-            $tasks = Task::with(['task_status', 'task_type', 'user'])->get();
+            $query->where('user_id', $user->user_id);
         }
+
+        // กรองข้อมูลตามพารามิเตอร์ที่ได้รับ
+        if ($this->selectedUser) {
+            $query->where('user_id', $this->selectedUser);
+        }
+
+        if ($this->statusFilter) {
+            $query->where('task_status_id', $this->statusFilter);
+        }
+
+        if ($this->typeFilter) {
+            $query->where('type_id', $this->typeFilter);
+        }
+
+        $tasks = $query->get();
 
         // แปลงข้อมูลสำหรับ export
         $tasks = $tasks->map(function ($task) {

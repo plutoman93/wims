@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Exports\TaskExport;
 use App\Http\Controllers\MailController;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -70,10 +72,18 @@ Route::middleware(['auth', 'banned'])->group(function () {
         return view('restore-task');
     })->name('restore-task');
 
-    Route::get('export-tasks', function () {
-        return (new TaskExport)->export();
-    });
-    
+    // Route::get('export-tasks', function () {
+    //     return (new TaskExport)->export();
+    // });
+    Route::get('/export-tasks', function (Request $request) {
+        $selectedUser = $request->input('selectedUser');
+        $statusFilter = $request->input('statusFilter');
+        $typeFilter = $request->input('typeFilter');
+
+        $export = new TaskExport($selectedUser, $statusFilter, $typeFilter);
+        return $export->export();
+    })->name('export-tasks');
+
     Route::get('send-email-tasks', [MailController::class, 'sendEmailTasks'])->name('send-email-tasks');
 });
 
