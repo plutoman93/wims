@@ -6,11 +6,11 @@
             </div>
             <div class="card-body">
                 <div class="row mb-3">
-                    <div class="col-md-4">
+                    <div class="col-md-4 mb-3">
                         <input type="search" class="form-control" placeholder="ค้นหาชื่องาน" wire:model.live="search">
                     </div>
                     @can('can-filter-task')
-                        <div class="col-md-4">
+                        <div class="col-md-4 mb-3">
                             <select class="form-control" wire:model.live="selectedUser">
                                 <option value="">เลือกผู้ใช้</option>
                                 @foreach ($users as $user)
@@ -19,14 +19,14 @@
                             </select>
                         </div>
                     @endcan
-                    <div class="col-md-4">
+                    <div class="col-md-4  mb-3">
                         <select class="form-control" wire:model.live="statusFilter">
                             <option value="">งานทั้งหมด</option>
                             <option value="1">เสร็จสิ้น</option>
                             <option value="2">ยังไม่เสร็จสิ้น</option>
                         </select>
                     </div>
-                    <div class="col-md-4 mt-3">
+                    <div class="col-md-4 mb-3">
                         <select class="form-control" wire:model.live="typeFilter">
                             <option value="">เลือกประเภทงาน</option>
                             @foreach ($taskTypes as $type)
