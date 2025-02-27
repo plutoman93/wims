@@ -103,9 +103,9 @@
                                     </td>
                                     <td class="text-center">
                                         <a class="btn btn-sm btn-warning" href="{{ route('task-edit', ['id' => $item->task_id]) }}">แก้ไข</a>
-                                        {{-- ปุ่มลิงก์ไปหน้าแก้ไขภารกิจ --}}
+                                        {{-- ปุ่มลิงก์ไปหน้าแก้ไขงาน --}}
                                         <a class="btn btn-sm btn-danger" wire:click.prevent="delete({{ $item->task_id }})">ลบ</a>
-                                        {{-- ปุ่มลบภารกิจ ใช้ Livewire เพื่อเรียกฟังก์ชัน delete --}}
+                                        {{-- ปุ่มลบงาน ใช้ Livewire เพื่อเรียกฟังก์ชัน delete --}}
                                     </td>
                                 </tr>
                             @empty
