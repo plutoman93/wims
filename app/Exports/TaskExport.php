@@ -11,6 +11,17 @@ use Illuminate\Support\Facades\Auth;
 
 class TaskExport
 {
+    protected $selectedUser;
+    protected $statusFilter;
+    protected $typeFilter;
+
+    public function __construct($selectedUser = null, $statusFilter = null, $typeFilter = null)
+    {
+        $this->selectedUser = $selectedUser;
+        $this->statusFilter = $statusFilter;
+        $this->typeFilter = $typeFilter;
+    }
+
     public function export()
     {
         Carbon::setLocale('th'); // กำหนดภาษาไทย
@@ -19,25 +30,39 @@ class TaskExport
         $user = Auth::user();
 
         // ตรวจสอบสิทธิ์การ export
+        $query = Task::with(['task_status', 'task_type', 'user']);
+
         if ($user->role !== 'admin' && $user->user_status_id !== 1) {
             // ไม่ใช่ admin และ user_status_id ไม่ใช่ 1 ให้ export งานของตัวเองเท่านั้น
-            $tasks = Task::where('user_id', $user->user_id)->with(['task_status', 'task_type', 'user'])->get();
-        } else {
-            // ถ้าเป็น admin หรือ user_status_id = 1 ให้ดึงงานทั้งหมด
-            $tasks = Task::with(['task_status', 'task_type', 'user'])->get();
+            $query->where('user_id', $user->user_id);
         }
 
+        // กรองข้อมูลตามพารามิเตอร์ที่ได้รับ
+        if ($this->selectedUser) {
+            $query->where('user_id', $this->selectedUser);
+        }
+
+        if ($this->statusFilter) {
+            $query->where('task_status_id', $this->statusFilter);
+        }
+
+        if ($this->typeFilter) {
+            $query->where('type_id', $this->typeFilter);
+        }
+
+        $tasks = $query->get();
+
         // แปลงข้อมูลสำหรับ export
-        $tasks = $tasks->map(function ($task) {
+        $tasks = $tasks->map(function ($task, $index) {
             return [
-                'ลำดับ' => $task->task_id,
+                'ลำดับ' => $index + 1,
+                'เจ้าของงาน' => $task->user->first_name ?? 'N/A',
                 'ชื่องาน' => $task->task_name,
                 'รายละเอียด' => $task->task_detail,
                 'สถานะงาน' => $task->task_status->task_status_name ?? 'N/A',
                 'ชนิดงาน' => $task->task_type->type_name ?? 'N/A',
                 'วันเริ่มต้น' => $task->start_date ? Carbon::parse($task->start_date)->translatedFormat('j F Y') : 'N/A',
                 'วันสิ้นสุด' => $task->due_date ? Carbon::parse($task->due_date)->translatedFormat('j F Y') : 'N/A',
-                'เจ้าของงาน' => $task->user->first_name ?? 'N/A',
             ];
         })->toArray();
 
@@ -46,7 +71,7 @@ class TaskExport
         $sheet = $spreadsheet->getActiveSheet();
 
         // กำหนดหัวข้อ
-        $headers = ['ลำดับ', 'ชื่องาน', 'รายละเอียด', 'สถานะงาน', 'ชนิดงาน', 'วันเริ่มต้น', 'วันสิ้นสุด', 'เจ้าของงาน'];
+        $headers = ['ลำดับ', 'เจ้าของงาน', 'ชื่องาน', 'รายละเอียด', 'สถานะงาน', 'ประเภทงาน', 'วันเริ่มต้น', 'วันสิ้นสุด'];
         $sheet->fromArray([$headers], null, 'A1');
         $sheet->fromArray($tasks, null, 'A2');
 
@@ -67,13 +92,13 @@ class TaskExport
         // ✅ กำหนดขนาดคอลัมน์เอง
         $columnWidths = [
             'A' => 10,  // ลำดับ
-            'B' => 30,  // ชื่องาน
-            'C' => 50,  // รายละเอียด
-            'D' => 20,  // สถานะงาน
-            'E' => 20,  // ชนิดงาน
-            'F' => 25,  // วันเริ่มต้น
-            'G' => 25,  // วันสิ้นสุด
-            'H' => 25,  // เจ้าของงาน
+            'B' => 25,  // เจ้าของงาน
+            'C' => 30,  // ชื่องาน
+            'D' => 50,  // รายละเอียด
+            'E' => 20,  // สถานะงาน
+            'F' => 20,  // ประเภทงาน
+            'G' => 25,  // วันเริ่มต้น
+            'H' => 25,  // วันสิ้นสุด
         ];
 
         foreach ($columnWidths as $col => $width) {
