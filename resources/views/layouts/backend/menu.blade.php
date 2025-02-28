@@ -40,8 +40,14 @@
                             <a class="collapse-item" href="{{ route('projects') }}">ข้อมูลตารางงาน</a>
                             <a class="collapse-item" href="{{ route('add-task') }}">เพิ่มข้อมูลงาน</a>
                             <a class="collapse-item" href="{{ route('summary-schedule') }}">สรุปตารางงาน</a>
-                            <a class="collapse-item" href="{{ route('projects', ['statusFilter' => 1]) }}">งานที่เสร็จแล้ว</a>
-                            <a class="collapse-item" href="{{ route('projects', ['statusFilter' => 2]) }}">งานที่ยังไม่เสร็จ</a>
+                            @can('can-view-finished')
+                                <a class="collapse-item"
+                                    href="{{ route('projects', ['statusFilter' => 1]) }}">งานที่เสร็จแล้ว</a>
+                            @endcan
+                            @can('can-view-unfinished')
+                                <a class="collapse-item"
+                                    href="{{ route('projects', ['statusFilter' => 2]) }}">งานที่ยังไม่เสร็จ</a>
+                            @endcan
                         </div>
                     </div>
                 </li>

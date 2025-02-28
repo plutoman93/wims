@@ -38,5 +38,11 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('can-manage-type', function ($user) {
             return $user->status->user_status_name === 'admin';
         });
+        Gate::define('can-view-finished', function ($user) {
+            return $user->status->user_status_name === 'user';
+        });
+        Gate::define('can-view-unfinished', function ($user) {
+            return $user->status->user_status_name === 'user';
+        });
     }
 }
