@@ -30,7 +30,10 @@ class SummarySchedule extends Component
 
     public function loadTasks()
     {
-        $query = Task::query();
+        $query = Task::query()
+        ->when(Auth::user()->user_status_id != 1, function ($query) {
+            $query->where('user_id', Auth::id());
+        });
 
         if ($this->selectedUser) {
             $query->where('user_id', $this->selectedUser);
