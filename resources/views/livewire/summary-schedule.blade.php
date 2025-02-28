@@ -1,5 +1,5 @@
 <div>
-    <div class="content-wrapper">
+    <div class="col-xl-20 col-lg-20" class="content-wrapper">
         <div class="card shadow-sm">
             <div class="card-header bg-dark text-white">
                 <h4 class="mb-0">สรุปตารางงาน</h4>
@@ -88,7 +88,7 @@
                             {{ $tasks->links('vendor.livewire.task-paginate') }}
                         </div>
                     </div>
-                    <div class="d-flex flex-column ms-3" style="width: 30%;">
+                    {{-- <div class="d-flex flex-column ms-3" style="width: 30%;">
                         <!-- 🔹 ข้อมูลจำนวนงานแต่ละประเภท -->
                         <div class="p-3 border rounded shadow mb-3" style="background-color: #f8f9fa;">
                             <h5 class="text-primary fw-bold">จำนวนงานแต่ละประเภทในวันนี้</h5> <!-- ใช้ h4 -->
@@ -113,7 +113,7 @@
                                 @endforeach
                             </ul>
                         </div>
-                    </div>
+                    </div> --}}
 
                 </div>
             </div>
