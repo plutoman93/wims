@@ -91,7 +91,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('send-email-tasks') }}">
                             <i class="fas fa-fw fa-envelope"></i>
-                            <span>ส่งเมล (ทดสอบ)</span>
+                            <span>ส่งเมล</span>
                         </a>
                     </li>
                 @endcan

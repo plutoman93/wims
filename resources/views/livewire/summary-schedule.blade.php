@@ -1,7 +1,7 @@
 <div>
     <div class="content-wrapper">
         <div class="card shadow-sm">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header bg-dark text-white">
                 <h4 class="mb-0">สรุปตารางงาน</h4>
             </div>
             <div class="card-body">
@@ -34,12 +34,24 @@
 
                 </div>
 
-                <div class="d-flex justify-content-between my-3">
-                    <button class="btn btn-secondary" wire:click="prevDate" @if($dateFilter == $dates->first()) disabled @endif>ก่อนหน้า</button>
-                    <span class="fw-bold">
-                        วันที่ {{ \Carbon\Carbon::parse($dateFilter)->translatedFormat('d F') }} {{ \Carbon\Carbon::parse($dateFilter)->format('Y') }}
+
+                <div class="d-flex align-items-center justify-content-between my-3">
+                    <div>
+                        <button class="btn btn-secondary me-1" wire:click="prevDate"
+                            @if($dateFilter == $dates->first()) disabled @endif>
+                            ก่อนหน้า
+                        </button>
+
+                        <button class="btn btn-secondary" wire:click="nextDate"
+                            @if($dateFilter == $dates->last()) disabled @endif>
+                            ถัดไป
+                        </button>
+                    </div>
+
+                    <span class="fw-bold flex-grow-1 text-center w-50">
+                        วันที่ {{ \Carbon\Carbon::parse($dateFilter)->translatedFormat('d F') }}
+                        {{ \Carbon\Carbon::parse($dateFilter)->format('Y') }}
                     </span>
-                    <button class="btn btn-secondary" wire:click="nextDate" @if($dateFilter == $dates->last()) disabled @endif>ถัดไป</button>
                 </div>
 
                 <div class="d-flex">
