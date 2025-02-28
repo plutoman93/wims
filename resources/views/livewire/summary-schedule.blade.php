@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="d-flex align-items-center justify-content-between my-3">
-                    <div>
+                    {{-- <div>
                         <button class="btn btn-secondary me-1" wire:click="prevDate"
                             @if ($startDate == $endDate) disabled @endif>
                             ก่อนหน้า
@@ -39,7 +39,7 @@
                             @if ($startDate == $endDate) disabled @endif>
                             ถัดไป
                         </button>
-                    </div>
+                    </div> --}}
 
                     <span class="fw-bold flex-grow-1 text-center w-50">
                         วันที่
@@ -95,18 +95,28 @@
                         <!-- 🔹 จำนวนงานแต่ละคน -->
                         <div class="p-3 border rounded shadow" style="background-color: #f8f9fa;">
                             <h5 class="text-primary fw-bold">จำนวนงานของแต่ละประเภทของบุคลากรในวันนี้</h5>
-                            <ul class="list-unstyled">
-                                @foreach ($taskCountsByUserAndType as $user => $tasks)
-                                    <li class="text-lg fw-semibold text-blue">{{ $user }}:</li>
-                                    <ul>
-                                        @foreach ($tasks as $task)
-                                            <li class="text-lg text-dark">{{ $task->type_name }}: {{ $task->count }} งาน</li>
-                                        @endforeach
-                                    </ul>
-                                @endforeach
-                            </ul>
+
+                            @if ($taskCountsByUserAndType->isNotEmpty())
+                                <ul class="list-unstyled">
+                                    @foreach ($taskCountsByUserAndType as $user => $tasks)
+                                        <li class="text-lg fw-semibold text-blue">{{ $user }}:</li>
+                                        @if ($tasks->isNotEmpty())
+                                            <ul>
+                                                @foreach ($tasks as $task)
+                                                    <li class="text-lg text-dark">{{ $task->type_name }}: {{ $task->count }} งาน</li>
+                                                @endforeach
+                                            </ul>
+                                        @else
+                                            <p class="text-muted ms-3">ไม่พบข้อมูล</p>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            @else
+                                <p class="text-center text-muted">ไม่พบข้อมูล</p>
+                            @endif
                         </div>
                     </div>
+
                 </div>
 
             </div>

@@ -62,36 +62,20 @@ class SummarySchedule extends Component
 
     public function render()
     {
-        // คำนวณจำนวนงานตามประเภท
-        $taskCountsByType = Task::query()
-            ->selectRaw('task_types.type_name, COUNT(tasks.task_id) as count')
-            ->join('task_types', 'tasks.type_id', '=', 'task_types.type_id')
-            ->when($this->dateFilter, function ($query) {
-                $query->where('tasks.start_date', $this->dateFilter); // Filter by date
-            })
-            ->when($this->selectedUser, function ($query) {
-                $query->where('tasks.user_id', $this->selectedUser); // Filter by selected user
-            })
-            ->when(Auth::user()->user_status_id != 1, function ($query) {
-                $query->where('tasks.user_id', Auth::id()); // ถ้าไม่ได้เป็น Admin ให้แสดงเฉพาะงานของตัวเอง
-            })
-            ->groupBy('task_types.type_name')
-            ->orderBy('count', 'desc')
-            ->pluck('count', 'task_types.type_name');
-
-        // คำนวณจำนวนงานตามประเภทและบุคคล
+        // คำนวณจำนวนงานตามประเภทและบุคคล ตาม startDate และ endDate เฉพาะงานที่ยังไม่เสร็จ
         $taskCountsByUserAndType = Task::query()
             ->selectRaw('users.first_name, task_types.type_name, COUNT(tasks.task_id) as count')
             ->join('users', 'tasks.user_id', '=', 'users.user_id')
             ->join('task_types', 'tasks.type_id', '=', 'task_types.type_id')
-            ->when($this->dateFilter, function ($query) {
-                $query->where('tasks.start_date', $this->dateFilter); // Filter by date
+            ->when($this->startDate && $this->endDate, function ($query) {
+                $query->whereBetween('tasks.start_date', [$this->startDate, $this->endDate]);
             })
+            ->where('tasks.task_status_id', 2) // เฉพาะงานที่ยังไม่เสร็จ
             ->when($this->selectedUser, function ($query) {
-                $query->where('tasks.user_id', $this->selectedUser); // Filter by selected user
+                $query->where('tasks.user_id', $this->selectedUser);
             })
             ->when(Auth::user()->user_status_id != 1, function ($query) {
-                $query->where('tasks.user_id', Auth::id()); // ถ้าไม่ได้เป็น Admin ให้แสดงเฉพาะงานของตัวเอง
+                $query->where('tasks.user_id', Auth::id());
             })
             ->groupBy('users.first_name', 'task_types.type_name')
             ->orderBy('users.first_name')
@@ -99,10 +83,9 @@ class SummarySchedule extends Component
             ->get()
             ->groupBy('first_name');
 
-
         return view('livewire.summary-schedule', [
             'users' => \App\Models\User::all(),
             'tasks' => $this->loadTasks(),
-        ] + compact('taskCountsByType', 'taskCountsByUserAndType'));
+        ] + compact('taskCountsByUserAndType'));
     }
 }
