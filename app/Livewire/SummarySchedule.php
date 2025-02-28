@@ -18,7 +18,7 @@ class SummarySchedule extends Component
     public function mount()
     {
         $this->startDate = Carbon::now()->format('Y-m-d');
-        $this->endDate = Carbon::now()->addWeek()->format('Y-m-d');
+        $this->endDate = Carbon::now()->format('Y-m-d');
     }
 
     public function updated($propertyName)

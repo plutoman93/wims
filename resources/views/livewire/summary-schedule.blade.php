@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="d-flex align-items-center justify-content-between my-3">
-                    <div>
+                    {{-- <div>
                         <button class="btn btn-secondary me-1" wire:click="prevDate"
                             @if ($startDate == $endDate) disabled @endif>
                             ก่อนหน้า
@@ -39,7 +39,7 @@
                             @if ($startDate == $endDate) disabled @endif>
                             ถัดไป
                         </button>
-                    </div>
+                    </div> --}}
 
                     <span class="fw-bold flex-grow-1 text-center w-50">
                         วันที่
