@@ -34,5 +34,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('can-date-filter', function ($user) {
             return $user->status->user_status_name === 'admin';
         });
+
+        Gate::define('can-manage-type', function ($user) {
+            return $user->status->user_status_name === 'admin';
+        });
     }
 }

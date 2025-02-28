@@ -72,9 +72,10 @@ Route::middleware(['auth', 'banned'])->group(function () {
         return view('restore-task');
     })->name('restore-task');
 
-    // Route::get('export-tasks', function () {
-    //     return (new TaskExport)->export();
-    // });
+    Route::get('/type-management', function () {
+        return view('type-management');
+    })->name('type-management');
+
     Route::get('/export-tasks', function (Request $request) {
         $selectedUser = $request->input('selectedUser');
         $statusFilter = $request->input('statusFilter');

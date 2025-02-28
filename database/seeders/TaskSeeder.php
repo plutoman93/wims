@@ -50,7 +50,7 @@ class TaskSeeder extends Seeder
                 'start_date' => $faker->date,
                 'due_date' => $faker->date,
                 'task_status_id' => $faker->randomElement($taskStatusIds), // ใช้ task_status_id จากฐานข้อมูล
-                'type_id' => $faker->numberBetween(1, 6),
+                'type_id' => $faker->numberBetween(1, 7),
                 'user_id' => $faker->numberBetween(1, 3),
                 'created_at' => now(),
                 'updated_at' => now(),
