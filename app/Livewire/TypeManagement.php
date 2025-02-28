@@ -58,12 +58,6 @@ class TypeManagement extends Component
         $this->resetInputFields();
     }
 
-    public function delete($id)
-    {
-        TaskTypes::findOrFail($id)->delete();
-        session()->flash('message', 'ลบประเภทงานเรียบร้อยแล้ว');
-    }
-
     public function render()
     {
         return view('livewire.type-management', [
