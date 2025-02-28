@@ -44,11 +44,14 @@ class TaskSeeder extends Seeder
 
         // สร้างข้อมูลลง tasks
         foreach (range(1, 100) as $index) {
+            $startDate = $faker->dateTimeBetween('now', '+5 days'); // กำหนด start_date เป็นวันไหนก็ได้ไม่เกิน 5 วันจากวันนี้
+            $dueDate = $faker->dateTimeBetween('now', '+3 month'); // กำหนด due_date เป็นวันไหนก็ได้ในอนาคต
+
             DB::table('tasks')->insert([
                 'task_name' => $faker->randomElement($taskNames), // สุ่มชื่อ Task จากรายการ
                 'task_detail' => $faker->randomElement($taskDetails), // สุ่มรายละเอียด Task
-                'start_date' => $faker->date,
-                'due_date' => $faker->date,
+                'start_date' => $startDate,
+                'due_date' => $dueDate,
                 'task_status_id' => $faker->randomElement($taskStatusIds), // ใช้ task_status_id จากฐานข้อมูล
                 'type_id' => $faker->numberBetween(1, 7),
                 'user_id' => $faker->numberBetween(1, 3),
