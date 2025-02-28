@@ -42,7 +42,7 @@
                     </div> --}}
 
                     <span class="fw-bold flex-grow-1 text-center w-50">
-                        วันที่
+                        งานของวันที่
                         {{ \Carbon\Carbon::parse($startDate)->addYears(543)->locale('th')->translatedFormat('d F Y') }}
                         ถึง
                         วันที่
@@ -94,7 +94,11 @@
                     <div class="ms-3" style="flex: 1; min-width: 300px;">
                         <!-- 🔹 จำนวนงานแต่ละคน -->
                         <div class="p-3 border rounded shadow" style="background-color: #f8f9fa;">
-                            <h5 class="text-primary fw-bold">จำนวนงานของแต่ละประเภทของบุคลากรในวันนี้</h5>
+                            <h5 class="text-primary fw-bold">จำนวนงานของบุคลากร</h5>
+                            <p class="text-dark fw-semibold">
+                                ในวันที่ {{ \Carbon\Carbon::parse($startDate)->addYears(543)->locale('th')->translatedFormat('d F Y') }}
+                                ถึง วันที่ {{ \Carbon\Carbon::parse($endDate)->addYears(543)->locale('th')->translatedFormat('d F Y') }}
+                            </p>
 
                             @if ($taskCountsByUserAndType->isNotEmpty())
                                 <ul class="list-unstyled">
