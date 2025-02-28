@@ -71,6 +71,15 @@
                         <span>บัญชีผู้ใช้</span></a>
                 </li>
 
+                @can('can-manage-type')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('type-management') }}">
+                            <i class="fas fa-fw fa-wrench"></i>
+                            <span>จัดการประเภทงาน</span>
+                        </a>
+                    </li>
+                @endcan
+
                 @can('can-view-function')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('restore') }}">
