@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="d-flex align-items-center justify-content-between my-3">
-                    {{-- <div>
+                    <div>
                         <button class="btn btn-secondary me-1" wire:click="prevDate"
                             @if ($startDate == $endDate) disabled @endif>
                             ก่อนหน้า
@@ -39,7 +39,7 @@
                             @if ($startDate == $endDate) disabled @endif>
                             ถัดไป
                         </button>
-                    </div> --}}
+                    </div>
 
                     <span class="fw-bold flex-grow-1 text-center w-50">
                         วันที่
@@ -51,7 +51,8 @@
                 </div>
 
                 <div class="d-flex">
-                    <div class="table-responsive">
+                    <!-- 🔹 ตารางข้อมูลงาน -->
+                    <div class="table-responsive" style="flex: 2;">
                         <table class="table table-bordered table-striped">
                             <thead class="bg-secondary text-white">
                                 <tr class="text-center">
@@ -79,7 +80,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="text-center text-muted">ไม่มีข้อมูล</td>
+                                        <td colspan="7" class="text-center text-muted">ไม่มีข้อมูล</td>
                                     </tr>
                                 @endforelse
                             </tbody>
@@ -88,7 +89,26 @@
                             {{ $tasks->links('vendor.livewire.task-paginate') }}
                         </div>
                     </div>
+
+                    <!-- 🔹 กล่องสรุปผลด้านข้าง -->
+                    <div class="ms-3" style="flex: 1; min-width: 300px;">
+                        <!-- 🔹 จำนวนงานแต่ละคน -->
+                        <div class="p-3 border rounded shadow" style="background-color: #f8f9fa;">
+                            <h5 class="text-primary fw-bold">จำนวนงานของแต่ละประเภทของบุคลากรในวันนี้</h5>
+                            <ul class="list-unstyled">
+                                @foreach ($taskCountsByUserAndType as $user => $tasks)
+                                    <li class="text-lg fw-semibold text-blue">{{ $user }}:</li>
+                                    <ul>
+                                        @foreach ($tasks as $task)
+                                            <li class="text-lg text-dark">{{ $task->type_name }}: {{ $task->count }} งาน</li>
+                                        @endforeach
+                                    </ul>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
