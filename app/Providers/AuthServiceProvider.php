@@ -30,5 +30,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('can-assign-task', function ($user) {
             return $user->status->user_status_name === 'admin';
         });
+
+        Gate::define('can-date-filter', function ($user) {
+            return $user->status->user_status_name === 'admin';
+        });
     }
 }

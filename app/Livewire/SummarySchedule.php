@@ -102,9 +102,6 @@ class SummarySchedule extends Component
             ->when($this->dateFilter, function ($query) {
                 $query->where('start_date', $this->dateFilter);
             })
-            ->when($this->search, function ($query) {
-                $query->where('task_name', 'like', '%' . $this->search . '%');
-            })
             ->when($this->statusFilter, function ($query) {
                 if ($this->statusFilter == '1') {
                     $query->where('task_status_id', '1');
@@ -121,23 +118,30 @@ class SummarySchedule extends Component
         ->when($this->dateFilter, function ($query) {
             $query->where('tasks.start_date', $this->dateFilter);
         })
+        ->when(Auth::user()->user_status_id != 1, function ($query) {
+            $query->where('tasks.user_id', Auth::id());
+        })
         ->groupBy('task_types.type_name')
         ->orderBy('count', 'desc')
         ->pluck('count', 'task_types.type_name');
 
         // 🔹 คำนวณจำนวนงานตามผู้ใช้
         $taskCountsByUserAndType = Task::query()
-            ->selectRaw('users.first_name, task_types.type_name, COUNT(tasks.task_id) as count')
-            ->join('users', 'tasks.user_id', '=', 'users.user_id')
-            ->join('task_types', 'tasks.type_id', '=', 'task_types.type_id')
-            ->when($this->dateFilter, function ($query) {
-                $query->where('tasks.start_date', $this->dateFilter);
-            })
-            ->groupBy('users.first_name', 'task_types.type_name')
-            ->orderBy('users.first_name')
-            ->orderBy('task_types.type_name')
-            ->get()
-            ->groupBy('first_name');
+    ->selectRaw('users.first_name, task_types.type_name, COUNT(tasks.task_id) as count')
+    ->join('users', 'tasks.user_id', '=', 'users.user_id')
+    ->join('task_types', 'tasks.type_id', '=', 'task_types.type_id')
+    ->when($this->dateFilter, function ($query) {
+        $query->where('tasks.start_date', $this->dateFilter);
+    })
+    ->when(Auth::user()->user_status_id != 1, function ($query) {
+        $query->where('tasks.user_id', Auth::id());
+    })
+    ->groupBy('users.first_name', 'task_types.type_name')
+    ->orderBy('users.first_name')
+    ->orderBy('task_types.type_name')
+    ->get()
+    ->groupBy('first_name');
+
 
         $users = User::all();
         $taskTypes = TaskTypes::all();

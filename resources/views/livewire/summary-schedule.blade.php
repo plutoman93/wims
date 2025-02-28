@@ -8,7 +8,7 @@
                 <div class="row mb-3">
                     @can('can-filter-task')
                         <div class="col-md-4 mb-3">
-                            <select class="form-control" wire:model="selectedUser">
+                            <select class="form-control" wire:model.live="selectedUser">
                                 <option value="">เลือกผู้ใช้</option>
                                 @foreach ($users as $user)
                                     <option value="{{ $user->user_id }}">{{ $user->first_name }}</option>
@@ -16,14 +16,22 @@
                             </select>
                         </div>
                     @endcan
+
                     <div class="col-md-4 mb-3">
-                        <select class="form-control" wire:model="dateFilter">
+                        <select class="form-control" wire:model.live="dateFilter">
                             <option value="">เลือกวันที่</option>
-                            @foreach ($dates as $date)
-                                <option value="{{ $date }}">{{ \Carbon\Carbon::parse($date)->translatedFormat('d F Y') }}</option>
+                            @foreach ($dates->when(auth()->user()->user_status_id != 1, function ($filteredDates) {
+                                return $filteredDates->filter(function ($date) {
+                                    return \App\Models\Task::where('start_date', $date)
+                                        ->where('user_id', auth()->id())
+                                        ->exists();
+                                });
+                            }) as $date)
+                                                            <option value="{{ $date }}">{{ \Carbon\Carbon::parse($date)->translatedFormat('d F Y') }}</option>
                             @endforeach
                         </select>
                     </div>
+
                 </div>
 
                 <div class="d-flex justify-content-between my-3">
@@ -64,8 +72,8 @@
                                 @endforelse
                             </tbody>
                         </table>
-                        <div class="d-flex justify-content-center mt-3">
-                            {{ $tasks->links() }}
+                        <div class="d-flex justify-content-center">
+                            {{ $tasks->links('vendor.livewire.task-paginate') }}
                         </div>
                     </div>
                     <div class="d-flex flex-column ms-3" style="width: 30%;">
@@ -81,7 +89,7 @@
 
                         <!-- 🔹 ข้อมูลจำนวนงานแต่ละคน -->
                         <div class="p-3 border rounded shadow" style="background-color: #f8f9fa;">
-                            <h5 class="text-primary fw-bold">จำนวนงานของแต่ละคนในวัน</h5> <!-- ใช้ h4 -->
+                            <h5 class="text-primary fw-bold">จำนวนงานของแต่ละประเภทของบุคลากรในวัน</h5> <!-- ใช้ h4 -->
                             <ul class="list-unstyled">
                                 @foreach ($taskCountsByUserAndType as $user => $tasks)
                                     <li class="text-lg fw-semibold text-blue">{{ $user }}:</li>
