@@ -1,3 +1,4 @@
+<!-- filepath: /d:/laragon/www/wims/resources/views/livewire/summary-schedule.blade.php -->
 <div>
     <div class="col-xl-20 col-lg-20" class="content-wrapper">
         <div class="card shadow-sm">
@@ -59,6 +60,7 @@
                                     <th>ชื่องาน</th>
                                     <th>รายละเอียดงาน</th>
                                     <th>ประเภทงาน</th>
+                                    <th>สถานะงาน</th>
                                     <th>วันครบกำหนดงาน</th>
                                 </tr>
                             </thead>
@@ -66,11 +68,12 @@
                                 @forelse ($tasks as $key => $task)
                                     <tr>
                                         <td class="text-center">{{ $tasks->firstItem() + $key }}</td>
-                                        <td class="text-center">{{ $task->user->first_name ?? '-' }}</td>
-                                        <td class="text-center">{{ $task->task_name ?? '-' }}</td>
-                                        <td class="text-center">{{ $task->task_detail ?? '-' }}</td>
-                                        <td class="text-center">{{ $task->task_type->type_name ?? '-' }}</td>
-                                        <td class="text-center">
+                                        <td class="text-center text-truncate" style="max-width: 10px;">{{ $task->user->first_name ?? '-' }}</td>
+                                        <td class="text-center text-truncate" style="max-width: 110px;">{{ $task->task_name ?? '-' }}</td>
+                                        <td class="text-center text-truncate" style="max-width: 100px;">{{ $task->task_detail ?? '-' }}</td>
+                                        <td class="text-center text-truncate" style="max-width: 20px;">{{ $task->task_status->task_status_name ?? '-' }}</td>
+                                        <td class="text-center text-truncate" style="max-width: 100px;">{{ $task->task_type->type_name ?? '-' }}</td>
+                                        <td class="text-center text-truncate" style="max-width: 10px;">
                                             {{ \Carbon\Carbon::parse($task->due_date)->addYears(543)->locale('th')->translatedFormat('d F Y') }}
                                         </td>
                                     </tr>
