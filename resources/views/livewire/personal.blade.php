@@ -14,7 +14,7 @@
         <section class="content">
             <div class="card-body p-0">
                 <table class="table table-striped projects">
-                    <thead>
+                    <thead class="bg-secondary text-white">
                         <tr>
                             <th style="width: 5%">ลำดับ</th>
                             <th style="width: 7%">ชื่อผู้ใช้</th>
