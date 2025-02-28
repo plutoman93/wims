@@ -18,39 +18,34 @@
                     @endcan
 
                     <div class="col-md-4 mb-3">
-                        <select class="form-control" wire:model.live="dateFilter">
-                            <option value="">เลือกวันที่</option>
-                            @foreach ($dates->when(auth()->user()->user_status_id != 1, function ($filteredDates) {
-                                return $filteredDates->filter(function ($date) {
-                                    return \App\Models\Task::where('start_date', $date)
-                                        ->where('user_id', auth()->id())
-                                        ->exists();
-                                });
-                            }) as $date)
-                                                            <option value="{{ $date }}">{{ \Carbon\Carbon::parse($date)->translatedFormat('d F Y') }}</option>
-                            @endforeach
-                        </select>
+                        <input type="date" class="form-control" wire:model.live="startDate"
+                            placeholder="เลือกวันที่เริ่มต้น">
                     </div>
-
+                    <div class="col-md-4 mb-3">
+                        <input type="date" class="form-control" wire:model.live="endDate"
+                            placeholder="เลือกวันที่สิ้นสุด">
+                    </div>
                 </div>
-
 
                 <div class="d-flex align-items-center justify-content-between my-3">
                     <div>
                         <button class="btn btn-secondary me-1" wire:click="prevDate"
-                            @if($dateFilter == $dates->first()) disabled @endif>
+                            @if ($startDate == $endDate) disabled @endif>
                             ก่อนหน้า
                         </button>
 
                         <button class="btn btn-secondary" wire:click="nextDate"
-                            @if($dateFilter == $dates->last()) disabled @endif>
+                            @if ($startDate == $endDate) disabled @endif>
                             ถัดไป
                         </button>
                     </div>
 
                     <span class="fw-bold flex-grow-1 text-center w-50">
-                        วันที่ {{ \Carbon\Carbon::parse($dateFilter)->translatedFormat('d F') }}
-                        {{ \Carbon\Carbon::parse($dateFilter)->format('Y') }}
+                        วันที่
+                        {{ \Carbon\Carbon::parse($startDate)->addYears(543)->locale('th')->translatedFormat('d F Y') }}
+                        ถึง
+                        วันที่
+                        {{ \Carbon\Carbon::parse($endDate)->addYears(543)->locale('th')->translatedFormat('d F Y') }}
                     </span>
                 </div>
 
@@ -75,7 +70,9 @@
                                         <td class="text-center">{{ $task->task_name ?? '-' }}</td>
                                         <td class="text-center">{{ $task->task_detail ?? '-' }}</td>
                                         <td class="text-center">{{ $task->task_type->type_name ?? '-' }}</td>
-                                        <td class="text-center">{{ \Carbon\Carbon::parse($task->due_date)->translatedFormat('d F Y') }}</td>
+                                        <td class="text-center">
+                                            {{ \Carbon\Carbon::parse($task->due_date)->addYears(543)->locale('th')->translatedFormat('d F Y') }}
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr>
@@ -88,33 +85,6 @@
                             {{ $tasks->links('vendor.livewire.task-paginate') }}
                         </div>
                     </div>
-                    {{-- <div class="d-flex flex-column ms-3" style="width: 30%;">
-                        <!-- 🔹 ข้อมูลจำนวนงานแต่ละประเภท -->
-                        <div class="p-3 border rounded shadow mb-3" style="background-color: #f8f9fa;">
-                            <h5 class="text-primary fw-bold">จำนวนงานแต่ละประเภทในวันนี้</h5> <!-- ใช้ h4 -->
-                            <ul class="list-unstyled">
-                                @foreach ($taskCountsByType as $type => $count)
-                                    <li class="text-lg fw-semibold text-dark">{{ $type }}: {{ $count }} งาน</li>
-                                @endforeach
-                            </ul>
-                        </div>
-
-                        <!-- 🔹 ข้อมูลจำนวนงานแต่ละคน -->
-                        <div class="p-3 border rounded shadow" style="background-color: #f8f9fa;">
-                            <h5 class="text-primary fw-bold">จำนวนงานของแต่ละประเภทของบุคลากรในวันนี้</h5> <!-- ใช้ h4 -->
-                            <ul class="list-unstyled">
-                                @foreach ($taskCountsByUserAndType as $user => $tasks)
-                                    <li class="text-lg fw-semibold text-blue">{{ $user }}:</li>
-                                    <ul>
-                                        @foreach ($tasks as $task)
-                                            <li class="text-lg text-dark">{{ $task->type_name }}: {{ $task->count }} งาน</li>
-                                        @endforeach
-                                    </ul>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div> --}}
-
                 </div>
             </div>
         </div>
