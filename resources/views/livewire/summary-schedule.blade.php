@@ -79,7 +79,7 @@
                     <div class="d-flex flex-column ms-3" style="width: 30%;">
                         <!-- 🔹 ข้อมูลจำนวนงานแต่ละประเภท -->
                         <div class="p-3 border rounded shadow mb-3" style="background-color: #f8f9fa;">
-                            <h5 class="text-primary fw-bold">จำนวนงานแต่ละประเภทในวัน</h5> <!-- ใช้ h4 -->
+                            <h5 class="text-primary fw-bold">จำนวนงานแต่ละประเภทในวันนี้</h5> <!-- ใช้ h4 -->
                             <ul class="list-unstyled">
                                 @foreach ($taskCountsByType as $type => $count)
                                     <li class="text-lg fw-semibold text-dark">{{ $type }}: {{ $count }} งาน</li>
@@ -89,7 +89,7 @@
 
                         <!-- 🔹 ข้อมูลจำนวนงานแต่ละคน -->
                         <div class="p-3 border rounded shadow" style="background-color: #f8f9fa;">
-                            <h5 class="text-primary fw-bold">จำนวนงานของแต่ละประเภทของบุคลากรในวัน</h5> <!-- ใช้ h4 -->
+                            <h5 class="text-primary fw-bold">จำนวนงานของแต่ละประเภทของบุคลากรในวันนี้</h5> <!-- ใช้ h4 -->
                             <ul class="list-unstyled">
                                 @foreach ($taskCountsByUserAndType as $user => $tasks)
                                     <li class="text-lg fw-semibold text-blue">{{ $user }}:</li>
