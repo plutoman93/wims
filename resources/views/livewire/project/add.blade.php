@@ -67,23 +67,14 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="type_id">ชนิดงาน</label>
+                                    <label for="type_id">ประเภทงาน</label>
                                     <select id="inputStatus" wire:model="type_id" class="form-control custom-select">
-                                        <option value="">เลือกชนิดงาน</option>
+                                        <option value="">เลือกประเภทงาน</option>
                                         @foreach ($task_types as $type)
                                             <option value="{{ $type->type_id }}">{{ $type->type_name }}</option>
                                         @endforeach
                                         {{-- <option value="other">อื่นๆ</option> --}}
                                     </select>
-                                    @if ($type_id === 'other')
-                                        <input type="text" wire:model="other_task_type" class="form-control mt-2" placeholder="กรอกชนิดงานใหม่">
-                                    @endif
-                                    @error('type_id')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                    @error('other_task_type')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
                                 </div>
                             </div>
                             <!-- /.card-body -->
@@ -102,18 +93,3 @@
         <!-- /.content -->
     </div>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const option = document.getElementById('inputStatus');
-        const input = document.querySelector('.custom-input');
-
-        option.addEventListener('change', function() {
-            if (this.value === 'other') {
-                input.hidden = false;
-            } else {
-                input.hidden = true;
-            }
-        });
-    });
-</script>
