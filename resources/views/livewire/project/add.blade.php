@@ -30,7 +30,8 @@
                                             <select wire:model="user_id" class="form-control">
                                                 <option value="">{{ Auth::user()->first_name }}</option>
                                                 @foreach ($users as $user)
-                                                    <option value="{{ $user->user_id }}">{{ $user->first_name }}</option>
+                                                    <option value="{{ $user->user_id }}">{{ $user->first_name }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -74,8 +75,13 @@
                                         @endforeach
                                         <option value="other">อื่นๆ</option>
                                     </select>
-                                    <input class="form-control custom-input" wire:model="other_select" id="other_select" type="text" hidden>
+                                    @if ($type_id === 'other')
+                                        <input type="text" wire:model="other_task_type" class="form-control mt-2" placeholder="กรอกชนิดงานใหม่">
+                                    @endif
                                     @error('type_id')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                    @error('other_task_type')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -99,38 +105,15 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const dateInputs = document.querySelectorAll('input[type="date"]');
-        dateInputs.forEach(input => {
-            input.addEventListener('focus', function() {
-                this.dataset.placeholder = this.placeholder;
-                this.placeholder = '';
-            });
-            input.addEventListener('blur', function() {
-                this.placeholder = this.dataset.placeholder || 'วัน/เดือน/ปี';
-            });
-            input.placeholder = 'วัน/เดือน/ปี';
+        const option = document.getElementById('inputStatus');
+        const input = document.querySelector('.custom-input');
 
-            // แปลงปี ค.ศ. เป็น พ.ศ.
-            input.addEventListener('change', function() {
-                const date = new Date(this.value);
-                if (!isNaN(date.getTime())) {
-                    const year = date.getFullYear() + 543;
-                    const month = ('0' + (date.getMonth() + 1)).slice(-2);
-                    const day = ('0' + date.getDate()).slice(-2);
-                    this.value = `${year}-${month}-${day}`;
-                }
-            });
+        option.addEventListener('change', function() {
+            if (this.value === 'other') {
+                input.hidden = false;
+            } else {
+                input.hidden = true;
+            }
         });
-    });
-
-    const option = document.getElementById('inputStatus');
-    const input = document.querySelector('.custom-input');
-
-    option.addEventListener('change', function() {
-        if (this.value === 'other') {
-            input.hidden = false;
-        } else {
-            input.hidden = true;
-        }
     });
 </script>

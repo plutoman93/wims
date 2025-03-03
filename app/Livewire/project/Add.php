@@ -61,16 +61,16 @@ class Add extends Component
         $due_date = Carbon::createFromFormat('Y-m-d', $this->due_date);
 
         // เพิ่มปี พ.ศ. จากปี ค.ศ.
-        $start_date_th = $start_date->addYears(543)->format('Y-m-d');
-        $due_date_th = $due_date->addYears(543)->format('Y-m-d');
+        // $start_date_th = $start_date->addYears(543)->format('Y-m-d');
+        // $due_date_th = $due_date->addYears(543)->format('Y-m-d');
 
         // สร้าง Task
         $task = Task::create([
             'user_id' => $assignedUserId,
             'task_name' => $this->task_name,
             'task_detail' => $this->task_detail,
-            'start_date' => $start_date_th,
-            'due_date' => $due_date_th,
+            'start_date' => $start_date,
+            'due_date' => $due_date,
             'type_id' => $this->type_id,
             'created_by' => Auth::id(),
             'updated_by' => Auth::id(),
