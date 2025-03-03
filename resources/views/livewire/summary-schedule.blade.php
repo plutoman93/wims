@@ -107,7 +107,7 @@
                                         @if ($tasks->isNotEmpty())
                                             <ul>
                                                 @foreach ($tasks as $task)
-                                                    <li class="text-lg text-dark">{{ $task->type_name }}: {{ $task->count }} งาน</li>
+                                                    <li class="text-lg text-dark">{{ $task->type_name }}: {{ $task->count }}</li>
                                                 @endforeach
                                             </ul>
                                         @else
