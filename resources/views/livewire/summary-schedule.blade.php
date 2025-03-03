@@ -58,11 +58,11 @@
                                 <tr class="text-center">
                                     <th>ลำดับ</th>
                                     <th>เจ้าของงาน</th>
+                                    <th>ประเภทงาน</th>
                                     <th>ชื่องาน</th>
                                     <th>รายละเอียดงาน</th>
-                                    <th>ประเภทงาน</th>
                                     <th>สถานะงาน</th>
-                                    <th>วันครบกำหนดงาน</th>
+                                    {{-- <th>วันครบกำหนดงาน</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
@@ -70,13 +70,14 @@
                                     <tr>
                                         <td class="text-center">{{ $tasks->firstItem() + $key }}</td>
                                         <td class="text-center text-truncate" style="max-width: 10px;">{{ $task->user->first_name ?? '-' }}</td>
+                                        <td class="text-center text-truncate" style="max-width: 100px;">{{ $task->task_type->type_name ?? '-' }}</td>
                                         <td class="text-center text-truncate" style="max-width: 110px;">{{ $task->task_name ?? '-' }}</td>
                                         <td class="text-center text-truncate" style="max-width: 100px;">{{ $task->task_detail ?? '-' }}</td>
-                                        <td class="text-center text-truncate" style="max-width: 100px;">{{ $task->task_type->type_name ?? '-' }}</td>
+
                                         <td class="text-center text-truncate" style="max-width: 20px;">{{ $task->task_status->task_status_name ?? '-' }}</td>
-                                        <td class="text-center text-truncate" style="max-width: 10px;">
+                                        {{-- <td class="text-center text-truncate" style="max-width: 10px;">
                                             {{ \Carbon\Carbon::parse($task->due_date)->addYears(543)->locale('th')->translatedFormat('d F Y') }}
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                 @empty
                                     <tr>

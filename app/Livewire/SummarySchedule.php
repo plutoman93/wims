@@ -44,7 +44,7 @@ class SummarySchedule extends Component
         }
 
         // กรองเฉพาะงานที่มีสถานะยังไม่เสร็จ
-        $query->where('task_status_id', 2);
+        // $query->where('task_status_id', 2);
 
         return $query->paginate(10);
     }

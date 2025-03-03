@@ -73,7 +73,7 @@
                                         @foreach ($task_types as $type)
                                             <option value="{{ $type->type_id }}">{{ $type->type_name }}</option>
                                         @endforeach
-                                        <option value="other">อื่นๆ</option>
+                                        {{-- <option value="other">อื่นๆ</option> --}}
                                     </select>
                                     @if ($type_id === 'other')
                                         <input type="text" wire:model="other_task_type" class="form-control mt-2" placeholder="กรอกชนิดงานใหม่">
