@@ -43,9 +43,6 @@ class SummarySchedule extends Component
             $query->whereBetween('start_date', [$this->startDate, $this->endDate]);
         }
 
-        // กรองเฉพาะงานที่มีสถานะยังไม่เสร็จ
-        // $query->where('task_status_id', 2);
-
         return $query->paginate(10);
     }
 
@@ -73,7 +70,6 @@ class SummarySchedule extends Component
             ->when($this->startDate && $this->endDate, function ($query) {
                 $query->whereBetween('tasks.start_date', [$this->startDate, $this->endDate]);
             })
-            ->where('tasks.task_status_id', 2) // เฉพาะงานที่ยังไม่เสร็จ
             ->when($this->selectedUser, function ($query) {
                 $query->where('tasks.user_id', $this->selectedUser);
             })
