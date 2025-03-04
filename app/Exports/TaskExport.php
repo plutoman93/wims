@@ -61,8 +61,8 @@ class TaskExport
                 'รายละเอียด' => $task->task_detail,
                 'สถานะงาน' => $task->task_status->task_status_name ?? 'N/A',
                 'ชนิดงาน' => $task->task_type->type_name ?? 'N/A',
-                'วันเริ่มต้น' => $task->start_date ? Carbon::parse($task->start_date)->translatedFormat('j F Y') : 'N/A',
-                'วันสิ้นสุด' => $task->due_date ? Carbon::parse($task->due_date)->translatedFormat('j F Y') : 'N/A',
+                'วันเริ่มต้น' => $task->start_date ? Carbon::parse($task->start_date)->addYears(543)->translatedFormat('j F Y') : 'N/A',
+                'วันสิ้นสุด' => $task->due_date ? Carbon::parse($task->due_date)->addYears(543)->translatedFormat('j F Y') : 'N/A',
             ];
         })->toArray();
 
@@ -108,7 +108,8 @@ class TaskExport
 
         // สร้างไฟล์ Excel และดาวน์โหลด
         $writer = new Xlsx($spreadsheet);
-        $filename = 'ข้อมูลงาน.xlsx';
+        $currentDate = Carbon::now()->addYears(543)->locale('th')->translatedFormat('j F Y');
+        $filename = 'ข้อมูลงาน ' . $currentDate . '.xlsx';
 
         return response()->stream(
             function () use ($writer) {

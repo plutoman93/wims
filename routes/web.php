@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Exports\TaskExport;
 use App\Http\Controllers\MailController;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
