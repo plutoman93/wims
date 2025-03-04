@@ -10,7 +10,8 @@
                 <!-- Sidebar - Brand -->
                 <a class="sidebar-brand d-flex align-items-center justify-content-center">
                     <div class="sidebar-brand-icon">
-                        <img src="https://upload.wikimedia.org/wikipedia/th/e/e0/RMUTI_KORAT.png" alt="Logo"
+                        <img src="asset/frontend/images/logos/image.png" alt="logo"
+                                class="img-fluid"
                             style="width: 50px; height: auto;">
                     </div>
                 </a>
