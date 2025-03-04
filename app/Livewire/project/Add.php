@@ -10,14 +10,13 @@ use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Log;
 use App\Mail\TaskCreatedNotification;
 
 class Add extends Component
 {
     use WithFileUploads;
 
-    public $task_name, $task_detail, $start_date, $due_date, $type_id, $other_select, $created_by, $updated_by, $deleted_by, $user_id, $taskType;
+    public $task_name, $task_detail, $start_date, $due_date, $type_id, $created_by, $updated_by, $deleted_by, $user_id, $taskType;
     public bool $isAdmin;
 
     public function mount()
@@ -41,28 +40,12 @@ class Add extends Component
             'type_id.required' => "กรุณาเลือกชนิด",
         ]);
 
-        if ($this->type_id == 'other') {
-            $taskType = TaskTypes::create([
-                'type_name' => $this->other_select,
-                'created_by' => Auth::id(),
-                'updated_by' => Auth::id(),
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ]);
-
-            $this->type_id = $taskType->type_id;
-        }
-
         // หากไม่เลือกบุคลากรให้บันทึก user_id เป็น Admin ที่ล็อกอินอยู่
         $assignedUserId = $this->user_id ?? Auth::id();
 
         // ตรวจสอบวันที่ก่อนแปลง
         $start_date = Carbon::createFromFormat('Y-m-d', $this->start_date);
         $due_date = Carbon::createFromFormat('Y-m-d', $this->due_date);
-
-        // เพิ่มปี พ.ศ. จากปี ค.ศ.
-        // $start_date_th = $start_date->addYears(543)->format('Y-m-d');
-        // $due_date_th = $due_date->addYears(543)->format('Y-m-d');
 
         // สร้าง Task
         $task = Task::create([

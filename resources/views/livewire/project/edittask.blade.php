@@ -46,9 +46,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputStatus">ชนิดงาน</label>
+                                    <label for="inputStatus">ประเภทงาน</label>
                                     <select id="inputStatus" wire:model="type_id" class="form-control custom-select">
-                                        <option value="">เลือกชนิดงาน</option>
+                                        <option value="">เลือกประเภทงาน</option>
                                         @foreach ($task_types as $type)
                                             <option value="{{ $type->type_id }}">{{ $type->type_name }}</option>
                                         @endforeach
