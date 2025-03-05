@@ -1,11 +1,11 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <nav class="mt-2">
+<aside class="main-sidebar sidebar-dark-primary elevation-4 table-responsive">
+    <nav class="mt-2 table-responsive">
 
         <!-- Page Wrapper -->
         <div id="wrapper">
 
             <!-- Sidebar -->
-            <ul class="navbar-nav bg-dark sidebar sidebar-dark accordion" id="accordionSidebar">
+            <ul class="navbar-nav bg-dark sidebar sidebar-dark accordion table-responsive" id="accordionSidebar">
 
                 <!-- Sidebar - Brand -->
                 <a class="sidebar-brand d-flex align-items-center justify-content-center">
