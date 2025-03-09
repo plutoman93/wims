@@ -7,6 +7,7 @@ use Livewire\WithPagination;
 use App\Models\Task;
 use App\Models\User;
 use App\Models\TaskTypes;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
@@ -24,6 +25,12 @@ class TaskPersonal extends Component
 
     protected $listeners = ['deleteConfirmed' => 'deleteTask', 'deleteSelectedConfirmed' => 'deleteSelectedTasks']; // รับ Event จาก SweetAlert
     protected $queryString = ['search', 'selectedUser', 'statusFilter', 'typeFilter']; // ทำให้ Search Query ถูกเก็บไว้ใน URL
+
+    public function mount() // โหลดข้อมูล Task
+    {
+        $this->tasks = Task::all(); // โหลดข้อมูล Task ทั้งหมด
+        $this->updateTaskStatus(); // เรียกฟังก์ชันอัปเดตสถานะงาน
+    }
 
     public function updatingSearch()
     {
@@ -128,9 +135,16 @@ class TaskPersonal extends Component
         $this->dispatch('alert', ['type' => 'success', 'message' => 'ลบงานที่เลือกเรียบร้อยแล้ว']);
     }
 
-    public function mount() // โหลดข้อมูล Task
+    public function updateTaskStatus() // อัปเดตสถานะ Task ที่ครบกำหนด
     {
-        $this->tasks = Task::all(); // โหลดข้อมูล Task ทั้งหมด
+        $tasks = Task::where('task_status_id', 2) // เลือกงานที่ยังไม่เสร็จ
+            ->where('due_date', '<', Carbon::now()) // ที่ครบกำหนดแล้ว
+            ->get();
+
+        foreach ($tasks as $task) {
+            $task->task_status_id = 1; // เปลี่ยนสถานะเป็นเสร็จสิ้น
+            $task->save();
+        }
     }
 
     public function taskStatus($task_id, $task_status_id) // อัปเดตสถานะ Task
